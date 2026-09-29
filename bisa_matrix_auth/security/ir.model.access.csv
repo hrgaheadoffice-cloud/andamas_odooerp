@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mgr_tbl_matrix_auth,mgr_tbl_matrix_auth,model_tbl_matrix_auth,,1,1,1,1
+matrix_level,matrix_level,model_matrix_level,,1,1,1,1
+approval_matrix,approval_matrix,model_approval_matrix,,1,1,1,1
+config_approval_matrix,config_approval_matrix,model_config_approval_matrix,,1,1,1,1
+
+
+
+
+
+
+
+
+
+

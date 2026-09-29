@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="custom_picking_report" inherit_id="stock.report_picking">
+			<xpath expr="//div[@class='col-6']" position="replace">
+				<div class="col-6" name="div_outgoing_address">
+					<div t-if="o.move_ids_without_package and o.move_ids_without_package[0].partner_id and o.move_ids_without_package[0].partner_id.id != o.partner_id.id">
+                          <span><strong>Delivery Address:</strong></span>
+                          <div t-field="o.move_ids_without_package[0].partner_id"
+                              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+					</div>
+                    <div t-if="o.picking_type_id.code != 'internal' and (not o.move_ids_without_package or not o.move_ids_without_package[0].partner_id) and o.picking_type_id.warehouse_id.partner_id">
+                         <span><strong>Warehouse Address:</strong></span>
+							<div t-field="o.location_dest_id"/>
+					</div>
+				</div>
+			</xpath>
+		</template>
+	</data>
+</odoo>

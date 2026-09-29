@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+	<data>
+
+		<record id="history_usage_notebook" model="ir.ui.view">
+			<field name="name">history.usage.notebook</field>
+			<field name="model">master_asset_maintenance</field>
+			<field name="arch" type="xml">
+				<notebook>
+					<page string="History Usage">
+						<field name="history_usage_lines">
+							<tree editable="bottom">
+								<field name="tanggal"/>
+								<field name="km_hm_awal"/>
+								<field name="km_hm_akhir"/>
+								<field name="user"/>
+							</tree>
+							<form>
+								<group>
+									<group>
+										<field name="tanggal"/>
+										<field name="user"/>
+									</group>
+									<group>
+										<field name="km_hm_awal"/>
+										<field name="km_hm_akhir"/>
+									</group>
+								</group>
+							</form>
+						</field>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+	</data>
+</odoo>

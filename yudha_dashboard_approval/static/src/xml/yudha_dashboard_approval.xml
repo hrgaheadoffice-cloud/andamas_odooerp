@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="YudhaApprovalMenuDashboardMain">
+        <div class="approval_menu_dashboards">
+            <div class="container-fluid approval_menu_dashboard">
+            </div>
+        </div>
+    </t>
+    <t t-name="yudha_dashboard_approval.buttons">
+        <div class="row col-6" style="height: 120px; top: 30px">
+            <div class="col-2" style="top:20px; padding-left: 50px;">
+                <h3>Model :</h3>
+            </div>
+            <div class="col-4" style="top:20px;">
+                <select id="approval_selection_menu" class="oe_approval_model">
+                     <option id="pr_approval" value="pr_approval">Purchase Request</option>
+                     <option id="pr_approval" value="po_approval">Purchase Order</option>
+                     <option id="pr_approval" value="vb_approval">Vendor Bill</option>
+                     <option id="pr_approval" value="ci_approval">Customer Invoice</option>
+                     <option id="pr_approval" value="cashadvance_approval">Cash Advance - HO</option>
+                     <option id="pr_approval" value="cashadvance_approval_site">Cash Advance - Site</option>
+                     <option id="pr_approval" value="settlement_approval">Settlement - HO</option>
+                     <option id="pr_approval" value="settlement_approval_site">Settlement - Site</option>
+                     <option id="pr_approval" value="cashrequest_approval">Cash Request</option>
+                     <option id="pr_approval" value="reimbursement_approval">Reimbursement - HO</option>
+                     <option id="pr_approval" value="reimbursement_approval_site">Reimbursement - Site</option>
+                     <option id="pr_approval" value="sundry_approval">Sundry HO</option>
+                     <option id="pr_approval" value="sundry_site_approval">Sundry Site</option>
+                     <option id="pr_approval" value="noi_approval">NOI HO</option>
+                </select>
+            </div>
+
+        </div>
+                <div class="approval_main" style="top:50px;">
+                    <div class="o_contents" style="top:50px;">
+
+                    </div>
+                </div>
+    </t>
+
+ </templates>

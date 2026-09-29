@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_schedule_route_tree'>
+        <field name="name">view.fsm.schedule.route.tree</field>
+        <field name="model">fsm.schedule.route</field>
+        <field name="arch" type="xml">
+            <tree string="Schedule Route">
+                <field name="created_by"/>
+                <field name="date"/>
+                <field name="shift"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_schedule_route_form'>
+        <field name="name">view.fsm.schedule.route.form</field>
+        <field name="model">fsm.schedule.route</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Route">
+                <header>
+                    <button type="object" name="action_confirm" class="oe_highlight" string="Confirm" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button type="object" name="action_close" class="oe_highlight" string="Complete" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,close"/>
+                </header>
+                <sheet>
+                    <group attrs="{'readonly':[('state','=','close')]}">
+                        <group>
+                            <field name="created_by"/>
+                            <field name="date"/>
+                            <field name="shift"/>
+                        </group>
+                        <group>
+                        </group>
+
+                        <separator string="Route 1" colspan="4"/>
+                        <group>
+                            <field name="route"/>
+<!--                            <field name="route_cost"/>-->
+<!--                            <field name="balance_cost"/>-->
+                        </group>
+                        <group>
+                            <field name="route_change"/>
+<!--                            <field name="route_change_cost"/>-->
+                        </group>
+
+                        <separator string="Route 2" colspan="4"/>
+                        <group>
+                            <field name="route_2"/>
+<!--                            <field name="route_cost_2"/>-->
+<!--                            <field name="balance_cost_2"/>-->
+                        </group>
+                        <group>
+                            <field name="route_change_2"/>
+<!--                            <field name="route_change_cost_2"/>-->
+                        </group>
+
+                        <separator string="Route 3" colspan="4"/>
+                        <group>
+                            <field name="route_3"/>
+<!--                            <field name="route_cost_3"/>-->
+<!--                            <field name="balance_cost_3"/>-->
+                        </group>
+                        <group>
+                            <field name="route_change_3"/>
+<!--                            <field name="route_change_cost_3"/>-->
+                        </group>
+
+                        <separator string="Route 4" colspan="4"/>
+                        <group>
+                            <field name="route_4"/>
+<!--                            <field name="route_cost_4"/>-->
+<!--                            <field name="balance_cost_4"/>-->
+                        </group>
+                        <group>
+                            <field name="route_change_4"/>
+<!--                            <field name="route_change_cost_4"/>-->
+                        </group>
+
+                        <separator string="Route 5" colspan="4"/>
+                        <group>
+                            <field name="route_5"/>
+<!--                            <field name="route_cost_5"/>-->
+<!--                            <field name="balance_cost_5"/>-->
+                        </group>
+                        <group>
+                            <field name="route_change_5"/>
+<!--                            <field name="route_change_cost_5"/>-->
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_schedule_route_view" model="ir.actions.act_window">
+        <field name="name">Schedule Route</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.schedule.route</field>
+    </record>
+
+    <menuitem name="Schedule Route" id="menu_fsm_schedule_route" parent="planning" action="action_fsm_schedule_route_view" sequence="2"/>
+</odoo>

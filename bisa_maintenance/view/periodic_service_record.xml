@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_periodic_service_detail_tree'>
+        <field name="name">view.periodic.service.detail.tree</field>
+        <field name="model">periodic.service.detail</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="periodic_category"/>
+                <field name="cycle"/>
+                <field name="limit_minimum"/>
+                <field name="limit_maximum"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_periodic_service_detail_form'>
+        <field name="name">view.periodic.service.detail.form</field>
+        <field name="model">periodic.service.detail</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <sheet>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="periodic_service_id" invisible="1"/>
+                        <field name="brand" readonly="1"/>
+                        <field name="model" readonly="1"/>
+                        <field name="periodic_category" readonly="1"/>
+                        <field name="cycle" readonly="1"/>
+                        <field name="limit_minimum" readonly="1"/>
+                        <field name="limit_maximum" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Periodic Record">
+                            <field name="work_order_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="equipment_id"/>
+                                    <field name="kmhm_running"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_periodic_service_record_search" model="ir.ui.view">
+        <field name="model">periodic.service.detail</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Brand" name="group_by_brand" context="{'group_by': 'brand'}"/>
+                    <filter string="Model" name="group_by_model" context="{'group_by': 'model'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_periodic_service_detail_view" model="ir.actions.act_window">
+        <field name="name">Periodic Service Record</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">periodic.service.detail</field>
+        <field name="context">{'search_default_group_by_brand': 1, 'search_default_group_by_model': 1}</field>
+    </record>
+
+    <menuitem name="Periodic Service Record" id="menu_periodic_service_detail" parent="menu_mnt_matrial_top" action="action_periodic_service_detail_view" sequence="40"/>
+</odoo>

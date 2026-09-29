@@ -1,0 +1,106 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_msi_ic_loan_tree">
+        <field name="name">tbl_msi_ic_loan.tree</field>
+        <field name="model">tbl_msi_ic_loan</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>
+		                	<field name="partner_id"/>	
+		                	<field name="amount"/>
+		                	<field name="keterangan"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_ic_loan_form">
+        <field name="name">tbl_msi_ic_loan.form</field>
+        <field name="model">tbl_msi_ic_loan</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Submit" type="object" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" states="approve"/>
+                    <button name="action_pay_out" string="Payout" type="object" states="out"/>
+                    <button name="action_done" string="Done" type="object" states="inprogress"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve,out,inprogress,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="partner_id"/>
+		                	<field name="amount"/>
+		                	<field name="keterangan"/>
+		                </group>
+		                <group>
+		                	<field name="date"/>
+		                	<field name="payment_id"/>
+		               </group>
+			</group>
+	                  <notebook>
+
+                                <page string="Settlement">
+
+		            		<field name="detail">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="date"/>
+				                	<field name="amount"  attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                	                 <field name="payment_id"/>
+				                	<field name="keterangan"/>
+				                	<field name="state"/>
+                                                       <button name="action_settle" string="Settlement" type="object"  states="draft"/>
+
+				                </tree>
+				            </field>                                
+                                </page>
+                                <page string="Accounting">
+
+                	            <group>
+                		      <group>
+		                	<field name="account"/>
+
+		                     </group>
+		                    <group>
+
+		                    </group>
+			          </group>
+                                </page>
+	                  </notebook>
+
+
+
+			</sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_ic_loan">
+        <field name="name">Intercompany Loan</field> 
+        <field name="res_model">tbl_msi_ic_loan</field> 
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_ic_loan" id="menu_action_ic_loan" parent="menu_top_loan" sequence="10"/>
+
+
+
+
+</odoo>

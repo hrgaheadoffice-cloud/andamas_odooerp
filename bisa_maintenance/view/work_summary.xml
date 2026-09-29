@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="work_summary_tree" model="ir.ui.view">
+        <field name="name">work.summary.tree</field>
+        <field name="model">work.summary</field>
+        <field name="arch" type="xml">
+            <tree string="Work summary" create="1">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="maintenance_type"/>
+                <field name="date"/>
+                <field name="work_order_rfu"/>
+                <field name="state" optional="show" decoration-info="state == 'draft'" decoration-warning="state in ['confirm']" decoration-success="state in ['done']" decoration-bf="state == 'progress'" decoration-danger="state == 'cancel'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_summary_form" model="ir.ui.view">
+        <field name="name">work_summary_form</field>
+        <field name="model">work.summary</field>
+        <field name="arch" type="xml">
+            <form string="Work summary">
+                <header>
+                    <button type="object" name="action_submit" string="Submit" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', 'in', ['submit','cancel'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> No Work summary </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="equipment_id"/>
+                                <field name="maintenance_type"/>
+                                <field name="date"/>
+                                <field name="work_order_rfu"/>
+                            </group>
+                        </group>
+                    </form>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    <record id="view_work_summary_search" model="ir.ui.view">-->
+<!--        <field name="model">work.summary</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search>-->
+<!--                <field name="name"/>-->
+<!--                <field name="date"/>-->
+<!--                <field name="equipment_id"/>-->
+<!--                <field name="user_id"/>-->
+<!--                <field name="state"/>-->
+<!--                <field name="work_order_state"/>-->
+<!--                <field name="delay_factor_state"/>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_work_summary" model="ir.actions.act_window">
+        <field name="name">Work summary</field>
+        <field name="res_model">work.summary</field>
+        <field name="view_mode">tree,form</field>
+<!--        <field name="search_view_id" ref="view_work_summary_search"/>-->
+    </record>
+
+    <menuitem name="Work Summary" id="menu_work_summary" action="action_work_summary" parent="menu_mnt_operation_top"  sequence="15"/>
+
+</odoo>

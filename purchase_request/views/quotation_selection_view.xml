@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record id="view_tbl_quotation_selection_tree" model="ir.ui.view">
+        <field name="name">tbl_quotation_selection.tree</field>
+        <field name="model">tbl_quotation_selection</field>
+        <field name="arch" type="xml">
+            <tree
+                string="Quotation Selection"
+            >
+                <field name="pr_id" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'done'"
+                    decoration-muted="state == 'draft'"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tbl_quotation_selection_form" model="ir.ui.view">
+        <field name="name">tbl_quotation_selection.form</field>
+        <field name="model">tbl_quotation_selection</field>
+        <field name="arch" type="xml">
+            <form string="Quotation Selection">
+                <header>
+                    <button
+                        name="action_confirm"
+                        states="draft"
+                        string="Select RFQ"
+                        type="object"
+                        class="oe_highlight oe_read_only"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,done"
+                        statusbar_colors='{"done":"blue"}'
+                    />
+                </header>
+
+
+                <sheet>
+                    <h1>
+                        <field
+                            name="pr_id"
+                            class="oe_inline"
+                            options="{'no_open':True,'no_create': True}"
+                        />
+                        <field
+                            name="company_id"
+                            invisible="1"
+                        />
+                    </h1>
+                    <button
+                        name="action_get_data"
+                        string="Get Data"
+                        type="object"
+                        class="oe_highlight"
+                        states="draft"
+                    />
+
+                    <notebook>
+                        <page string="RFQ">
+
+                            <field name="line_ids"> 
+                                <tree editable="bottom" create="0" delete="0">
+                                    <field name="pilih"/>
+                                    <field name="pr_id" invisible="1"/>
+                                    <field name="pr_add_id"/>
+                                    <field name="pr_line_id" invisible="1"/>
+                                    <field name="pr_qty"/>
+                                    <field name="product_id" invisible="1"/>
+                                    <field name="product_add_id" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="partner_id" readonly="1"/>
+                                    <field name="po_line_id" invisible="1"/>
+                                    <field name="state" readonly="1"/>
+                                    <field name="product_qty" />
+                                    <field name="price_ori" invisible="1"/>
+                                    <field name="price_unit" />
+                                    <field name="discount" />
+                                    <field name="harga_setelah_discount" />
+                                    <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+                                    <field name="price_total" />
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group name="main">
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="state" />
+                                                
+                                            </group>
+                                        </group>
+                                        
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="tbl_quotation_selection_form_action">
+        <field name="name">Quotation Selection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tbl_quotation_selection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new Quotation Selection process.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_tbl_quotation_selection_pro_mgt"
+        parent="purchase.menu_procurement_management"
+        action="tbl_quotation_selection_form_action"
+    />
+</odoo>

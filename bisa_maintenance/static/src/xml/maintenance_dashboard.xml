@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- This template is for a table at the top of purchase views that shows some KPIs. -->
+    <t t-name="bisa_maintenance.MaintenanceDashboard">
+        <div class="o_purchase_dashboard container">
+        <div class="row">
+            <div class="col-sm-12">
+            <table class="table table-sm">
+                <!-- thead needed to avoid list view rendering error for some reason -->
+                <thead>
+                    <tr>
+                    <!-- can't use th tag due to list rendering error when no values in list... -->
+                        <td class="o_text">
+                            <div style="font-weight: bold; font-size: 48px;">Unit Code</div>
+                        </td>
+                        <td style="background-color: red!important;" class="o_main o_dashboard_action" title="All unit code with KM/HM under maintenance" name="bisa_maintenance.action_master_asset_maintenance" context='{"search_default_draft_rfqs": true}'>
+                            <a href="#" style="font-size: 20px;"><t t-esc="values['all_under_maintenance']"/><br/>Under Maintenance</a>
+                        </td>
+                        <td style="background-color: red!important;" class="o_main o_dashboard_action" title="All unit code with KM/HM under maintenance period" name="bisa_maintenance.action_master_asset_maintenance" context='{"search_default_draft_rfqs": true}'>
+                            <a href="#" style="font-size: 20px;"><t t-esc="values['all_under_maintenance_period']"/><br/>Under Maintenance Period</a>
+                        </td>
+                        <td style="background-color: yellow!important;" class="o_main o_dashboard_action" title="All unit code with warning maintenance period" name="bisa_maintenance.action_master_asset_maintenance" context='{"search_default_waiting_rfqs": true}'>
+                            <a style="color: black; font-size: 20px;" href="#"><t t-esc="values['all_immediately_need']"/><br/>Immediately Need Maintenance</a>
+                        </td>
+                        <td class="o_main o_dashboard_action" title="All unit code with KM/HM safe from maintenance period" name="bisa_maintenance.action_master_asset_maintenance" context='{"search_default_late_rfqs": true}'>
+                            <a href="#" style="font-size: 20px;"><t t-esc="values['all_safe_running']"/><br/>Safely Running</a>
+                        </td>
+                    </tr>
+                </thead>
+            </table></div>
+        </div></div>
+    </t>
+</templates>

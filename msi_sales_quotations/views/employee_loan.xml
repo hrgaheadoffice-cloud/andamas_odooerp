@@ -1,0 +1,143 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_msi_employee_loan_tree">
+        <field name="name">tbl_msi_employee_loan.tree</field>
+        <field name="model">tbl_msi_employee_loan</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+		                	<field name="employee_id"/>
+		                	<field name="amount"/>
+		                	<field name="lama"/>
+		                	<field name="cicilan"/>
+		                	<field name="jenis"/>
+		                	<field name="start_date"/>
+		                	<field name="guna"/>
+		                	<field name="keterangan"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_employee_loan_form">
+        <field name="name">tbl_msi_employee_loan.form</field>
+        <field name="model">tbl_msi_employee_loan</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Submit" type="object" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" states="approve"/>
+                    <button name="action_out" string="Payment" type="object" states="out"/>
+                    <button name="action_lunas" string="Pelunasan" type="object" states="progress"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve,out,progress,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="employee_id"/>
+		                	<field name="amount"/>
+		                	<field name="payment_id"/>
+	                       </group>
+		                <group>
+		                	<field name="date"/>
+		                	<field name="jenis"/>
+		                	<field name="lama"/>
+		                	<field name="cicilan"/>
+                                        <button name="act_hitung" string="HITUNG" type="object" class="oe_highlight"/>
+		               </group>
+			</group>
+
+                	<group>
+                		<group>
+		                	<field name="start_date"/>
+		                	<field name="guna"/>
+		                	<field name="keterangan"/>
+
+		                </group>
+		                <group>
+
+		               </group>
+			</group>
+	                  <notebook>
+
+                                <page string="Detail Transaksi">
+		            		<field name="detail">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="angs_ke"/>
+				                	<field name="jadual_bayar"/>
+				                	<field name="amount"/>
+				                	<field name="aktual_bayar"/>
+				                	<field name="amount_bayar"/>
+				                	<field name="cara_bayar"/>
+		                	<field name="payment_id"/>
+		                	<field name="move_id"/>
+				                	<field name="keterangan"/>
+				                	<field name="state" invisible="1"/>
+                                                       <button name="action_settle" string="Settlement" type="object" states="draft"/>
+
+				                </tree>
+				            </field>
+
+                	<group>
+                		<group>
+		                	<field name="lama_cicil"/>
+		                	<field name="amount1"/>
+		                	<field name="total_bayar"/>
+		                	<field name="total_kurang"/>
+
+
+		                </group>
+		                <group>
+
+		               </group>
+			</group>
+
+                                </page>
+                                <page string="Accounting">
+
+                	<group>
+                		<group>
+		                	<field name="account"/>
+
+		                </group>
+		                <group>
+		                	<field name="journal_id"/>
+		                	<field name="account_settle"/>
+		               </group>
+			</group>
+                                </page>
+	                  </notebook>
+			</sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_employee_loan">
+        <field name="name">Employee Loan</field> 
+        <field name="res_model">tbl_msi_employee_loan</field> 
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_employee_loan" id="menu_action_employee_loan" parent="menu_top_loan" sequence="20"/>
+
+
+
+
+</odoo>

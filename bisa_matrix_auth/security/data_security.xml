@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+
+    <record model="ir.module.category" id="module_category_matrix_flow">
+        <field name="name">Matrix Authorization Flow</field>
+        <field name="parent_id" ref="base.module_category_purchase_management" />
+        <field name="sequence">12</field>
+    </record>
+    <record id="group_matrix_auth" model="res.groups">
+        <field name="name">Matrix Auth</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field name="category_id" ref="module_category_purchase_request_flow" />
+    </record>
+</odoo>

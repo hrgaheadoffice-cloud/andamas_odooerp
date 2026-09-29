@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="view_settelment_form" model="ir.ui.view">
+            <field name="name">settelment.form</field>
+            <field name="model">settelment</field>
+            <field name="arch" type="xml">
+              <form string="Settelment" edit="1" create="0">
+                <header>
+                    <field name="next_approver_ids" invisible="1"/>
+                    <button name="button_approve" type="object" states='to approve' string="Approve" class="oe_highlight"/>
+
+                    <button
+                            name="button_check"
+                            string="Check"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_check"
+                        />
+                    <button
+                            name="button_verify"
+                            string="Verify"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_verify"
+                        />
+                    <button
+                        name="button_appr1"
+                        type="object"
+                        states="approved1"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr2"
+                        type="object"
+                        states="approved2"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr3"
+                        type="object"
+                        states="approved3"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr4"
+                        type="object"
+                        states="approved4"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button name="button_appr5" type="object" states="approved5" string="Approve"
+                        class="oe_highlight"/>
+                    <button
+                        name="button_reject"
+                        string="Reject"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('state','in',['draft','approved','waiting_on_payment','rejected','done'])]}"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        states="rejected"
+                        string="Set To Draft"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_to_approve"
+                        type="object"
+                        states="draft"
+                        string="Request Approval"
+                        class="oe_highlight"
+                    />
+                    <button name="register_payment" type="object"
+                            string="Register Payment" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <field name="approval_stage" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved1,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '&gt;', 1)]}"/>
+                    <field name="state_b" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 2)]}"/>
+                    <field name="state_c" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 3)]}"/>
+                    <field name="state_d" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved,approved4,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 4)]}"/>
+                    <field name="state_e" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 5)]}"/>
+
+                </header>
+                <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="settelment_header">
+                            <group>
+                                <field name="amount_settel" attrs="{'readonly': [('state','!=','paid')]}"/>
+                                <field name="over_due" attrs="{'readonly': [('state','!=','paid')]}" />
+                                <field name="cost_center"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="amount_ca" readonly="1" attrs="{'readonly': [('state','!=','paid')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                        <!-- <table attrs="{'invisible': [('state', 'in', ('draft', 'sent','to_approve'))]}" > -->
+                                        <table>
+                                        <tr >
+                                            <td><label for="user_id" string="Prepared By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="user_id" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="submit_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="request_by" string="Requested By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="request_by" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}" required="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+            <!--                            <tr attrs="{'invisible': [('state', 'in', ('draft', 'sent','to_approve'))]}"  >-->
+            <!--                                <td><label for="checked_by" string="Checked By"/></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td><field name="checked_by" attrs="{'readonly': [('state', 'not in', ('draft', 'sent','po_draft','to_check'))]}"/></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td style="text-align:right"><field name="checked_dt" readonly="1"/></td>-->
+            <!--                                <td style="text-align:right"><field name="checked_view" invisible="1"/></td>-->
+            <!--                            </tr>-->
+            <!--                            <tr attrs="{'invisible': [('state', 'in', ('draft', 'sent','to_approve'))]}"  >-->
+            <!--                                <td><label for="verified_by" string="Verified By"/></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td><field name="verified_by" attrs="{'readonly': [('state', 'not in', ('draft', 'sent','po_draft','to_check','to_verify'))]}"/></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td></td>-->
+            <!--                                <td style="text-align:right"><field name="verified_dt" readonly="1"/></td>-->
+            <!--                                <td style="text-align:right"><field name="verified_view" invisible="1"/></td>-->
+            <!--                            </tr>-->
+                                        <tr attrs="{'invisible': [('state', 'in',['draft', 'rejected','to_approve'])]}"  >
+                                            <td><label for="appr1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="appr1" readonly="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr1_dt" readonly="1"/></td>
+                                            <td style="text-align:right"><field name="appr1_view" invisible="1"/></td>
+                                        </tr>
+                                        <tr attrs="{'invisible': ['|',('state', 'in',['draft', 'rejected','to_approve']),('approval_stage', '&lt;', 2)]}"  >
+                                            <td><label for="appr2"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="appr2" readonly="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr2_dt" readonly="1"/></td>
+                                            <td style="text-align:right"><field name="appr2_view" invisible="1"/></td>
+                                        </tr>
+                                        <tr attrs="{'invisible': ['|',('state', 'in',['draft', 'rejected','to_approve']),('approval_stage', '&lt;', 3)]}"  >
+                                            <td><label for="appr3"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="appr3" readonly="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr3_dt" readonly="1"/></td>
+                                            <td style="text-align:right"><field name="appr3_view" invisible="1"/></td>
+                                        </tr>
+                                        <tr attrs="{'invisible': ['|',('state', 'in', ['draft', 'rejected','to_approve']),('approval_stage', '&lt;', 4)]}"  >
+                                            <td><label for="appr4"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="appr4" readonly="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr4_dt" readonly="1"/></td>
+                                            <td style="text-align:right"><field name="appr4_view" invisible="1"/></td>
+                                        </tr>
+                                        <tr attrs="{'invisible': ['|',('state', 'in', ['draft', 'rejected','to_approve']),('approval_stage', '&lt;', 5)]}"  >
+                                            <td><label for="appr5"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="appr5" readonly="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr5_dt" readonly="1"/></td>
+                                            <td style="text-align:right"><field name="appr5_view" invisible="1"/></td>
+                                        </tr>
+
+
+                                    </table>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail Settelment" name="settelment_details">
+                                <field name="settelment_ids" attrs="{'readonly': [('state','=','waiting_on_payment')]}">
+                                    <tree editable="bottom">
+                                        <field name="tanggal"/>
+                                        <field name="settelment_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="domain_product" invisible="1"/>
+                                        <field name="cost_center" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="amount"/>
+                                        <field name="percentage"/>
+                                        <field name="final_amount"/>
+                                        <field name="state" invisible="0"/>
+                                        <field name="alasan" readonly="1" force_save="1"/>
+                                        <field name="settelment_state" invisible="1"/>
+                                         <button name="action_approved" type="object"
+                                                string="Approve" class="oe_highlight"
+                                                attrs="{'invisible': ['|','|',('is_approved', '=', True),('id','=',False),('settelment_state','in',['settele','paid_settel','rejected'])]}"/>
+                                        <button name="action_rejected" type="object"
+                                                string="Reject" class="oe_highlight"
+                                                attrs="{'invisible': ['|','|',('is_rejected', '=', True),('id','=',False),('settelment_state','in',['settele','paid_settel','rejected'])]}"/>
+                                        <field name="is_approved" invisible="1"/>
+                                        <field name="is_rejected" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Journal Items" name="jurnal_ids">
+                                <field name="acmove_ids" invisible="1"/>
+                                <field name="jurnal_ids" attrs="{'readonly': [('state','!=','paid')]}">
+                                    <tree editable="bottom">
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="settelment_tree" model="ir.ui.view">
+            <field name="name">settelment.tree</field>
+            <field name="model">settelment</field>
+            <field name="arch" type="xml">
+                <tree string="Settelment Tree">
+                    <field name="name"/>
+                    <field name="amount_settel"/>
+                    <field name="over_due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="settelment_ca_tree" model="ir.ui.view">
+            <field name="name">settelment.tree</field>
+            <field name="model">settelment</field>
+            <field name="arch" type="xml">
+                <tree string="Settelment Tree">
+                    <field name="name"/>
+                    <field name="amount_settel"/>
+                    <field name="over_due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_settelment_filter" model="ir.ui.view">
+            <field name="name">settelment.select</field>
+            <field name="model">settelment</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Settelment">
+                    <field name="name" string="Order" filter_domain="[('name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_settelment" model="ir.actions.act_window">
+            <field name="name">Settelment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">settelment</field>
+            <field name="search_view_id" ref="view_ca_filter"/>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('yudha_ca.settelment_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('yudha_ca.view_settelment_form')}),
+                ]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Settlement
+                </p>
+                <p>
+                    Create new Settlement
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

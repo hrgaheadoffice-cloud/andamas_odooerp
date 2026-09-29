@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="work_order_tree" model="ir.ui.view">
+        <field name="name">work.order.tree</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <tree string="Work Order" create="1">
+                <header>
+                    <button type="object" name="action_process_batch" class="oe_highlight" string="Process" groups="bisa_maintenance.group_maintenance_plant,bisa_maintenance.group_maintenance_manager"/>
+                </header>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="description"/>
+                <field name="actual_dtbd" string="Actual Date &amp; Time BD"/>
+<!--                <field name="rfu_date" string=""/>-->
+<!--                <field name="delay_time"/>-->
+                <field name="created_by"/>
+                <field name="location_problem"/>
+                <field name="kmhm_running" string="KM/HM Running"/>
+<!--                <field name="prioritas"/>-->
+                <field name="status"/>
+                <field name="delay_factor" string="Delay Factor" attrs="{'invisible': [('status', 'in', ['done','close'])]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_order_form" model="ir.ui.view">
+        <field name="name">work.order.form</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <form create="1">
+                <header>
+                    <button name="action_set_back_to_progress" class="oe_highlight" type="object" string="Set Back To Progress" attrs="{'invisible':['|',('status','!=','purchase_request'),('is_po_done','=',False)]}" groups="bisa_maintenance.group_maintenance_plant"/>
+<!--                    <button name="action_create_purchase_request" type="object" string="Create PR" attrs="{'invisible':[('is_need_purchase','=',False)]}"/>-->
+                    <button type="object" name="action_process" class="oe_highlight" string="Process" attrs="{'invisible': [('can_proceed', '=', False ),'|',('can_proceed', '!=', False ),('company_id', '!=', 4 )]}" groups="bisa_maintenance.group_maintenance_plant,bisa_maintenance.group_maintenance_manager"/>
+                    <button type="object" name="action_done" class="oe_highlight" string="Done" attrs="{'invisible': [('status', '!=', 'progress')]}" groups="bisa_maintenance.group_maintenance_plant"/>
+                    <button type="object" name="action_create_req" class="oe_highlight" string="Requisition" attrs="{'invisible': [('can_req', '=', False )]}"/>
+                    <button type="object" name="action_pending" class="oe_highlight" string="Pending" attrs="{'invisible': ['|',('status', '!=', 'open'),('delay_factor', '=', False)]}" groups="bisa_maintenance.group_maintenance_plant"/>
+                    <button type="object" name="action_create_tire_service" class="oe_highlight" string="Tire Service" attrs="{'invisible': [('status', '=', 'close')]}"/>
+                    <button type="object" name="action_rfu" class="oe_highlight" string="RFU" attrs="{'invisible': [('status', '!=', 'open')]}" groups="bisa_maintenance.group_maintenance_ocr_ccr"/>
+                    <button type="object" name="action_close" class="oe_highlight" string="Close" attrs="{'invisible': [('status', '!=', 'rfu')]}" groups="bisa_maintenance.group_maintenance_plant"/>
+<!--                    <button type="object" name="action_close" class="oe_highlight" string="Update" attrs="{'invisible': [('status', '!=', 'close')]}"  groups="bisa_maintenance.group_maintenance_plant"/>-->
+<!--                    <button type="object" name="action_create_req" string="Create MR" class="oe_highlight" attrs="{'invisible': [('status', '!=', 'open')]}"/>-->
+                    <button type="object" name="action_cancel_reason" string="Cancel" attrs="{'invisible': [('status', 'in', ['done','close','cancel'])]}" groups="bisa_maintenance.group_maintenance_plant"/>
+
+<!--                    <button type="object" name="action_create_tire_service" class="oe_highlight" string="Create Tire Service" attrs="{'invisible': ['|', ('status', '!=', 'progress'), ('tire_service_count', '!=', 0)]}"/>-->
+<!--                    <button name="action_list" type="object" string="List" attrs="{'invisible': [('status', '!=', 'draft')]}"/>-->
+                    <field name="status" widget="statusbar" statusbar_visible="draft,open,rfu,close,pending,cancel"/>
+                    <field name="company_id" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="action_view_tire_service" type="object" class="oe_stat_button" icon="fa-gear" attrs="{'invisible': [('tire_service_count', '=', 0)]}" string="Tire Service">
+                            <field name="tire_service_count" string="Tire Service" widget="statinfo" invisible="1"/>
+                        </button>
+                        <button name="action_view_requisition" type="object" class="oe_stat_button" icon="fa-gear" attrs="{'invisible': [('requisition_count', '=', 0)]}" string="Requisitioin">
+                            <field name="requisition_count" string="Requisition" widget="statinfo" invisible="1"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="PR is Done" bg_color="bg-info" attrs="{'invisible': [('is_po_done', '=', False)]}"/>
+                    <div class="oe_title">
+                        <span class="o_form_label"> Work Order </span>
+                        <h1>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group string="Main Info">
+                                <field name="is_po_done" invisible="1"/>
+                                <field name="can_proceed" invisible="1"/>
+                                <field name="can_req" invisible="1"/>
+<!--                                <field name="is_need_purchase" invisible="1"/>-->
+                                <field name="is_periodic" invisible="1"/>
+                                <field name="tags" invisible="1"/>
+                                <field name="maintenance_type" attrs="{'readonly': [('status', '!=', 'draft')],'required': [('status', '=', 'draft')]}"/>
+<!--                                <field name="maintenance_activity" attrs="{'readonly': [('status', '!=', 'draft')], 'invisible': [('maintenance_type', '!=', 'preventive')]}"/>-->
+<!--                                <field name="maintenance_activity"/>-->
+                                <field name="schedule_activity" attrs="{'readonly': [('status', '!=', 'draft')], 'invisible': [('maintenance_type', '!=', 'preventive')]}" widget="many2many_tags"/>
+                                <field name="maintenance_activity" attrs="{'readonly': [('status', '!=', 'draft')], 'invisible': ['|',('maintenance_type', '!=', 'preventive'),('is_periodic', '!=', True)]}"/>
+                                <field name="period_cycle" attrs="{'readonly': [('status', '!=', 'draft')], 'invisible': [('is_periodic', '!=', True),('maintenance_activity', '!=', True)]}" context="{'cycle_name': True}" domain="[('unit_code', '=', equipment_id), ('maintenance_activity_id', '=', maintenance_activity)]"/>
+                                <!--                                <field name="maintenance_activity"/>-->
+<!--                                <div class="o_td_label">-->
+<!--                                    <label for="wr_date" string="Planned Date &amp; Time BD" attrs="{'readonly': [('status', '=', 'rfu')],'invisible':[('maintenance_type', 'not in', ('preventive'))]}"/>-->
+<!--                                    <label for="wr_date" string="Date &amp; Time BD" attrs="{'readonly': [('status', '!=', 'rfu')],'invisible':[('maintenance_type', 'not in', ('corrective','accident') )]}"/>-->
+<!--                                </div>-->
+<!--                                <field name="wr_date" nolabel="1" attrs="{'readonly': [('status', '=', 'rfu')],'invisible':[('maintenance_type', 'not in', ('corrective','accident','preventive') )]}"/>-->
+                                <field name="equipment_id" string="Unit Code" attrs="{'readonly': [('status', '=', 'rfu')],'required': [('status', '=', 'draft')]}" />
+                                <field name="location_problem" attrs="{'readonly': [('status', '=', 'rfu')],'readonly': [('status', '!=', 'draft')]}"/>
+                                <field name="kmhm_running" attrs="{'readonly': [('status', '=', 'rfu')]}"/>
+                                <field name="meter_type" attrs="{'readonly': [('status', '=', 'rfu')],'required': [('status', '=', 'draft')]}"/>
+                                <field name="operation" attrs="{'readonly': [('status', '=', 'rfu')],'required': [('status', '=', 'draft')]}"/>
+
+                            </group>
+                            <group string="Repair Info">
+                                <field name="created_by"/>
+                                <field name="start_date" attrs="{'readonly': [('status', '=', 'rfu')]}"/>
+                                <field name="delay_time" attrs="{'invisible': [('company_id', '!=', 4)]}"/>
+                                <field name="rfu_date" attrs="{'readonly': [('status', '!=', 'rfu')]}"/>
+                                <field name="mechanic" string="Mechanic" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}" widget="many2many_tags"/>
+                                <field name="pareto" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}"/>
+                                <field name="description" attrs="{'readonly': [('status', '=', 'rfu')],'required': [('status', '=', 'draft')]}"/>
+                            </group>
+                            <group string="Breakdown Monitoring">
+                                <field name="maintenance_request" string="No Request" attrs="{'readonly': [('status', 'in', 'rfu')],'invisible': [('maintenance_type', '=', 'preventive')]}" readonly="1" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                <field name="actual_dtbd" attrs="{'required': [('status', '=', 'draft')]}"/>
+                                <field name="actual_dtrfu" attrs="{'readonly': [('status', 'not in', ('open','rfu'))],'required': [('status','in','rfu')]}"/>
+                                <!--                                <field name="prioritas" widget="priority" class="mr-3" attrs="{'readonly': ['|',('status', '!=', 'draft'),('status', '=', 'rfu')]}"/>-->
+                                <field name="purchase_request_id" readonly="1" attrs="{'readonly': [('status', '=', 'rfu')],'invisible':[('purchase_request_id','=',False)]}"/>
+                                <field name="timesheet_id" invisible="1"/>
+                                <field name="periodic_service_detail_id" invisible="1"/>
+                            </group>
+                            <group string="Delay Monitoring">
+                                <field name="delay_factor" string="Delay Factor" attrs="{'readonly': ['|',('status', 'not in', ('progress','open')),('status', '=', 'rfu')], 'invisible': [('status', 'in', ['done','close'])]}"/>
+                                <field name="delay_start" attrs="{'invisible': [('delay_factor', '=', False)]}"/>
+                                <field name="delay_finish" attrs="{'invisible': [('delay_factor', '=', False)],'required': [('status', '=', 'pending')]}"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string='Mechanic Task'>
+                                <field name="detail_task" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}">
+                                    <tree>
+<!--                                        <field name="work_order_id" string="No. WO"/>-->
+                                        <field name="employee" string="Mechanic Helper" widget="many2many_tags"/>
+                                        <field name="spv_id"/>
+                                        <field name="task" string="Task"/>
+                                        <field name="working_time"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Part Canibal'>
+                                <field name="canibal_ids" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}" context="{'form_view_ref': 'bisa_maintenance.bisa_part_canibal_form_view'}">
+                                    <tree>
+<!--                                        <field name="is_wo_to_pr" string="Check" help="Check to create PR" attrs="{'column_invisible':[('parent.is_need_purchase', '=', False)]}" widget="boolean_toggle"/>-->
+                                        <field name="date_time"/>
+                                        <field name="origin_unit_code"/>
+                                        <field name="work_order_name"/>
+                                        <field name="part_name"/>
+                                        <field name="uom"/>
+                                        <field name="qty"/>
+                                        <field name="mecanic" string="Supervisor"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Berita Acara'>
+                                <field name="handover_ids" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}">
+                                    <tree editable="bottom">
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Repair Update'>
+                                <field name="repair_update_ids" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}">
+                                    <tree editable="bottom">
+                                        <field name="date_time"/>
+                                        <field name="activity"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Other'>
+                                <field name="other_info_ids" attrs="{'readonly': [('status', 'in', ('close', 'cancel'))]}">
+                                    <tree editable="bottom">
+                                        <field name="information_number"/>
+                                        <field name="information_from"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </form>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_work_order_search" model="ir.ui.view">
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="description"/>
+                <field name="start_date"/>
+                <field name="rfu_date"/>
+                <field name="created_by"/>
+                <field name="location_problem"/>
+                <field name="hm_km"/>
+                <field name="prioritas"/>
+                <field name="status"/>
+                <field name="delay_factor" string="Delay Factor"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="bisa_part_consumtion_move_form_view" model="ir.ui.view">
+        <field name="name">bisa.part.consumtion.move.form.view</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="component"/>
+                            <field name="product_id" string="Part Name" options="{'no_create': True,'no_quick_create': True,'no_create_edit': True}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="product_uom" invisible="1"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="location_id" domain="[('usage', '=', 'internal')]" options="{'no_create': True,'no_quick_create': True,'no_create_edit': True}" readonly="0"/>
+                            <field name="location_dest_id" domain="[('usage', '=', 'customer')]" options="{'no_create': True,'no_quick_create': True,'no_create_edit': True}" readonly="0"/>
+                            <field name="price"/>
+                            <field name="full_available" string="Available Qty" readonly="1"/>
+                            <field name="product_uom_qty" string="To Consume"/>
+                            <field name="reserved_availability" string="Reserved" readonly="1"/>
+<!--                            <field name="quantity_done" string="Qty Done"/>-->
+                            <field name="total_price" string="Total Amount" readonly="1" force_save="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="coa"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tbl_bisa_maintenance_cancel_wizard" model="ir.ui.view">
+        <field name="name">tbl_bisa_maintenance.cancel.wizard</field>
+        <field name="model">work.order</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form duplicate="0" delete="0" create="0">
+                <group>
+                    <field name="cancel_reason" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_cancel"  string="Confirm" class="btn-primary" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="bisa_part_canibal_form_view" model="ir.ui.view">
+        <field name="name">bisa.part.canibal.form.view</field>
+        <field name="model">part.canibal</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_time"/>
+                            <field name="work_order_name" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                            <field name="origin_unit_code"/>
+                            <field name="part_name"/>
+                            <field name="uom"/>
+                            <field name="qty"/>
+                            <field name="mecanic" options="{'no_create': True,'no_quick_create': True,'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bisa_part_consumtion_move_tree_view" model="ir.ui.view">
+        <field name="name">bisa.part.consumtion.move.tree.view</field>
+        <field name="model">requisition_product</field>
+        <field name="arch" type="xml">
+            <tree string="Spare Part Usage" create="0">
+                <field name="date" string="Date &amp; Time"/>
+                <field name="equipment_id"/>
+                <field name="product_code"/>
+                <field name="item_description"/>
+                <field name="qty"/>
+                <field name="kmhm_running"/>
+                <field name="price" string="Price"/>
+                <field name="total_amount"/>
+                <field name="no_gi"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_work_order" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="res_model">work.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_work_order_search"/>
+        <field name="domain">[('search_ids','=',1)]</field>
+        <field name="context">{'cycle_name':1}</field>
+    </record>
+
+    <menuitem name="Work Order" id="menu_work_order" action="action_work_order" parent="menu_mnt_maintenance_top"  sequence="20"/>
+</odoo>

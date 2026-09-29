@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding='UTF-8'?>
+
+<odoo>
+    <record id="brand_tree" model="ir.ui.view">
+        <field name="name">brand.tree</field>
+        <field name="model">brand</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" required="1"/>
+                <field name="company_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_brand" model="ir.actions.act_window">
+        <field name="name">Brand</field>
+        <field name="res_model">brand</field>
+    </record>
+
+    <menuitem name="Brand" id="menu_brand" action="action_brand" parent="menu_mnt_master_data" sequence="0"/>
+
+    <record id="model_tree" model="ir.ui.view">
+        <field name="name">model.tree</field>
+        <field name="model">model</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" required="1"/>
+                <field name="brand"/>
+                <field name="company_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_model" model="ir.actions.act_window">
+        <field name="name">Model</field>
+        <field name="res_model">model</field>
+    </record>
+
+    <menuitem name="Model" id="menu_model" action="action_model" parent="menu_mnt_master_data" sequence="10"/>
+</odoo>

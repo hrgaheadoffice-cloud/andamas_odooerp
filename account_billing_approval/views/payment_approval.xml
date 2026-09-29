@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <!-- Inherit view from base module -->
+        <record id="account_payment_approval" model="ir.ui.view">
+            <field name="name">account.payment.approval</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <!-- Add or modify fields here -->
+                <xpath expr="//button[@name='action_post']" position="replace">
+                    <button
+                            name="payment_submit_act"
+                            string="Submit"
+                            class="oe_highlight"
+                            type="object"
+                            states="draft"
+                    />
+                    <button
+                            name="button_appr1"
+                            type="object"
+                            states="approved1"
+                            string="Approve"
+                            class="oe_highlight"
+                    />
+                    <button
+                            name="button_appr2"
+                            type="object"
+                            states="approved2"
+                            string="Approve"
+                            class="oe_highlight"
+                    />
+                    <button
+                            name="button_appr3"
+                            type="object"
+                            states="approved3"
+                            string="Approve"
+                            class="oe_highlight"
+                    />
+                     <button
+                            name="button_appr4"
+                            type="object"
+                            states="approved4"
+                            string="Approve"
+                            class="oe_highlight"
+                    />
+                    <button name="button_appr5"
+                            type="object"
+                            states="approved5"
+                            string="Approve"
+                            class="oe_highlight"
+                    />
+                    <button
+                            name="button_to_approve"
+                            type="object"
+                            states="payment_draft"
+                            string="Request Approval"
+                            class="oe_highlight"
+                    />
+                    <button name="action_post"
+                            string="Confirm"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"
+                    />
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" string="Kensel" type="object" groups="account_billing_approval.account_payment_cancel" attrs="{'invisible' : ['|','|', ('id', '=', True),('state', '=', 'draft'),('state', '=', 'cancel')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="replace">
+                        <field name="approval_stage" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="payment_draft,sent,approved1,approved,purchase" readonly="1" attrs="{'invisible': [('approval_stage', '&gt;', 1)]}"/>
+                        <field name="state_b" widget="statusbar" statusbar_visible="payment_draft,sent,approved1,approved2,approved,purchase" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 2)]}"/>
+                        <field name="state_c" widget="statusbar" statusbar_visible="payment_draft,sent,approved1,approved2,approved3,approved,purchase" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 3)]}"/>
+                        <field name="state_d" widget="statusbar" statusbar_visible="payment_draft,sent,approved1,approved2,approved3,approved4,approved,purchase" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 4)]}"/>
+                        <field name="state_e" widget="statusbar" statusbar_visible="payment_draft,sent,approved1,approved2,approved3,approved4,approved5,approved,purchase" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 5)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

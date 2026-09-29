@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <data>
+
+    <record id="do_category_id_1" model="do.category">
+        <field name="name">DO Hauling</field>
+    </record>
+
+    <record id="do_category_id_2" model="do.category">
+        <field name="name">DO Coal</field>
+    </record>
+
+    <record id="do_category_id_3" model="do.category">
+        <field name="name">DS Barging</field>
+    </record>
+
+    <record id="do_category_id_4" model="do.category">
+        <field name="name">DS Surveyor Analysis</field>
+    </record>
+
+    <record id="do_category_id_5" model="do.category">
+        <field name="name">DO Hauling Coal Transfer</field>
+    </record>
+
+    <record id="do_category_id_6" model="do.category">
+        <field name="name">DO Terminal Handling</field>
+    </record>
+
+    <record id="do_category_id_7" model="do.category">
+        <field name="name">DS Floating Crane</field>
+    </record>
+    
+        
+    
+    </data>
+    
+
+</odoo>

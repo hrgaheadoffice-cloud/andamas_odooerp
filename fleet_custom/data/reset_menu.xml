@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <function name="hide_menu" model="fleet.rent"/>
+
+        <menuitem name="Asset Manajemen" id="menu_asset_manajemen" parent="fleet.menu_root" action="bisa_maintenance.action_master_asset_maintenance" sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.menu" id="mrp.menu_mrp_root">
+        <field name="name">Rotable Part</field>
+    </record>
+</odoo>

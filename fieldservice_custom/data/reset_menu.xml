@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fieldservice.root" model="ir.ui.menu">
+            <field name="name">Transporter</field>
+        </record>
+
+        <function name="hide_menu" model="fsm.vehicle"/>
+
+        <menuitem id="data" name="Master Data" sequence="40" parent="fieldservice.root"/>
+        <menuitem name="Asset Manajemen" id="menu_asset_manajemen" parent="data" action="bisa_maintenance.action_master_asset_maintenance" sequence="10"/>
+        <menuitem id="planning" name="Planning" sequence="5" parent="fieldservice.root"/>
+        <menuitem id="cost" name="Balance" sequence="20" parent="fieldservice.root"/>
+
+        <menuitem id="cash_advance" name="Cash Advance" groups="account_billing_approval.cash_advance_menu" sequence="20" web_icon="msi_sales_quotations,static/description/icon.png"/>
+        <menuitem id="fsm_cash_advance" name="Cash Advance" parent="cash_advance" action="fsm_cost_advance_action_view" sequence="20"/>
+    </data>
+</odoo>

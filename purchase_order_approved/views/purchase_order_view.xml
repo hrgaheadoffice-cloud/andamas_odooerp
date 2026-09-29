@@ -1,0 +1,186 @@
+<!-- Copyright 2017 ForgeFlow S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form - purchase_order_approved</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+
+            <button name="print_quotation" position="replace">
+<!--                <button name="action_print_po" string="Print" type="object" class="oe_highlight" groups="base.group_user"/>-->
+            </button>
+        
+            <button name="button_done" position="attributes">
+                <attribute name="string">Done</attribute>
+            </button>
+            <field name="state" position="replace">
+                <field name="approval_stage" invisible="1"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,to_approve_matrix,approved,purchase" readonly="1"/>
+               </field>
+            <button name="button_cancel" position="replace">
+                <button name="button_cancel" states="draft,sent,to approve,po_draft,approved1,approved2,approved3,approved4,approved5,approved6,approved7,approved8,approved,purchase" string="Cancel" type="object"/>
+            </button>
+
+            <button id="bid_confirm" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="button_unlock" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button id="draft_confirm" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </button>
+            <field name="order_line" position="attributes">
+                <attribute name="required">1</attribute>
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="partner_ref" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="no_rfq" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="currency_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="date_order" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="incoterm_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="payment_term_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            <field name="fiscal_position_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','!=','draft')]}</attribute>
+            </field>
+            
+            
+
+            <button name="button_approve" position="after">
+                <button
+                    name="button_release"
+                    type="object"
+                    states="approved"
+                    string="Confirm Order"
+                    class="oe_highlight"
+                />
+
+
+                <button
+                    name="button_appr1"
+                    type="object"
+                    states="approved1"
+                    string="Approve"
+                    class="oe_highlight"
+                />
+                
+                <button
+                    name="button_to_approve"
+                    type="object"
+                    states="draft"
+                    string="Request Approval"
+                    class="oe_highlight"
+                />
+                <button
+                        name="button_approved_matrix"
+                        states="to_approve_matrix"
+                        string="Approve Matrix"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+                <button
+                        name="action_preview_reject"
+                        string="Reject"
+                        type="object"
+                        attrs="{'invisible':[('state','in',('draft','rejected','cancel','purchase','done'))]}"
+                        class="oe_highlight"
+                    />
+            </button>
+
+
+
+            <xpath expr="//group" position="inside">
+                <group>
+                    <field name="prepared_by" invisible="1"/>
+                    <field name="department_id" invisible="1"/>
+                           
+                            <table>
+                        </table>
+                </group>
+
+                <group>
+                </group>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[2]" position="after">
+                <page string="Approval Matrix">
+                            <field name="approval_matrix_ids" readonly="1">
+                                <tree>
+                                    <field name="state"/>
+                                    <field name="user_ids" widget="many2many_tags"/>
+                                    <field name="realization_user_id"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="x_purchase_order_tree_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="todo_user_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_approved.purchase_order_wizard" model="ir.ui.view">
+        <field name="name">purchase.order.wizard.form</field>
+        <field name="model">purchase.order</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+           <form duplicate="0" delete="0" create="0">
+              <group>
+                    <field name="reason_reject"/>
+                    <field name="state" invisible="1"/>
+              </group>
+              <footer>
+                 <button name="button_rejected"  string="Reject" class="btn-primary" type="object"/>
+                 <button string="No" class="btn-secondary" special="cancel"/>
+              </footer>
+           </form>
+        </field>
+     </record>
+
+    <record id="x_purchase_order_kpis_tree_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.kpis.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="todo_user_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

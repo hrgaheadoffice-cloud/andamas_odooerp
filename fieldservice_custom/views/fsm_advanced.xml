@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_advanced_tree'>
+        <field name="name">view.fsm.advanced.tree</field>
+        <field name="model">fsm.advanced</field>
+        <field name="arch" type="xml">
+            <tree string="Advanced">
+                <field name="created_by"/>
+                <field name="date"/>
+                <field name="approval"/>
+                <field name="top_up_amount"/>
+                <field name="total_transporter_cost"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_advanced_form'>
+        <field name="name">view.fsm.advanced.form</field>
+        <field name="model">fsm.advanced</field>
+        <field name="arch" type="xml">
+            <form string="Advanced">
+                <sheet>
+                    <group>
+                        <field name="transporter_task_id" invisible="1"/>
+                        <field name="nip"/>
+                        <field name="driver_id"/>
+                        <field name="equipment_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Detail Advance">
+
+                        </page>
+                        <page string="Detail Settlement">
+
+                        </page>
+                        <page string="Account">
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_advanced_view" model="ir.actions.act_window">
+        <field name="name">Advanced</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.advanced</field>
+    </record>
+
+    <menuitem name="Advanced" id="menu_fsm_advanced" parent="fieldservice.operations" action="action_fsm_advanced_view" sequence="60"/>
+</odoo>

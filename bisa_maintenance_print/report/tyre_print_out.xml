@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_tyre_document">
+
+            <t t-call="bisa_maintenance_print.custom_layout">
+                <t t-set="report_type" t-value="'tr'"/>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.created_by.lang)" />
+
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <style>
+                        table{
+                            border: 1px solid black !important;
+                        }
+                        th{
+                            border: 1px solid black !important;
+                        }
+                        td{ height:15px;
+                            border: 1px solid black !important;
+                        }
+                        .sale_tbody td[name="td_remarks"] {
+                            width: 40%;
+                        }
+                        .samping{
+                            width:250px;
+                        }
+                    </style>
+
+            <!-- Tyre Removal -->
+                    <style>
+                        .req-body{
+                            height:30px;
+                        }
+                    </style>
+                    <div class="row">
+                             <div  style="color:black; height:14px; font-weight:bold; font-size:14pt;" class="col-4">
+                                 <span>TYRE REMOVAL</span>
+                             </div>
+                    </div>
+                    <div class="row">
+                             <table style="margin-top: 10px; width:1250px;" class="table custom-table-bordered table-sm o_main_table">
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+
+                            <tr style="color:black; background-color:#03b6fc; text-align:center; height:14px; font-weight:bold; font-size:12pt;">
+                                <td style="width:120px;">POS</td>
+                                <td class="text-center">SIZE</td>
+                                <td class="text-center">S/N TYRE</td>
+                                <td class="text-center">KM</td>
+                                <td class="text-center">PATTERN</td>
+                                <td class="text-center">PROBLEM</td>
+                                <td class="text-center">OTD</td>
+                                <td class="text-center">RTD 1</td>
+                                <td class="text-center">RTD 2</td>
+                                <td class="text-center">A/P</td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                               <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                   </div>
+                    <div class="row">
+                             <div  style="color:black; height:20px; font-weight:bold; font-size:14pt;" class="col-4">
+                                 <span>TYRE FITEMENT</span>
+                             </div>
+                    </div>
+                    <div class="row">
+                             <table style="margin-top: 10px; width:1250px;" class="table custom-table-bordered table-sm o_main_table">
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+
+                            <tr style="color:black; background-color:#03b6fc; height:14px; text-align:center; font-weight:bold; font-size:12pt;">
+                                <td style="width:120px;">POS</td>
+                                <td class="text-center">SIZE</td>
+                                <td class="text-center">S/N TYRE</td>
+                                <td class="text-center">KM</td>
+                                <td class="text-center">PATTERN</td>
+                                <td class="text-center">PROBLEM</td>
+                                <td class="text-center">OTD</td>
+                                <td class="text-center">RTD 1</td>
+                                <td class="text-center">RTD 2</td>
+                                <td class="text-center">A/P</td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                   </div>
+                    <div class="row">
+                        <div style="width: 1250px;">
+                            <table style="width: 100%; border:0px!important;">
+                                <tr>
+                                    <td class="text-center" style="vertical-align: top; width:25%; border:0px!important;">
+                                        <span>Activity by</span>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <span>(Tyreman)</span>
+                                    </td>
+                                    <td class="text-center" style="vertical-align: top; width:25%; border:0px!important;">
+                                        <span>Checked by</span>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <span>(Pengawas)</span>
+                                    </td>
+                                    <td class="text-right" style="vertical-align: top; border:0px!important;">
+                                        <t t-set="legend" t-value="doc.get_legend(doc.id)"/>
+                                        <img t-if="legend" t-att-src="image_data_uri(legend)" style="max-height:220px" alt="Attachment Image"/>
+                                    </td>
+                                    <td class="text-left" style="vertical-align: top; border:0px!important;">
+                                        <t t-set="legend2" t-value="doc.get_legend2(doc.id)"/>
+                                        <img t-if="legend2" t-att-src="image_data_uri(legend2)" style="max-height:220px" alt="Attachment Image"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .signature{
+                            height:100px;
+                        }
+                        .spacer{
+                                width:50px;
+                        }
+                    </style>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        <template id="report_tyre">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bisa_maintenance_print.report_tyre_document" t-lang="doc.created_by.lang"/>
+                </t>
+            </t>
+        </template>
+        <record id="paperformat_a4_landscape" model="report.paperformat">
+            <field name="name">A4 Landscape</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+       <record id="action_report_tyre" model="ir.actions.report">
+            <field name="name">Tyre Service</field>
+            <field name="model">work.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bisa_maintenance_print.report_tyre</field>
+            <field name="report_file">bisa_maintenance_print.report_tyre</field>
+            <field name="print_report_name">'TR - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="bisa_maintenance.model_work_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_a4_landscape"/>
+        </record>
+    </data>
+</odoo>

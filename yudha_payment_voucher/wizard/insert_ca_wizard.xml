@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+    <record id="insert_ca_wizard_view_form" model="ir.ui.view">
+        <field name="name">insert.ca.wizard.view.form</field>
+        <field name="model">insert.ca.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Inser Ca">
+                <sheet>
+                    <group>
+                    <notebook>
+                        <page name="cash_advance" string="Cash Advance">
+                            <field name="ca_ids" nolabel="1" domain="[('state_c','=','approved'),('is_insert_plant','=',False)]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="request_date" />
+                                    <field name="amount_ca" />
+                                    <field name="user_id" />
+                                    <field name="request_by" />
+                                </tree>
+                    </field> 
+                            
+                        </page>
+
+                        <page name="vendor_bill" string="Vendor Bills">
+                            <field name="verdor_bill_ids" nolabel="1" domain="[('move_type','=','in_invoice'), ('payment_state','=','not_paid'), ('state','=','approved')]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="invoice_date" />
+                                    <field name="company_id" />
+                                    <field name="state" />
+                                </tree>
+                             </field> 
+                            
+                        </page>
+
+                        <page name="noi_ho" string="NOI HO">
+                            <field name="noi_ho_ids" nolabel="1" domain="[('state','=','approved'),('is_insert_plant','=',False)]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="request_date" />
+                                    <field name="request_amount" />
+                                    <field name="company_id" />
+                                    <field name="state" />
+                                </tree>
+                             </field> 
+                            
+                        </page>
+
+                        <page name="settlement_ho" string="Settlement HO">
+                            <field name="settlement_ids" domain="[('is_insert_plant','=',False),('state','=','approved')]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="amount_settel" />
+                                    <field name="over_due" />
+
+                                </tree>
+                             </field> 
+                            
+                        </page>
+                        <page name="cash_request" string="Cash Request">
+                            <field name="cash_request_ids" domain="[('is_insert_plant','=',False),('state','=','approved')]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="request_date" />
+                                    <field name="request_amount" />
+                                    <field name="request_by" />
+
+                                </tree>
+                             </field> 
+                            
+                        </page>
+                        
+                        <page name="reimbursement_ho_ids" string="Reimbursement HO">
+                            <field name="reimbursement_ho_ids"  domain="[('is_insert_plant','=',False),('state','=','approved')]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="request_date" />
+                                    <field name="request_amount" />
+                                    <field name="request_by" />
+                                    <field name="cost_center" />
+
+                                </tree>
+                             </field> 
+                            
+                        </page>
+                    </notebook>
+                   
+                    
+                        
+                    </group>
+                </sheet>
+
+                    <footer>
+                        <button string="Insert" name="insert_ca"
+                                type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+    
+        
+    
+    </data>
+    
+
+</odoo>

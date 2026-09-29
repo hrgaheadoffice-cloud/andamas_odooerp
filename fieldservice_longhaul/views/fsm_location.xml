@@ -1,0 +1,76 @@
+<odoo>
+    <!-- Updated Field Service Location Tree View-->
+    <record id="fsm_location_tree_view_inherit" model="ir.ui.view">
+        <field name="name">fsm.location.tree.inherit</field>
+        <field name="model">fsm.location</field>
+        <field name="inherit_id" ref="fieldservice.fsm_location_tree_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//tree/field[@name='ref']" position="replace"/>
+                <xpath expr="//tree/field[@name='complete_name']" position="replace"/>
+                <xpath expr="//tree/field[@name='category_id']" position="replace"/>
+                <xpath expr="//tree/field[@name='stage_id']" position="replace"/>
+                <xpath expr="//tree/field[@name='street']" position="replace"/>
+                <xpath expr="//tree/field[@name='street2']" position="replace"/>
+                <xpath expr="//tree/field[@name='city']" position="replace"/>
+                <xpath expr="//tree/field[@name='state_id']" position="replace"/>
+                <xpath expr="//tree/field[@name='zip']" position="replace"/>
+                <xpath expr="//tree/field[@name='territory_id']" position="replace"/>
+                <xpath expr="//tree/field[@name='owner_id']" position="replace"/>
+
+                <xpath expr="//tree" position="inside">
+                    <!-- Add the new fields -->
+                    <field name="location_code" string="Location Code"/>
+                    <field name="location_name" string="Location Name"/>
+                    <field name="location_category" string="Location Category"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!-- Updated Field Service Location Form View -->
+    <record id="fsm_location_form_view_inherit" model="ir.ui.view">
+        <field name="name">fsm.location.form.inherit</field>
+        <field name="model">fsm.location</field>
+        <field name="inherit_id" ref="fieldservice.fsm_location_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//form" position="replace">
+                    <!-- Add the new fields -->
+                    <form string="Location">
+                        <sheet>
+                            <label for="route_code" class="oe_edit_only" />
+                            <h1>
+                                <field name="route_code" string="Route Code" required="True" />
+                            </h1>
+                            <group id="main-left">
+                                <field name="id" invisible="1"></field>
+                                <field name="location_code" />
+                                <field name="location_name" />
+                            </group>
+                            <group id="main-right">
+                                <field name="location_category" />
+                                <field name="loading_location" />
+                                <field name="unloading_location" />
+                            </group>
+                        </sheet>
+                    </form>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!-- Updated Field Service Location Search View-->
+    <record id="fsm_location_search_view" model="ir.ui.view">
+        <field name="name">fsm.location.search</field>
+        <field name="model">fsm.location</field>
+        <field name="arch" type="xml">
+            <search string="Search FSM Location">
+                <field name="location_code" string="Location Code"/>
+                <field name="location_name" string="Location Name"/>
+                <field name="location_category" string="Location Category"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

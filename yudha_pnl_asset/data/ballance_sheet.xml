@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+<!--        <record id="cash_on_bank" model="account.groups">-->
+<!--            <field name="id" search="[('model', '=', 'account.group'), ('name', '=', 'trust')]"/>-->
+
+<!--        </record>-->
+        <record id="rmd_report_balancesheet0" model="account.financial.html.report">
+            <field name="name">BALANCE SHEET</field>
+            <field name="date_range" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+        </record>
+
+        <record id="rmd_report_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Current Assets</field>
+            <field name="code">CASSET</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0" />
+        </record>
+
+                <record id="rmd_report_cash_on_hand0" model="account.financial.html.report.line">
+                    <field name="name">Cash On Hand And In Bank</field>
+                    <field name="code">COHAIB</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',85)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_restricted_cash0" model="account.financial.html.report.line">
+                    <field name="name">Restricted Cash</field>
+                    <field name="code">RSTCASH</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                   <field name="domain" eval="[('account_id.sub_group','=',86)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_trade_recieveable0" model="account.financial.html.report.line">
+                    <field name="name">Trade Account Reciveable</field>
+                    <field name="code">TRARCV</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                   <field name="domain" eval="[('account_id.sub_group','=',87)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_other_reciveable0" model="account.financial.html.report.line">
+                    <field name="name">Other Reciveable - Related Parties</field>
+                    <field name="code">ORCVRP</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',89)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_other_reciveable_thirdparty0" model="account.financial.html.report.line">
+                    <field name="name">Other Reciveable - Third Parties</field>
+                    <field name="code">ORPTP</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+<!--                    <field name="domain" eval="[('account_id.sub_group','=',87)]"/>-->
+<!--                    <field name="groupby">account_id</field>-->
+<!--                    <field name="formulas">sum</field>-->
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_prepaid_taxes0" model="account.financial.html.report.line">
+                    <field name="name">Prepaid Taxes</field>
+                    <field name="code">PRETX</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',91)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_inventory0" model="account.financial.html.report.line">
+                    <field name="name">Inventory</field>
+                    <field name="code">PINVT</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',92)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_otherca0" model="account.financial.html.report.line">
+                    <field name="name">Other Current Asset</field>
+                    <field name="code">OCAT</field>
+                    <field name="parent_id" ref='rmd_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',93)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="8"/>
+                    <field name="level" eval="1" />
+                </record>
+
+        <record id="rmd_report_total_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Total Current Assets</field>
+            <field name="code">TCASS</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">COHAIB + RSTCASH + TRARCV+ ORCVRP + ORPTP + PRETX + PINVT + OCAT</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="rmd_report_non_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Non Current Assets</field>
+            <field name="code">NONCURASS</field>
+             <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="rmd_report_planequipment0" model="account.financial.html.report.line">
+                    <field name="name">Property Plan And Equipment</field>
+                    <field name="code">PROPMEQUIP</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',94)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_aqumulatedepreciation0" model="account.financial.html.report.line">
+                    <field name="name">Accumulatted Depreciation</field>
+                    <field name="code">ACCDEP</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',95)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_constructio_inprogress0" model="account.financial.html.report.line">
+                    <field name="name">Construction In Progress</field>
+                    <field name="code">CONSIPRO</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',96)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_rightuseasset0" model="account.financial.html.report.line">
+                    <field name="name">Right-of-use Asset</field>
+                    <field name="code">RIOUA</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',97)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_mining_property0" model="account.financial.html.report.line">
+                    <field name="name">Mining Properties</field>
+                    <field name="code">MININGPRO</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',98)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_reclamation0" model="account.financial.html.report.line">
+                    <field name="name">Reclamation and post mining deposit</field>
+                    <field name="code">RAPMD</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',99)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_stripping0" model="account.financial.html.report.line">
+                    <field name="name">Stripping Activity Asset</field>
+                    <field name="code">SAASET</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',100)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_defferedtaxasset0" model="account.financial.html.report.line">
+                    <field name="name">Deffered Tax Asset</field>
+                    <field name="code">DETTA</field>
+                    <field name="parent_id" ref='rmd_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',101)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="8"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="rmd_report_total_non_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Total Non Current Assets</field>
+            <field name="code">TNCAS</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">PROPMEQUIP + ACCDEP + CONSIPRO + RIOUA + MININGPRO + RAPMD + SAASET + DETTA</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_total_non_plus_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">TOTAL ASSETS</field>
+            <field name="code">TOTAS</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">TNCAS + TCASS</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="rmd_report_current_liability_view0" model="account.financial.html.report.line">
+            <field name="name">CURRENT LIABILITY</field>
+            <field name="code">CLBIT</field>
+             <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="rmd_report_tradeaccountpayable0" model="account.financial.html.report.line">
+                    <field name="name">Trade Account Payable</field>
+                    <field name="code">TAPY</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',102)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_accruedexpense0" model="account.financial.html.report.line">
+                    <field name="name">Accrued Expense</field>
+                    <field name="code">ACEXP</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',103)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_otheraccountpay0" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable</field>
+                    <field name="code">OAP</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_otheraccountRELATED0" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable - Related Parties</field>
+                    <field name="code">OAPRP</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',105)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_otheraccountthirdparties" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable - Third Parties</field>
+                    <field name="code">OAPRTHRDP</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','21310101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_advancefromcustomer" model="account.financial.html.report.line">
+                    <field name="name">Advance From Customer</field>
+                    <field name="code">ADFRCU</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',107)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_shorttermbankloanborrowing" model="account.financial.html.report.line">
+                    <field name="name">Short Term Bank Loan/Borrowing</field>
+                    <field name="code">STBLB</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','21610101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_taxespayables" model="account.financial.html.report.line">
+                    <field name="name">Taxes Payable</field>
+                    <field name="code">TAXPAY</field>
+                    <field name="parent_id" ref='rmd_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',109)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="rmd_report_total_current_liability_view0" model="account.financial.html.report.line">
+            <field name="name">Total Current Liability</field>
+            <field name="code">TOTCASLI</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">TAPY + ACEXP + OAP+ OAPRP + OAPRTHRDP + ADFRCU + STBLB + TAXPAY</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="rmd_report_noncurrent_liability_view0" model="account.financial.html.report.line">
+            <field name="name">NON CURRENT LIABILITY</field>
+            <field name="code">NCLBI</field>
+             <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="rmd_report_longtermloans0" model="account.financial.html.report.line">
+                    <field name="name">Long Term Bank Loans</field>
+                    <field name="code">LTBLO</field>
+                    <field name="parent_id" ref='rmd_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',110)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_loantermrelatedparty0" model="account.financial.html.report.line">
+                    <field name="name">Loan Term Related Parties</field>
+                    <field name="code">LOANTRPAR</field>
+                    <field name="parent_id" ref='rmd_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',111)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_employe_obligation0" model="account.financial.html.report.line">
+                    <field name="name">Employee Benefit Obligations</field>
+                    <field name="code">EMBOB</field>
+                    <field name="parent_id" ref='rmd_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',112)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_lease_liability0" model="account.financial.html.report.line">
+                    <field name="name">Lease Liability</field>
+                    <field name="code">LEALI</field>
+                    <field name="parent_id" ref='rmd_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',113)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="rmd_report_total_noncurrent_liability_view0" model="account.financial.html.report.line">
+            <field name="name">Total Non Current Liability</field>
+            <field name="code">TONOCAS</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">LTBLO+ LOANTRPAR + LEALI + EMBOB</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="rmd_report_equity_view0" model="account.financial.html.report.line">
+            <field name="name">EQUITY</field>
+            <field name="code">EQUT</field>
+             <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="rmd_report_share_capital0" model="account.financial.html.report.line">
+                    <field name="name">Share Capital</field>
+                    <field name="code">SHCA</field>
+                    <field name="parent_id" ref='rmd_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',114)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_advance_subcription0" model="account.financial.html.report.line">
+                    <field name="name">Advance For Share Subcriptions</field>
+                    <field name="code">ADFSS</field>
+                    <field name="parent_id" ref='rmd_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',115)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_additional_capital0" model="account.financial.html.report.line">
+                    <field name="name">Additional Paid In Capital</field>
+                    <field name="code">ADDPIC</field>
+                    <field name="parent_id" ref='rmd_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','31310101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_retained_earnings0" model="account.financial.html.report.line">
+                    <field name="name">Current Years</field>
+                    <field name="code">RETEAR</field>
+                    <field name="parent_id" ref='rmd_report_equity_view0'/>
+                    <field name="formulas">TOCLTY</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="rmd_report_retained_earning0" model="account.financial.html.report.line">
+                    <field name="name">Previous Years</field>
+                    <field name="code">RETEARS</field>
+                    <field name="parent_id" ref='rmd_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','31410101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="rmd_report_total_equity_view0" model="account.financial.html.report.line">
+            <field name="name">Total Equity</field>
+            <field name="code">TOTEQ</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">SHCA + ADFSS + ADDPIC + RETEAR + RETEARS </field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_total_liability_equity_view0" model="account.financial.html.report.line">
+            <field name="name">TOTAL LIABILITY AND EQUITY</field>
+            <field name="code">TLAE</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">TOTCASLI + TONOCAS + TOTEQ</field>
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_totalss_assetsview0" model="account.financial.html.report.line">
+            <field name="name">TOTAL ASSETS</field>
+            <field name="code">TOTASS</field>
+            <field name="financial_report_id" ref="rmd_report_balancesheet0"/>
+            <field name="parent_id" ref='rmd_report_balancesheet0'/>
+            <field name="formulas">TLAE</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="0" />
+        </record>
+    </data>
+</odoo>

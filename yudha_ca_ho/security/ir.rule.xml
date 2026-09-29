@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record model="ir.rule" id="cash_advance_ho_comp_rule">
+        <field name="name">Purchase Request multi-company</field>
+        <field name="model_id" ref="model_cash_advance_ho" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="settelment_ho_comp_rule">
+        <field name="name">Purchase Request multi-company</field>
+        <field name="model_id" ref="model_settelment_ho" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record id="category_cash_advance_ho" model="ir.module.category">
+        <field name="name">Cash Advance HO</field>
+    </record>
+
+    <record id="cash_advance_ho_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="category_cash_advance_ho"/>
+    </record>
+    <record id="cash_advance_ho_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="category_cash_advance_ho"/>
+    </record>
+    <record id="cash_advance_ho_finance" model="res.groups">
+        <field name="name">Finance</field>
+        <field name="category_id" ref="category_cash_advance_ho"/>
+    </record>
+    <record id="cash_advance_ho_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="category_cash_advance_ho"/>
+    </record>
+
+    <record id="category_settlement_ho" model="ir.module.category">
+        <field name="name">Settlement HO</field>
+    </record>
+
+    <record id="settlement_ho_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="category_settlement_ho"/>
+    </record>
+    <record id="settlement_ho_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="category_settlement_ho"/>
+    </record>
+    <record id="settlement_ho_finance" model="res.groups">
+        <field name="name">Finance</field>
+        <field name="category_id" ref="category_settlement_ho"/>
+    </record>
+    <record id="settlement_ho_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="category_settlement_ho"/>
+    </record>
+    
+</odoo>

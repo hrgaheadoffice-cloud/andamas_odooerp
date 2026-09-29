@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='move_ids_without_package']/form/group"
+                position="after"
+            >
+                <newline />
+                <group name="allocations" string="Purchase Request Allocations">
+                    <field name="purchase_request_allocation_ids" />
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="before">
+                <field name="reference_from" string="Reference From"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="before">
+                <field name="requisition_numb" attrs="{'invisible': [('reference_from', '!=', 'req')]}" string="MR Number"/>
+                <field name="wo_number" attrs="{'invisible': [('reference_from', '!=', 'req')]}" string="WO Number"/>
+                <field name="unit_code" attrs="{'invisible': [('reference_from', '!=', 'req')]}" string="Unit Code"/>
+                <field name="mr_operation" attrs="{'invisible': [('reference_from', '!=', 'req')]}" string="Operation"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="replace">
+                <field name="origin" attrs="{'invisible': [('reference_from', '!=', 'po')]}" string="PO Number" placeholder="e.g. PO0032"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="description"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_category_property_form_custom" model="ir.ui.view">
+            <field name="name">product.category.stock.property.form.custom.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//group[@name='account_stock_property']" position="replace">
+                        <group name="account_stock_property" string="Account Stock Properties" groups="account.group_account_readonly" attrs="{'invisible':[('property_valuation', '=', 'manual_periodic')]}">
+                        <field name="property_stock_valuation_account_id" options="{'no_create': True}" attrs="{'required':[('property_valuation', '=', 'real_time')]}"/>
+                        <field name="property_stock_journal" attrs="{'required':[('property_valuation', '=', 'real_time')]}" />
+                        <field name="property_stock_account_input_categ_id" attrs="{'required':[ ('property_valuation', '=', 'real_time')]}" />
+                        <field name="property_stock_account_output_categ_id" attrs="{'required':[ ('property_valuation', '=', 'real_time')]}"/>
+                        <div colspan="2" class="alert alert-info mt16" role="status">
+                            <b>Set other input/output accounts on specific </b><button name="%(stock.action_prod_inv_location_form)d" role="button" type="action" class="btn-link" style="padding: 0;vertical-align: baseline;" string="locations"/>.
+                        </div>
+                    </group>
+                    </xpath>
+            </field>
+    </record>
+</odoo>

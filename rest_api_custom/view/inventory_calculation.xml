@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_inventory_calculation_tree'>
+        <field name="name">view.inventory.calculation.tree</field>
+        <field name="model">inventory.calculation</field>
+        <field name="arch" type="xml">
+            <tree string="Inventory Calculation">
+                <field name="date"/>
+                <field name="begin_qty"/>
+                <field name="begin_val"/>
+                <field name="quantity"/>
+                <field name="value"/>
+                <field name="avail_qty"/>
+                <field name="avail_val"/>
+                <field name="average_value"/>
+                <field name="sales_qty"/>
+                <field name="sales_val"/>
+                <field name="close_qty"/>
+                <field name="close_val"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_inventory_calculation_form'>
+        <field name="name">view.inventory.calculation.form</field>
+        <field name="model">inventory.calculation</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Calculation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="begin_qty"/>
+                            <field name="begin_val"/>
+                            <field name="quantity"/>
+                            <field name="value"/>
+                            <field name="avail_qty"/>
+                            <field name="avail_val"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="average_value"/>
+                            <field name="sales_qty"/>
+                            <field name="sales_val"/>
+                            <field name="close_qty"/>
+                            <field name="close_val"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_inventory_calculation_view" model="ir.actions.act_window">
+        <field name="name">Inventory Calculation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inventory.calculation</field>
+    </record>
+
+    <menuitem name="Inventory Calculation" id="menu_inventory_calculation" parent="account_accountant.menu_accounting" action="action_inventory_calculation_view" sequence="30"/>
+</odoo>

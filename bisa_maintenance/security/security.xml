@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record model="ir.module.category" id="module_category_maintenance">
+        <field name="name">Maintenance</field>
+        <field name="sequence">10</field>
+    </record>
+
+<!--Eri 202405022-->
+    <record id="group_maintenance_ocr_ccr" model="res.groups">
+        <field name="name">OCR/CCR</field>
+        <field name="category_id" ref="module_category_maintenance" />
+    </record>
+    <record id="group_maintenance_plant" model="res.groups">
+        <field name="name">Plant</field>
+        <field name="category_id" ref="module_category_maintenance" />
+    </record>
+    <record id="group_maintenance_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(6,0,[ref('bisa_maintenance.group_maintenance_ocr_ccr'),ref('bisa_maintenance.group_maintenance_plant')])]" />
+        <field name="category_id" ref="module_category_maintenance" />
+    </record>
+<!--Eri 202405022-->
+
+<!--Eri 20240610-->
+    <record model="ir.module.category" id="module_category_requisition">
+        <field name="name">Requisition</field>
+        <field name="sequence">10</field>
+    </record>
+        <record id="group_admin_plant" model="res.groups">
+        <field name="name">Admin Plant</field>
+        <field name="category_id" ref="module_category_requisition" />
+    </record>
+    <record id="group_maintenance_user_requisition" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_requisition" />
+    </record>
+    <record id="group_maintenance_requisition_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(6,0,[ref('bisa_maintenance.group_admin_plant'),ref('bisa_maintenance.group_maintenance_user_requisition')])]" />
+        <field name="category_id" ref="module_category_requisition" />
+    </record>
+<!--Eri 20240610-->
+    <record model="ir.rule" id="tbl_bisa_maintenance_request_comp_rule">
+        <field name="name">Maintenance Request multi-company</field>
+        <field name="model_id" ref="model_tbl_mnt_request" /> 
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="tbl_brand_comp_rule">
+        <field name="name">Maintenance Brand multi-company</field>
+        <field name="model_id" ref="model_brand" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="tbl_model_comp_rule">
+        <field name="name">Maintenance Model multi-company</field>
+        <field name="model_id" ref="model_model" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_asset_category_comp_rule">
+        <field name="name">Maintenance Asset Category multi-company</field>
+        <field name="model_id" ref="model_master_asset_category" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_asset_location_comp_rule">
+        <field name="name">Maintenance Asset Location multi-company</field>
+        <field name="model_id" ref="model_tbl_aset_lokasi" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_master_asset_comp_rule">
+        <field name="name">Maintenance Asset multi-company</field>
+        <field name="model_id" ref="model_master_asset_maintenance" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="tbl_periodic_service_comp_rule">
+        <field name="name">Maintenance Periodic Service multi-company</field>
+        <field name="model_id" ref="model_periodic_service" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_maintenance_activity_comp_rule">
+        <field name="name">Maintenance Activity multi-company</field>
+        <field name="model_id" ref="model_maintenance_activity" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_schedule_activity_comp_rule">
+        <field name="name">Schedule Activity multi-company</field>
+        <field name="model_id" ref="model_schedule_activity" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_maintenance_component_comp_rule">
+        <field name="name">Maintenance Component multi-company</field>
+        <field name="model_id" ref="model_component" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+<!--delay factor-->
+    <record model="ir.rule" id="tbl_delay_factor_comp_rule">
+        <field name="name">Delay Factor multi-company</field>
+        <field name="model_id" ref="model_delay_factor" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_tyre_problem_comp_rule">
+        <field name="name">Tyre Problem multi-company</field>
+        <field name="model_id" ref="model_tyre_problem" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+        <record model="ir.rule" id="tbl_tyre_remark_comp_rule">
+        <field name="name">Tyre Remark multi-company</field>
+        <field name="model_id" ref="model_tyre_remarks" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="tbl_work_shift_comp_rule">
+        <field name="name">Work Shift multi-company</field>
+        <field name="model_id" ref="model_work_shift" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record model="ir.rule" id="work_request_comp_rule">
+        <field name="name">Work Request multi-company</field>
+        <field name="model_id" ref="model_work_request" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="work_order_comp_rule">
+        <field name="name">Work Order multi-company</field>
+        <field name="model_id" ref="model_work_order" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="requisition_comp_rule">
+        <field name="name">Requisition multi-company</field>
+        <field name="model_id" ref="model_requisition" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="tire_service_comp_rule">
+        <field name="name">Tire Service multi-company</field>
+        <field name="model_id" ref="model_tire_service" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="tbl_mnt_timesheet_equipment_comp_rule">
+        <field name="name">Timesheet Equipment multi-company</field>
+        <field name="model_id" ref="model_tbl_mnt_timesheet_equipment" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="tbl_mnt_task_comp_rule">
+        <field name="name">Timesheet Mechanic multi-company</field>
+        <field name="model_id" ref="model_tbl_mnt_task" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="timesheet_period_plan_comp_rule">
+        <field name="name">Period Plan multi-company</field>
+        <field name="model_id" ref="model_timesheet_period_plan" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="requisition_product_comp_rule">
+        <field name="name">Requisition Product multi-company</field>
+        <field name="model_id" ref="model_requisition_product" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="maintenance_report_comp_rule">
+        <field name="name">Maintenance Report multi-company</field>
+        <field name="model_id" ref="model_maintenance_report" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="maintenance_report_detail_comp_rule">
+        <field name="name">Maintenance Report Detail multi-company</field>
+        <field name="model_id" ref="model_maintenance_report_detail" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="tyre_report_comp_rule">
+        <field name="name">Tyre Report multi-company</field>
+        <field name="model_id" ref="model_tyre_report" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="master_asset_maintenance_comp_rule">
+        <field name="name">Asset Maintenance multi-company</field>
+        <field name="model_id" ref="model_master_asset_maintenance" />
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id','=',False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    <record id="wip_management_name_view_form" model="ir.ui.view">
+        <field name="name">wip.management.view.form</field>
+        <field name="model">wip.management</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                <button
+                        name="action_post"
+                        type="object"
+                        states="draft"
+                        string="Post"
+                        class="oe_highlight"
+                    />
+                <button
+                        name="create_vendor_bill"
+                        type="object"
+                        string="Create Vendor Bill"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('hide_vendor_bill_button','=',True)]}"
+                    />
+                <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                    <group>
+                        <group >
+                            
+                        <field name="is_vendor_bill" invisible="1"/>
+                        <field name="hide_vendor_bill_button" invisible="1"/>
+                        <field name="document_date" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="do_category_id" string="Category" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="do_code" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="journal_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+                        <field name="bill_id" readonly="1" force_save="1" string="Vendor Bill"/>
+                        <field name="account_move_id" force_save="1" readonly="1" string="Entry"/>
+                        <field name="vendor_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="project_code" required="0" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="vessel_code" required="0" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="wip_amount" required="0" attrs="{'readonly':[('state','!=','draft')]}" string="Price" />
+                        <field name="qty" required="0" attrs="{'readonly':[('state','!=','draft')]}"  />
+                        <field name="currency_id" required="0" attrs="{'readonly':[('state','!=','draft')]}" readonly="1" force_save="1"/>
+                        <field name="company_id" required="0" attrs="{'readonly':[('state','!=','draft')]}" readonly="1" force_save="1"/>
+                        <field name="product_id" invisible="0"/>
+                        </group>
+                        
+                    
+                        
+                    </group>
+                    <notebook>
+                        <page string="Journal Items" name="jurnal_ids">
+                     
+                                <field name="journal_ids"  readonly="1" context="{'default_partner_id': vendor_id,'default_company_id': company_id}">
+                                    <tree editable="bottom">
+                                        <field name="account_id" domain="[('deprecated', '=', False),('company_id', '=', parent.company_id),('is_off_balance', '=', False)]"/>
+                                        <field name="name"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="project_code"/>
+                                        <!-- <field name="currency_id"/> -->
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids"/>
+
+                    </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="wip_management_view_tree" model="ir.ui.view">
+        <field name="name">wip.management.view.tree</field>
+        <field name="model">wip.management</field>
+        <field name="arch" type="xml">
+            <tree string="WIP Management">
+            <field name="name" />
+            <field name="do_category_id" />
+            <field name="do_code" />
+            <field name="vendor_id" />
+            <field name="document_date" />
+            <field name="project_code" />
+            <field name="vessel_code" />
+            <field name="wip_total_amount" string="WIP Amount" />
+            <field name="currency_id" />
+            <field name="state" />
+                
+            </tree>
+        </field>
+    </record>
+    
+
+    <record id="wip_management_action" model="ir.actions.act_window">
+        <field name="name">WIP Management</field>
+        <field name="res_model">wip.management</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_project_code':1,
+        'search_default_do_category_id':1
+        
+
+        
+        }</field>
+
+    </record>
+
+    <record id="wip_management_view_search" model="ir.ui.view">
+        <field name="name">wip.management.view.search</field>
+        <field name="model">wip.management</field>
+        <field name="arch" type="xml">
+            <search string="WIP Management">
+            <group string="Group By">
+                        <filter string="Project Code" name="project_code" context="{'group_by':'project_code'}"/>
+                        <filter string="DO Category" name="do_category_id" context="{'group_by':'do_category_id'}"/>
+                     
+            </group>
+                
+            </search>
+        </field>
+    </record>
+
+
+
+		<record id="create_vendor_bill_wip" model="ir.actions.server">
+            <field name="name">Create Vendor Bill</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_wip_management"/>
+			<field name="binding_model_id" ref="model_wip_management"/>
+            <field name="code">action = model.create_vendor_bill_bulk()</field>
+        </record>
+
+    <menuitem
+        id="wip_management_root_menu"
+        name="WIP Management"
+        web_icon="wip,static/description/icon.png"
+        sequence="10"/>
+
+        <menuitem
+            id="wio_management_menu"
+            name="WIP Management"
+            parent="wip_management_root_menu"
+            action="wip_management_action"
+            sequence="10"/>
+
+        
+        
+    
+    </data>
+    
+
+</odoo>

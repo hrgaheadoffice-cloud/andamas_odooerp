@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fsm_advance_claim_payroll_form_view" model="ir.ui.view">
+            <field name="name">fsm.advance.claim.payroll.form.view</field>
+            <field name="model">fsm.advance.claim.payroll</field>
+            <field name="arch" type="xml">
+                <form string="Advance Claim Payroll">
+                    <header>
+                        <button name="action_populate_diff" states="draft" type="object" string="Generate"/>
+                        <button name="action_confirm" string="Confirm" class="oe_highlight" states="draft" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="driver_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="payroll_date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="total_diff_to_be_paid" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <field name="line_ids" nolabel="1" readonly="1" force_save="1">
+                            <tree>
+                                <field name="cost_advance_id"/>
+                                <field name="settlement_date"/>
+                                <field name="difference_to_be_paid"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="fsm_advance_claim_payroll_tree_view" model="ir.ui.view">
+            <field name="name">fsm.advance.claim.payroll.tree.view</field>
+            <field name="model">fsm.advance.claim.payroll</field>
+            <field name="arch" type="xml">
+                <tree string="Advance Claim Payroll">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="payroll_date"/>
+                    <field name="total_diff_to_be_paid"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="fsm_advance_claim_payroll_action_view" model="ir.actions.act_window">
+            <field name="name">Advance Claim Payroll</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fsm.advance.claim.payroll</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No Advance Claim Payroll
+              </p><p>
+                Click create to add one
+              </p>
+            </field>
+        </record>
+        <menuitem id="fieldservice_advance_claim_payroll" name="Advance Claim Payroll" parent="cost" action="fsm_advance_claim_payroll_action_view" sequence="30"/>
+    </data>
+</odoo>

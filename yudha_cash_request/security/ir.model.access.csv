@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cash_request,access.cash.request.user,model_cash_request,base.group_user,1,1,1,1
+access_cash_request_details,access.cash.request.details_user,model_cash_request_line,base.group_user,1,1,1,1
+
+access_cash_request_payment,access.cash.request.payment_user,model_cashrequest_payment,base.group_user,1,1,1,1
+access_account_account_users,access.account.account.user,model_account_account,base.group_user,1,1,1,1
+
+access_cr_config_users,access.cr.config.user,model_cr_config,base.group_user,1,1,1,1

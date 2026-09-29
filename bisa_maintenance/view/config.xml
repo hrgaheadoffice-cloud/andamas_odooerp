@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+
+<record id="tbl_mnt_lokasi_stock_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_lokasi_stock</field>
+    <field name="model">tbl_mnt_lokasi_stock</field>
+    <field name="arch" type="xml">
+        <tree string="Lokasi Aset" editable="bottom">
+          <field name="name"/>
+
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_config" model="ir.actions.act_window">
+    <field name="name">Lokasi Stok</field>
+    <field name="res_model">tbl_mnt_lokasi_stock</field>
+    <field name="view_mode">tree</field>
+</record> 
+
+<menuitem name="Lokasi Stock" id="menu_mnt_config_left" action="action_mnt_config" parent="menu_mnt_config"  sequence="10"/>
+
+
+
+
+</odoo>

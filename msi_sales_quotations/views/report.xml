@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record model="ir.ui.view" id="tbl_report_uangmuka_form">
+        <field name="name">tbl_report_uangmuka.form</field>
+        <field name="model">tbl_report_uangmuka</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+                  <button name="act_get" string="Get" type="object" class="oe_highlight"/>
+                  <button name="print_xls_report" string="Print XLS" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+
+                 <group>
+                    <group>
+                      <field name="tgl_awal"/>
+            	      
+		     </group>
+		     <group>
+                <field name="data" filename="name"/>
+                     </group>
+	         </group>
+
+		 <field name="detail">
+                      <tree string="Detail Action" create="false" edit="false">
+        			  <field name="name"/>
+        			  <field name="date"/>
+        			  <field name="employee_id"/>
+                                  <field name="saldo"/>
+                                  <field name="age30"/>
+                                  <field name="age60"/>
+                                  <field name="age90"/>
+                                  <field name="age120"/>
+                                  <field name="age121"/>
+		             </tree>
+	         </field>
+	      </sheet>
+
+	    </form>
+	  </field>
+	</record>
+
+
+
+    <record model="ir.actions.act_window" id="tbl_report_uangmuka">
+        <field name="name">Aging Advance</field> 
+        <field name="res_model">tbl_report_uangmuka</field> 
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem  name="Aging Advance" id="menu_left_addon_report" action="tbl_report_uangmuka" parent="menu_top_addon_report" sequence="10" />
+
+    </data>
+</odoo>

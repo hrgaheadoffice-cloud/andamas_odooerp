@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="component_tree" model="ir.ui.view">
+        <field name="name">component.tree</field>
+        <field name="model">component</field>
+        <field name="arch" type="xml">
+            <tree string="Component">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="component_form" model="ir.ui.view">
+        <field name="name">component.form</field>
+        <field name="model">component</field>
+        <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <group>
+                       <field name="name"/>
+                       <field name="company_id"/>
+                   </group>
+               </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_component" model="ir.actions.act_window">
+        <field name="name">Component</field>
+        <field name="res_model">component</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Pareto" id="menu_component" action="action_component" parent="menu_mnt_master_data"  sequence="40"/>
+</odoo>

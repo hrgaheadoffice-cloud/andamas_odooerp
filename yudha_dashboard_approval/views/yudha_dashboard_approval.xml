@@ -1,0 +1,14 @@
+ <odoo>
+    <data>
+        <record id="yudha_dashboard_approval.approval_menu_action_window" model="ir.actions.client">
+            <field name="name">Approval Menu</field>
+            <field name="tag">yudha_approval_menu</field>
+<!--            <field name="params" eval="{'ks_dashboard_id': ref('ks_dashboard_ninja.ks_my_default_dashboard_board')}"/>-->
+<!--            <field name="res_model">ks_dashboard_ninja.board</field>-->
+<!--            <field name="context" eval="{'ks_dashboard_id': ref('ks_dashboard_ninja.ks_my_default_dashboard_board')}"/>-->
+        </record>
+        <menuitem name="Approval Menu" id="yudha_dashboard_approval.board_menu_root"
+                  web_icon="yudha_dashboard_approval,static/description/icon.png"
+                  action="yudha_dashboard_approval.approval_menu_action_window"/>
+    </data>
+ </odoo>

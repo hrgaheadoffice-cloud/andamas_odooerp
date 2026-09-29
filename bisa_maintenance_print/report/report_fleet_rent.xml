@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <template id="report_fleet_rent_pdf" inherit_id="fleet_rent.report_fleet_rent_pdf">
+            <xpath expr="." position="replace">
+                <t t-call="web.html_container">
+                    <t t-as="doc" t-foreach="docs">
+                        <t t-call="bisa_maintenance_print.custom_layout">
+                            <t t-set="report_type" t-value="'customer_rent'"/>
+                            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+
+                            <div class="page">
+                                <div class="oe_structure"/>
+                                <div class="row header_doc">
+                                    <div class="row col-12" style="margin-top: 75px;">
+                                        <div class="col-6 mb4">
+                                            <div class="row">
+                                                <div class="col-12 mb4">
+                                                    <h4>CONTRACT</h4>
+                                                </div>
+                                            </div>
+                                            <div class="vendor-info">
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div>Customer Name</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.partner_id" /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div>Customer Address</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.partner_id"
+                                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                                                        /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div>Start Date</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.date_start" /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div>End Date</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.date_end" /></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mb4">
+                                            <div class="row">
+                                                <div class="col-12 mb4">
+                                                    <h4>RENTAL</h4>
+                                                </div>
+                                            </div>
+                                            <div class="other-info">
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div>Rent Closes By</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.rent_close_by"/></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div style="margin-left: 0px;" class="row">Close Reason</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.close_reson"/></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div style="margin-left: 0px;" class="row">Rental Amount</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.rent_amt"/></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div style="margin-left: 0px;" class="row">Maintenance Amount</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.maintenance_cost" /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 mb4 label">
+                                                        <div style="margin-left: 0px;" class="row">Duration</div>
+                                                    </div>
+                                                    <div class="col-6 mb4 value">
+                                                        <div>: <span t-field="doc.duration" /> days</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                                <style>
+                                    table, th, td {
+                                        border: 1px solid black !important;
+                                    }
+                                </style>
+                                <table style="margin-top: 50px;" class="table custom-table-bordered table-sm o_main_table">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead style="display: table-row-group; background-color: #0E709A; color: white;">
+                                        <tr>
+                                            <th name="th_no" class="text-center">FLEET DETAILS</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table style="margin-top: 50px;" class="table custom-table-bordered table-sm o_main_table">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <tbody class="sale_tbody">
+                                        <tr>
+                                            <td class="text-left font-weight-bold">UNIT CODE</td>
+                                            <td class="text-left font-weight-bold">DURATION UNIT</td>
+                                            <td class="text-left font-weight-bold">PRICE UNIT</td>
+                                            <td class="text-right font-weight-bold">DURATION</td>
+                                            <td class="text-right font-weight-bold">SUBTOTAL</td>
+                                        </tr>
+
+                                        <t t-foreach="doc.fleet_rent_detail_ids" t-as="line">
+                                            <tr class="bg-200 font-weight-bold o_line_section">
+                                                <td name="td_unit_code"><span t-field="line.equipment_id"/></td>
+                                                <td name="td_duration_unit"><span t-field="line.duration_unit"/></td>
+                                                <td name="td_price"><span t-field="line.price"/></td>
+                                                <td name="td_duration" class="text-right">
+                                                    <span t-field="line.duration"/>
+                                                </td>
+                                                <td name="td_subtotal" class="text-right">
+                                                    <span t-field="line.subtotal"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </xpath>
+       </template>
+    </data>
+</odoo>

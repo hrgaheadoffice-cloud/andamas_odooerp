@@ -1,0 +1,87 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="fuel_consumption_tree_view" model="ir.ui.view">
+        <field name="name">fuel.consumption.tree.view</field>
+        <field name="model">fuel.consumption</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="driver"/>
+                <field name="hm" string="HM/KM"/>
+                <field name="fuel_qty"/>
+                <field name="company_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fuel_consumption_form_view" model="ir.ui.view">
+        <field name="name">fuel.consumption.form.view</field>
+        <field name="model">fuel.consumption</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_submit" class="oe_highlight" string="Submit" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="no_ticket" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="created_by"/>
+                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="shift" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="equipment_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="hm" string="KM/HM Running" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="operation" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="plotting"/>
+                        </group>
+                        <group>
+                            <field name="driver" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="fuel_source" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="owner" attrs="{'readonly': [('state', '!=', 'draft')]}" readonly="1"/>
+                            <field name="fuel_man" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="product_id" attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('owner', '!=', 'internal')]}" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="begin_balance" attrs="{'invisible': [('owner', '!=', 'internal')]}" readonly="1" force_save="1"/>
+                            <field name="fuel_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+<!--                            <field name="final_balance"/>-->
+                            <field name="total_price"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fuel_consumption_operation_form_view" model="ir.ui.view">
+        <field name="name">fuel.consumption.operation.form.view</field>
+        <field name="model">fuel.consumption.operation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="incomming_account"/>
+                            <field name="outgoing_account"/>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fuel_consumption_action" model="ir.actions.act_window">
+        <field name="name">Fuel Consumption</field>
+        <field name="res_model">fuel.consumption</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="fuel_consumption_action" id="menu_fuel_consumption" name="Fuel Consumption" parent="menu_fuel_management_root" sequence="10"/>
+</odoo>

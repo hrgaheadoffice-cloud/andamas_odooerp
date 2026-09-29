@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+fuel_inventory,fuel_inventory,model_fuel_inventory,,1,1,1,1
+fuel_stock,fuel_stock,model_fuel_stock,,1,1,1,1
+fuel_consumption,fuel_consumption,model_fuel_consumption,,1,1,1,1
+fuel_consumption_operation,fuel_consumption_operation,model_fuel_consumption_operation,,1,1,1,1
+fuel_source,fuel_source,model_fuel_source,,1,1,1,1
+detail_refueling,detail_refueling,model_detail_refueling,,1,1,1,1
+

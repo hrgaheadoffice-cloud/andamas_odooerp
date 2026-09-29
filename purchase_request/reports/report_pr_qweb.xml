@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_pr_rmb_cek_rekomend_a1_qweb">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">             
+                                        <div class="header">
+                                            <table style="width:100%; margin-bottom:0pt; border-collapse:collapse;">
+                                                <tbody>
+                     
+                                            <tr>
+                                                <td colspan="3" rowspan="3" style="vertical-align:middle;">
+                                                    <p class="Header" style="font-size:10pt;"><strong><span style="font-family:Arial;" t-field="doc.company_id.name" ></span></strong></p>
+<!--                                                    <p class="Header" style="font-size:10pt;"><strong><span style="font-family:Arial;" t-field="doc.cost_center.name"></span></strong></p>-->
+                                                </td>
+                                                <td style="vertical-align:top;">
+                                                    <p class="Header" style="text-align:center;">
+                                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" width="100" height="38" alt=""/>
+                                                    </p>
+                                                </td>
+                                                <td rowspan="3" style="width:22.98%; vertical-align:top;">
+                                                    <p class="Header" style="text-align:right; font-size:7pt;"><strong><span style="font-family:Arial;" t-field="doc.proc_group_id.name"></span></strong></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style=" vertical-align:top;">
+                                                    <p class="Header" style="text-align:center; font-size:7pt;"><strong><span style="font-family:Arial;"></span></strong><strong><span style="font-family:Arial;">PURCHASE REQUISITION</span></strong></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;">
+                                                    <p class="Header" style="text-align:center; font-size:7pt;"><span style="font-family:Arial; color:#ff0000;" t-field="doc.name"></span></p>
+                                                </td>
+                                            </tr>
+                                             </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="page">
+                                        <table style="width:100%; margin-bottom:0pt; border-collapse:collapse;">
+                                                <tbody>
+                                            <!-- Di sini Anda bisa menambahkan field dari server Odoo sesuai dengan kebutuhan -->
+                                            <tr>
+                                                <td style="width:16.66%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">DEPARTMENT</span></p>
+                                                </td>
+                                                <td style="width:2.78%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">:</span></p>
+                                                </td>
+                                                <td colspan="2" style="padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="doc.department_id.name"></span></p>
+                                                </td>
+                                                <td style="vertical-align:top;"><br/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:16.66%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">PR DATE</span></p>
+                                </td>
+                                <td style="width:2.78%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">:</span></p>
+                                </td>
+                                <td colspan="2" style="padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="doc.date_start"></span></p>
+                                </td>
+                                <td style="vertical-align:top;"><br/></td>
+                            </tr>
+                            <tr>
+                                <td style="width:16.66%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">PRIORITY</span></p>
+                                </td>
+                                <td style="width:2.78%; padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">:</span></p>
+                                </td>
+                                <td colspan="2" style="padding-top:2.85pt; padding-bottom:2.85pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="doc.priority"></span></p>
+                                </td>
+                                <td style="vertical-align:top;"><br/></td>
+                            </tr>
+                            <tr style="height:0pt;">
+                                <td style="width:85.85pt;"><br/></td>
+                                <td style="width:14.35pt;"><br/></td>
+                                <td style="width:126.7pt;"><br/></td>
+                                <td style="width:170.1pt;"><br/></td>
+                                <td style="width:118.45pt;"><br/></td>
+                            </tr>
+                        </tbody>
+                    </table>           
+                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; text-align:justify; font-size:8pt;">&#160;</p> -->
+                     <table style="width=100%; margin-bottom:0pt; border:0.75pt solid #000000; border-collapse:collapse;">
+                        <tbody>
+                            <tr>
+                                <td style="width:2%; border-right:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">No.</span></strong></p>
+                                </td>
+                                <td style="width:8%; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">PART NO.</span></strong></p>
+                                </td>
+                                <td style="width:30%; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">DESCRIPTION</span></strong></p>
+                                </td>
+                                <td style="width:5%; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">QTY</span></strong></p>
+                                </td>
+                                <td style=" border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">UOM</span></strong></p>
+                                </td>
+                                <td style=" width:5%;border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">ON HAND</span></strong></p>
+                                </td>
+                                <td style=" border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">REQUIRED DATE</span></strong></p>
+                                </td>
+                                <td style=" width:12%;border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">ESTIMATION PRICE</span></strong></p>
+                                </td>
+                                <td style=" border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">SUBTOTAL</span></strong></p>
+                                </td>
+                                <td style=" width:20%;border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">REMARKS / PURPOSE</span></strong></p>
+                                </td>
+                                </tr>
+                               
+                            <tr t-foreach="doc.line_ids" t-as="line">
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="line_index + 1"/>.
+                                        </span>
+                                    </p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.product_id.default_code"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; vertical-align:top; text-align:left;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;"></span><span style="font-family:Arial;"></span><span style="font-family:Arial;" t-field="line.name"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:left;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.product_qty"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.product_uom_id.name"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.qty_available">&#160;</span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000;border-bottom:0.75pt solid #000000;  padding:4.25pt 3.88pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.date_required"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:7pt;"><span style="font-family:Arial;"></span><span style="font-family:Arial;">&#160;</span><span style="font-family:Arial;" t-field="line.estimated_price_unit"></span></p>
+                                </td>
+                                <td style=" border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000;  padding:4.25pt 3.88pt; vertical-align:top;text-align:center;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:7pt;"><span style="font-family:Arial;"></span><span style="font-family:Arial;">&#160;</span><span style="font-family:Arial;"  t-field="line.estimated_cost"></span></p>
+                                    <!-- <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">&#160;</span></p> -->
+                                </td>
+                                
+                                <td style=" border-top:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:top; text-align:left;">
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;"><span style="font-family:Arial;" t-field="line.specifications">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:7pt;" t-if="line.file_name">
+                                        <span style="font-family:Arial;">Attachment :</span>
+                                        <span style="font-family:Arial;" t-field="line.file_name">&#160;</span>
+                                    </p>
+                                </td>
+
+                            </tr>
+                             <tr style="height:17pt;">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td style="width:460pt; border-right:0.75pt solid #000000; border-bottom:0.75pt  padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;&#160;&#160;&#160;&#160;</span><strong>Total</strong></p>
+                                </td>
+                                <td style=" border-left:0.75pt solid #000000; padding-right:5.03pt; border-bottom:0.75pt solid #000000; border-right:0.75pt solid #000000; padding-left:5.03pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:7pt;"><strong><span style="font-family:Arial;"></span></strong><strong><span style="font-family:Arial;"></span></strong><strong><span style="font-family:Arial;" t-field="doc.harga_total"></span></strong></p>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table   style="width=100%; margin-bottom:0pt; border:0.75pt solid #000000; border-collapse:collapse;">
+                        <tbody>
+                        <!-- <tr>
+                                <td style="width:2%;  solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">No.</span></strong></p>
+                                </td>
+                                <td style="width:8%;  solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial; color:white;">PART NO.</span></strong></p>
+                                </td>
+                                <td style="width:30%;  solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">DESCRIPTION</span></strong></p>
+                                </td>
+                                <td style="width:5%;  solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">QTY</span></strong></p>
+                                </td>
+                                <td style="  solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">UOM</span></strong></p>
+                                </td>
+                                <td style=" width:5%; solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">ON HAND</span></strong></p>
+                                </td>
+                                <td style="  solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">REQUIRED DATE</span></strong></p>
+                                </td>
+                                <td style=" width:12%; solid #000000; solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;">Total</span></strong></p>
+                                </td>
+                                <td style="border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;" t-field="doc.harga_total"></span></strong></p>
+                                </td>
+                                <td style=" width:20%;border-left:0.75pt solid white; border-bottom:0.75pt solid white; border-right:0.75pt solid white; padding:4.25pt 3.88pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><strong><span style="font-family:Arial;  color:white;">REMARKS / PURPOSE</span></strong></p>
+                                </td>
+                            </tr> -->
+                            <!-- <tr style="height:17pt;">
+                                <td style="width:460pt; border-right:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;&#160;&#160;&#160;&#160;</span><strong>Total</strong></p>
+                                </td>
+                                <td style=" border-left:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:right; line-height:normal; font-size:7pt;"><strong><span style="font-family:Arial;"></span></strong><strong><span style="font-family:Arial;"></span></strong><strong><span style="font-family:Arial;" t-field="doc.harga_total"></span></strong></p>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                    </div>
+                    <br/>
+                    <br/>
+                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; text-align:justify; font-size:8pt;">&#160;</p> -->
+                    <div class="tanda_tangan">
+                    <table style="width:535pt; margin-right:auto; margin-left:auto; margin-bottom:0pt; border-collapse:separate;">
+                        <tbody>
+                            <tr >
+                            <t t-if="doc.requested_by">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.requested_by.tanda_tangan)"/>-->
+                                <td style="width:120px; height:120px; vertical-align:middle;">
+                                    <t t-if="doc.requested_by">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Prepared By,</span></p>
+                                    </t>
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+<!--                                        <t t-if="doc.request_dt">-->
+<!--                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>-->
+<!--                                        </t>-->
+                                        <t t-else="">
+                                            <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                            </p>
+                                        </t>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.requested_by.name if doc.requested_by else ''"/>
+                                        </span>
+                                    </p>
+<!--                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">-->
+<!--                                        <span style="font-family:Arial;">-->
+<!--                                            <t t-esc="doc.request_dt if doc.request_dt else ''"/>-->
+<!--                                        </span>-->
+<!--                                    </p>-->
+                                </td>
+                                </t>
+                                <t t-if="doc.prepared_by">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.prepared_by.tanda_tangan)"/>-->
+                                <td style="width:120px; height:120px; vertical-align:middle;">
+                                    <t t-if="doc.prepared_by">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Requested By,</span></p>
+                                    </t>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p> -->
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <t t-if="doc.prepare_dt">
+                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                        <t t-else="">
+                                            <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                            </p>
+                                        </t>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.prepared_by.name if doc.prepared_by else ''"/>
+                                        </span>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.prepare_dt if doc.prepare_dt else ''"/>
+                                        </span>
+                                    </p>
+                                </td>
+                                </t>
+                                <td style="width:120px; height:120px; vertical-align:middle;">
+                                <t t-if="doc.recommended_by">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.recommended_by.tanda_tangan)"/>-->
+                                    <t t-if="doc.recommended_by">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Recommended By,</span></p>
+                                    </t>
+                                   
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <t t-if="doc.recommended_dt">
+                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                        <t t-else="">
+                                            <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                            </p>
+                                        </t>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.recommended_by.name if doc.recommended_by else ''"/>
+                                        </span>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.recommended_dt if doc.recommended_dt else ''"/>
+                                        </span>
+                                    </p>
+                                </t>
+                                </td>
+                                <t t-if="doc.checked_by">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.checked_by.tanda_tangan)"/>-->
+                                <td style="vertical-align:middle;">
+                                    <t t-if="doc.checked_by">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Checked By,</span></p>
+                                    </t>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Checked By,</span></p> -->
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p> -->
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"> -->
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <t t-if="doc.checked_dt">
+                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                        <t t-else="">
+                                            <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                            </p>
+                                        </t>
+                                    </p>
+                                     <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.checked_by.name if doc.checked_by else ''"/>
+                                        </span>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.checked_dt if doc.checked_dt else ''"/>
+                                        </span>
+                                    </p>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><u><span style="font-family:Arial;">( <span t-field="doc.checked_by.name" /> )</span></u></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><span style="font-family:Arial;"><span t-field="doc.checked_dt" /></span></p> -->
+                                </td>
+                                </t>
+                                <t t-if="doc.verified_by">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.verified_by.tanda_tangan)"/>-->
+                                <td style="width:120px; height:120px; vertical-align:middle;">
+                                    <t t-if="doc.verified_by">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Verified By,</span></p>
+                                    </t>
+                                     
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Verified By,</span></p> -->
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p> -->
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <t t-if="doc.verify_dt">
+                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                        <t t-else="">
+                                         <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                         </p>
+                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                    </t>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.verified_by.name if doc.verified_by else ''"/>
+                                        </span>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.verify_dt if doc.verify_dt else ''"/>
+                                        </span>
+                                    </p>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><u><span style="font-family:Arial;">( <span t-field="doc.verified_by.name" /> )</span></u></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><span style="font-family:Arial;"><span t-field="doc.verify_dt" /></span></p> -->
+                                </td>
+                                </t>
+                                <t t-if="doc.assigned_to">
+<!--                                <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.assigned_to.tanda_tangan)"/>-->
+                                <td style="width:120px; height:120px; vertical-align:middle;">
+                                    <t t-if="doc.assigned_to">
+                                        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                    </t>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p> -->
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">&#160;</span></p> -->
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <t t-if="doc.assign_to_dt">
+                                            <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                         <t t-else="">
+                                         <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                         </p>
+                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                    </t>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.assigned_to.name if doc.assigned_to else ''"/>
+                                        </span>
+                                    </p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                        <span style="font-family:Arial;">
+                                            <t t-esc="doc.assign_to_dt if doc.assign_to_dt else ''"/>
+                                        </span>
+                                    </p>
+                                    <!-- <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><u><span style="font-family:Arial;">( <span t-field="doc.assigned_to.name" /> )</span></u></p>
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;"><span style="font-family:Arial;"><span t-field="doc.assign_to_dt" /></span></p> -->
+                                </td>
+                                </t>
+                                </tr>
+                                <tr style="height:59.8pt;">
+                                 <td style="width:91.2pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                </td>
+                                <!-- <t t-if="doc.assigned_to">
+                                    <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.assigned_to.tanda_tangan)"/>
+                                        <td style="width:120px; height:120px; vertical-align:middle;">
+                                                <t t-if="doc.assigned_to">
+                                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                                </t>
+                                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                    <t t-if="doc.assign_to_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                                    </t>
+                                                     <t t-else="">
+                                                        <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                        </p>
+                                                    </t>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.assigned_to.name if doc.assigned_to else ''"/>
+                                                    </span>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.assign_to_dt if doc.assign_to_dt else ''"/>
+                                                    </span>
+                                                </p>
+                                        </td>
+                                    </t> -->
+                                 <t t-if="doc.appr1">
+<!--                                    <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr1.tanda_tangan)"/>-->
+                                        <td style="width:120px; height:120px; vertical-align:middle;">
+                                                <t t-if="doc.appr1">
+                                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                                </t>
+                                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                    <t t-if="doc.appr1_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                        </p>
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                    </t>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr1.name if doc.appr1 else ''"/>
+                                                    </span>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr1_dt if doc.appr1_dt else ''"/>
+                                                    </span>
+                                                </p>
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.appr2">
+<!--                                    <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr2.tanda_tangan)"/>-->
+                                        <td style="width:120px; height:120px; vertical-align:middle;">
+                                                <t t-if="doc.appr2">
+                                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                                </t>
+                                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                    <t t-if="doc.appr2_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                        </p>
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                    </t>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr2.name if doc.appr2 else ''"/>
+                                                    </span>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr2_dt if doc.appr2_dt else ''"/>
+                                                    </span>
+                                                </p>
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.appr3">
+<!--                                    <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr3.tanda_tangan)"/>-->
+                                        <td style="width:120px; height:120px; vertical-align:middle;">
+                                                <t t-if="doc.appr3">
+                                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                                </t>
+                                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                    <t t-if="doc.appr3_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                        </p>
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                    </t>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr3.name if doc.appr3 else ''"/>
+                                                    </span>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr3_dt if doc.appr3_dt else ''"/>
+                                                    </span>
+                                                </p>
+                                        </td>
+                                    </t>
+                                     <t t-if="doc.appr4">
+<!--                                    <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr4.tanda_tangan)"/>-->
+                                        <td style="width:120px; height:120px; vertical-align:middle;">
+                                                <t t-if="doc.appr4">
+                                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;"><span style="font-family:Arial;">Approved By,</span></p>
+                                                </t>
+                                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                    <t t-if="doc.appr4_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <p style="width:120px; height:120px; margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                                        </p>
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                        <!-- <img src="" width="120px" height="120px" alt="" style="border: 0; !important;" /> -->
+                                                    </t>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:8pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr4.name if doc.appr4 else ''"/>
+                                                    </span>
+                                                </p>
+                                                <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:6pt;">
+                                                    <span style="font-family:Arial;">
+                                                        <t t-esc="doc.appr4_dt if doc.appr4_dt else ''"/>
+                                                    </span>
+                                                </p>
+                                        </td>
+                                    </t>
+                                <!-- <td style="width:86.5pt; vertical-align:middle;">
+                                    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:7pt;"><span style="font-family:Arial;">&#160;</span></p>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

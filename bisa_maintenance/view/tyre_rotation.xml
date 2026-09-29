@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_tyre_rotation_tree'>
+        <field name="name">view.tyre.rotation.tree</field>
+        <field name="model">tyre.rotation</field>
+        <field name="arch" type="xml">
+            <tree string="Tyre Rotation" create="0">
+                <field name="tr_date"/>
+                <field name="company_id"/>
+                <field name="tr_tire_service_id"/>
+                <field name="tr_equipment_id"/>
+                <field name="meter_type"/>
+                <field name="kmhm_running"/>
+                <field name="tr_pos"/>
+
+<!--                tyre removal-->
+                <field name="tr_size"/>
+                <field name="tr_serial_number"/>
+                <field name="tr_product_id"/>
+                <field name="tr_pattern"/>
+                <field name="tr_otd"/>
+                <field name="tr_rtd"/>
+                <field name="tr_rtd_2"/>
+                <field name="tr_rtd_average"/>
+                <field name="tr_rtd_percentage"/>
+                <field name="tr_tur"/>
+                <field name="tr_pressure_hc"/>
+                <field name="tr_pressure_hp"/>
+                <field name="tr_remove_price"/>
+                <field name="tr_problem"/>
+                <field name="tr_remarks"/>
+
+<!--                tyre_fitment-->
+                <field name="tf_size"/>
+                <field name="tf_serial_number"/>
+                <field name="tf_product_id"/>
+                <field name="tf_pattern"/>
+                <field name="tf_otd"/>
+                <field name="tf_rtd"/>
+                <field name="tf_rtd_2"/>
+                <field name="tf_rtd_average"/>
+                <field name="tf_rtd_percentage"/>
+                <field name="tf_tur"/>
+                <field name="tf_pressure_hc"/>
+                <field name="tf_pressure_hp"/>
+                <field name="tf_install_price"/>
+                <field name="tf_tyre_type"/>
+                <field name="tf_remarks"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tyre_rotation_search" model="ir.ui.view">
+        <field name="model">tyre.rotation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tr_equipment_id"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_tyre_rotation_view" model="ir.actions.act_window">
+        <field name="name">Tyre Rotation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tyre.rotation</field>
+        <field name="search_view_id" ref="view_tyre_rotation_search"/>
+    </record>
+
+    <menuitem name="Tyre Rotation" id="menu_tyre_rotation" parent="menu_mnt_matrial_top" action="action_tyre_rotation_view" sequence="30"/>
+</odoo>

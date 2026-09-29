@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_orders_tree'>
+        <field name="name">view.fsm.orders.tree</field>
+        <field name="model">fsm.orders</field>
+        <field name="arch" type="xml">
+            <tree string="Order">
+                <field name="date"/>
+                <field name="sale_order_id"/>
+                <field name="name"/>
+                <field name="route_id"/>
+<!--                <field name="cost"/>-->
+                <field name="state" string="Status"/>
+                <field name="created_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_orders_form'>
+        <field name="name">view.fsm.orders.form</field>
+        <field name="model">fsm.orders</field>
+        <field name="arch" type="xml">
+            <form string="Order">
+                <header>
+                    <button type="object" name="action_progress" class="oe_highlight" string="Confirm" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button type="object" name="action_close" class="oe_highlight" string="Complete" attrs="{'invisible': [('state', '!=', 'progress')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,progress,done,close"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> No. Transporter Order </span>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="created_by"/>
+                            <field name="date"/>
+                            <field name="product_route"/>
+                            <field name="transporter_type"/>
+                            <field name="route_id"/>
+                        </group>
+                        <group>
+                            <field name="loading_location"/>
+                            <field name="unloading_location"/>
+                            <field name="distance"/>
+<!--                            <field name="cost"/>-->
+                            <field name="total_qty" string="Order Qty (MT)"/>
+                            <field name="achieve_qty" string="Achievement Qty (MT)" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_transporter_order_search" model="ir.ui.view">
+        <field name="model">fsm.orders</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_route"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_orders_view" model="ir.actions.act_window">
+        <field name="name">Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.orders</field>
+    </record>
+
+    <menuitem name="Order" id="menu_fsm_orders" parent="planning" action="action_fsm_orders_view" sequence="1"/>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <!-- Update Action -->
+        <record id="fieldservice.root" model="ir.ui.menu">
+            <field name="name">Transporter</field>
+        </record>
+        <record model="ir.ui.menu" id="fieldservice.menu_fsm_person">
+            <field name="name">Drivers</field>
+        </record>
+        <record model="ir.actions.act_window" id="bisa_maintenance.action_master_asset_maintenance">
+            <field name="name">Asset Management</field>
+        </record>
+    </data>
+</odoo>

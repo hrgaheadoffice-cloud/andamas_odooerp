@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_out_maintenance_document">
+            <t t-call="bisa_maintenance.custom_layout">
+                <t t-set="report_type" t-value="'requisition_printout'"/>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.created_by.lang)" />
+
+                <div class="page" style="font-size: 8px !important;">
+                    <div class="oe_structure"/>
+                    <div class="row header_doc">
+                        <div class="row col-12" style="margin-top:10px; font-size: 10px !important;">
+                            <div class="col-6 mb4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6>Request Information</h6>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Date and Time</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.date"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>WO No</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.wo_number"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Unit Code</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.equipment_id"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Maintenance Type</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.maintenance_type"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Maintenance Activity</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.maintenance_activity.name"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Schedule Activity</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.schedule_activity.name"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6>Process Information</h6>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Requested By</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.created_by"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Approval By</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.approval"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <style>
+                        table, th, td {
+                            border: 1px solid black !important;
+                        }
+                        .sale_tbody td[name="td_remarks"] {
+                            width: 40%;
+                        }
+                    </style>
+                    <table style="margin-top: 10px;" class="table custom-table-bordered table-sm o_main_table">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead style="display: table-row-group; background-color: #0E709A; color: white;">
+                            <tr>
+                                <th name="th_no" class="text-center">No</th>
+                                <th name="th_part_number" class="text-left">Part Number</th>
+                                <th name="th_part_name" class="text-left">Part Name</th>
+                                <th name="th_interchange" class="text-left">Interchange</th>
+                                <th name="th_quantity" class="text-center">QTY</th>
+                                <th name="th_avail_quantity" class="text-right">Available QTY</th>
+                                <th name="th_uom" class="text-center">UOM</th>
+                                <th name="th_no_gi" class="text-center">Nomor GI</th>
+                                <th name="th_status" class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-set="index" t-value="0"/>
+
+                            <t t-foreach="doc.req_product" t-as="line">
+                                <t t-set="index" t-value="index + 1"/>
+
+                                <tr class="bg-200 font-weight-bold o_line_section">
+                                    <td name="td_no" class="text-center"><span t-esc="index"/></td>
+                                    <td name="td_part_number"><span t-field="line.product_code"/></td>
+
+                                    <td name="td_part_name"><span t-field="line.item_description"/></td>
+                                    <td name="td_part_name"><span t-field="line.interchange"/></td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.qty"/>
+                                    </td>
+                                    <td name="td_avail_quantity" class="text-right">
+                                        <span t-field="line.avail_qty"/>
+                                    </td>
+                                    <td name="td_uom" class="text-center">
+                                        <span t-field="line.uom.name"/>
+                                    </td>
+                                    <td name="td_nogi" class="text-center"><span t-field="line.no_gi"/></td>
+                                    <td name="td_status_gi" class="text-center"><span t-field="line.status_gi"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        <template id="requisition_print_out">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bisa_maintenance.print_out_maintenance_document" t-lang="doc.created_by.lang"/>
+                </t>
+            </t>
+        </template>
+
+    <record id="action_print_out_requisition" model="ir.actions.report">
+       <field name="name">Requisition</field>
+       <field name="model">requisition</field>
+       <field name="report_type">qweb-pdf</field>
+       <field name="report_name">bisa_maintenance.requisition_print_out</field>
+       <field name="report_file">bisa_maintenance.requisition_print_out</field>
+       <field name="print_report_name">'Print Out - %s' % (object.name)</field>
+       <field name="binding_model_id" ref="bisa_maintenance.model_requisition"/>
+       <field name="binding_type">report</field>
+<!--       <field name="paperformat_id" ref="paperformat_a5"/>-->
+    </record>
+</odoo>

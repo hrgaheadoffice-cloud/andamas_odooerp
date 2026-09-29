@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="fsm_asset_kmhm_move_seq" model="ir.sequence">
+            <field name="name">FSM Asset KM/HM Move Sequence</field>
+            <field name="code">fsm.asset.kmhm.move.seq</field>
+            <field name="prefix">AKMMOVE.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="fsm_advance_claim_payroll_seq" model="ir.sequence">
+            <field name="name">FSM Advance Claim Payroll Sequence</field>
+            <field name="code">fsm.advance.claim.payroll.seq</field>
+            <field name="prefix">ADCP.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="fsm_cost_advance_seq" model="ir.sequence">
+            <field name="name">FSM Cost Advance Sequence</field>
+            <field name="code">fsm.cost.advance.seq</field>
+            <field name="prefix">ADUJ.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="fsm_order_seq" model="ir.sequence">
+            <field name="name">FSM Order Sequence</field>
+            <field name="code">fsm.order.seq</field>
+            <field name="prefix">SPK.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="fsm_transporter_task_seq" model="ir.sequence">
+            <field name="name">FSM Transporter Task Sequence</field>
+            <field name="code">fsm.transporter.task.seq</field>
+            <field name="prefix">NUJ.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="fsm_delivery_order_seq" model="ir.sequence">
+            <field name="name">FSM Delivery Order Sequence</field>
+            <field name="code">fsm.delivery.order.seq</field>
+            <field name="prefix">DOW.%(y)s.%(month)s.%(day)s.</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

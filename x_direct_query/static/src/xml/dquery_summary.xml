@@ -1,0 +1,25 @@
+<templates id="direct_query_template" xml:space="preserve">
+
+    <t t-name="DirectQueryShow">
+        <div style="overflow:auto;">
+            <table border="1" class="table table-condensed">
+                <t t-foreach="widget.summary_header" t-as="header_detail">
+                <thead>
+                <tr>
+                    <t t-foreach="header_detail.header" t-as="header_name">
+                        <th class="table_header" ><t t-esc="header_name"/></th>
+                    </t>
+                </tr>
+                </thead>
+                </t>
+                <tbody>
+                <t t-foreach="widget.room_summary" t-as="detail">
+                    <tr>
+                        <td style="text-align:center;"><t t-esc="detail"/></td>
+                    </tr>
+                </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--Billing Category-->
+    <record model="ir.module.category" id="account_billing_rights">
+      <field name="name">Account Billing Rights</field>
+      <field name="description">Category For Account Rights</field>
+    </record>
+    <record id="account_billing_confirm" model="res.groups">
+        <field name="name">Billing Admin</field>
+        <field name="category_id" ref="account_billing_rights"/>
+    </record>
+    <record id="account_billing_approve" model="res.groups">
+        <field name="name">Billing Approver</field>
+        <field name="category_id" ref="account_billing_rights"/>
+    </record>
+    <record id="account_billing_tax_approve" model="res.groups">
+        <field name="name">Billing Tax Approver</field>
+        <field name="category_id" ref="account_billing_rights"/>
+    </record>
+    <record id="account_billing_cancel" model="res.groups">
+        <field name="name">Billing Cancel</field>
+        <field name="category_id" ref="account_billing_rights"/>
+    </record>
+    <!--Invoice Section-->
+    <record model="ir.module.category" id="account_invoice_rights">
+      <field name="name">Account Invoice Rights</field>
+      <field name="description">Category For Account Rights</field>
+    </record>
+    <record id="account_invoice_confirm" model="res.groups">
+        <field name="name">Invoice Admin</field>
+        <field name="category_id" ref="account_invoice_rights"/>
+    </record>
+    <record id="account_invoice_approve" model="res.groups">
+        <field name="name">Invoice Approver</field>
+        <field name="category_id" ref="account_invoice_rights"/>
+    </record>
+    <record id="account_invoice_tax_approve" model="res.groups">
+        <field name="name">Invoice Tax Approver</field>
+        <field name="category_id" ref="account_invoice_rights"/>
+    </record>
+    <record id="account_invoice_cancel" model="res.groups">
+        <field name="name">Invoice Cancel</field>
+        <field name="category_id" ref="account_invoice_rights"/>
+    </record>
+
+<!--Payment Category-->
+    <record model="ir.module.category" id="account_payment_rights">
+      <field name="name">Account Payment Rights</field>
+      <field name="description">Category For Account Rights</field>
+    </record>
+    <record id="account_payment_confirm" model="res.groups">
+        <field name="name">Payment Admin</field>
+        <field name="category_id" ref="account_payment_rights"/>
+    </record>
+    <record id="account_payment_approve" model="res.groups">
+        <field name="name">Payment Approver</field>
+        <field name="category_id" ref="account_payment_rights"/>
+    </record>
+    <record id="account_manager_approve" model="res.groups">
+        <field name="name">Manager Approver</field>
+        <field name="category_id" ref="account_payment_rights"/>
+    </record>
+    <record id="account_payment_cancel" model="res.groups">
+        <field name="name">Payment Cancel</field>
+        <field name="category_id" ref="account_payment_rights"/>
+    </record>
+<!--    cash advance-->
+    <record model="ir.module.category" id="cash_advance_rights">
+      <field name="name">Cash Advance Rights</field>
+      <field name="description">Category For Cash AdvanceRights</field>
+    </record>
+    <record id="cash_advance_menu" model="res.groups">
+        <field name="name">Cash Advance Menu</field>
+        <field name="category_id" ref="cash_advance_rights"/>
+    </record>
+</odoo>

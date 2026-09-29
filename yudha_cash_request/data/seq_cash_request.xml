@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for hr_resignation -->
+        <record id="seq_cash_request_seq" model="ir.sequence">
+            <field name="name">Cash Request Sequence</field>
+            <field name="code">cash.request</field>
+            <field name="prefix">CR/</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

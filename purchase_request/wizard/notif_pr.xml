@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record id="view_tbl_notif_pr" model="ir.ui.view">
+        <field name="name">tbl_notif_pr</field>
+        <field name="model">tbl_notif_pr</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Create RFQ">
+                <group>
+                    <group>
+                        <field name="pr_id"/>
+                        <field name="estimated_cost"/>
+                        <field name="analytic_account_id"/>
+                        <field name="avail_budget" />
+                        <field name="notif" readonly="1"/>
+                    </group>
+
+                    <group>
+
+                            
+                    </group>
+                </group>
+
+                <footer>
+                    <!-- <button 
+                        name="make_purchase_order"
+                        string="Create RFQ"
+                        type="object"
+                        class="oe_highlight"
+                    /> -->
+                    <button special="cancel" string="Proceed" class="oe_link" />
+                    <button special="cancel" string="Cancel" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record
+        id="action_notif_pr"
+        model="ir.actions.act_window">
+        <field name="name">Budget</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tbl_notif_pr</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_tbl_notif_pr" />
+        <field name="target">new</field>
+
+    </record>
+</odoo>

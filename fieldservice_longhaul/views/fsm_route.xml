@@ -1,0 +1,78 @@
+<odoo>
+    <!-- Inherit the existing tree view -->
+    <record id="custom_fsm_route_tree" model="ir.ui.view">
+        <field name="name">fsm.route.tree.inherited</field>
+        <field name="model">fsm.route</field>
+        <field name="inherit_id" ref="fieldservice_route.fsm_route_tree"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="replace"/>
+        <xpath expr="//field[@name='fsm_person_id']" position="replace"/>
+        <xpath expr="//field[@name='day_ids']" position="replace"/>
+            <tree>
+                <field name="name" string="Route Name"/>
+                <field name="brand"/>
+                <field name="loading_location"/>
+                <field name="unloading_location"/>
+                <field name="distance"/>
+                <field name="est_time"/>
+                <field name="hauling_expense"/>
+                <field name="fsm_person_id"/>
+                <field name="day_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherit the existing form view -->
+    <record id="fsm_route_form_inherited" model="ir.ui.view">
+        <field name="name">fsm.route.form.inherited</field>
+        <field name="model">fsm.route</field>
+        <field name="inherit_id" ref="fieldservice_route.fsm_route_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <form string="Route">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group id="main">
+                        <group id="left">
+                            <field name="fsm_person_id" position="attributes">
+                                <attribute name="invisible">1</attribute>
+                            </field>
+                            <!-- new field -->
+                            <field name="brand"/>
+                            <field name="loading_location"/>
+                            <field name="unloading_location"/>
+                            <field name="distance"/>
+                            <field name="est_time"/>
+                            <field name="hauling_expense"/>
+                        </group>
+                        <group id="right">
+                            <field name="day_ids" position="attributes">
+                                <attribute name="invisible">1</attribute>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Update the existing action to use the new views -->
+    <record id="action_custom_fsm_route" model="ir.actions.act_window">
+        <field name="name">Routes</field>
+        <field name="res_model">fsm.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fieldservice_route.fsm_route_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Add Routes here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_top_up_tree'>
+        <field name="name">view.fsm.top.up.tree</field>
+        <field name="model">fsm.top.up</field>
+        <field name="arch" type="xml">
+            <tree string="Top Up">
+                <field name="created_by"/>
+                <field name="date"/>
+                <field name="approval"/>
+                <field name="top_up_amount"/>
+                <field name="total_transporter_cost"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_top_up_form'>
+        <field name="name">view.fsm.top.up.form</field>
+        <field name="model">fsm.top.up</field>
+        <field name="arch" type="xml">
+            <form string="Top Up">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="created_by"/>
+                            <field name="date"/>
+                            <field name="approval"/>
+                            <field name="remaining_amount"/>
+                            <field name="remaining_amount_date"/>
+                        </group>
+                        <group>
+                            <field name="top_up_amount"/>
+                            <field name="total_transporter_cost"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_top_up_view" model="ir.actions.act_window">
+        <field name="name">Top Up</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.top.up</field>
+    </record>
+
+<!--    <menuitem name="Top Up" id="menu_fsm_top_up" parent="cost" action="action_fsm_top_up_view" sequence="10"/>-->
+</odoo>

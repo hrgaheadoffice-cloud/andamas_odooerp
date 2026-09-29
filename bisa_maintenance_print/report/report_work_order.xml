@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_work_order_document">
+
+            <t t-call="bisa_maintenance_print.custom_layout">
+                <t t-set="report_type" t-value="'wo'"/>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.created_by.lang)" />
+
+                <div class="page">
+                    <div class="oe_structure"/>
+
+                    <div class="row header_doc">
+                        <div class="row col-12" style="margin-top: 75px;">
+                            <div class="col-6 mb4">
+                                <div class="vendor-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Actual Date &amp; Time BD</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.actual_dtbd"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>LOCATION BD</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.location_problem" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">MAINTENANCE TYPE</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.maintenance_type"/></div>
+                                        </div>
+                                    </div>
+                                    <t t-if="doc.schedule_activity">
+                                        <div class="row">
+                                            <div class="col-6 mb4 label">
+                                                <div style="margin-left: 0px;" class="row">SCHEDULE ACTIVITY</div>
+                                            </div>
+                                            <div class="col-6 mb4 value">
+                                                <div>: <span t-field="doc.schedule_activity"/></div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">MAINTENANCE ACTIVITY</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.maintenance_activity"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb4">
+                                <div class="other-info">
+                                    <div class="row">
+                                        <div class="col-4 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">MECHANIC</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.mechanic" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mb4 label">
+                                                <div>UNIT CODE</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.equipment_id" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mb4 label">
+                                                <div>ASSET NAME</div>
+                                        </div>
+                                        <div class="col-8 mb4 value">
+                                            <div>: <span t-field="doc.equipment_id.kat_asset" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mb4 label">
+                                            <div>METER TYPE</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.meter_type" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mb4 label">
+                                            <div>KM/HM RUNNING</div>
+                                        </div>
+                                        <div class="col-3 mb4 value">
+                                            <div>:<span t-field="doc.kmhm_running" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+            <!--  Target Complete  -->
+                    <style>
+                        table{
+                            border: 1px solid black !important;
+                        }
+                        th{
+                            border: 1px solid black !important;
+                        }
+                        td{ height:15px;
+                            border: 1px solid black !important;
+                        }
+                        .sale_tbody td[name="td_remarks"] {
+                            width: 40%;
+                        }
+                        .samping{
+                            width:250px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="row col-12" style="margin-top: 10px;">
+                             <table style="margin-top: 10px; width:1000px;" class="table custom-table-bordered table-sm o_main_table">
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                            <tr>
+                                <td class="samping">TARGET COMPLETION</td>
+                                <td> </td>
+                                <td class="text-center">DAY</td>
+                                <td> </td>
+                                <td class="text-center">HOUR</td>
+                            </tr>
+                            <tr>
+                                <td class="samping">ACTUAL ACHIEVEMENT</td>
+                                <td> </td>
+                                <td class="text-center">DAY</td>
+                                <td> </td>
+                                <td class="text-center">HOUR</td>
+                            </tr>
+                            <tr>
+                                <td class="samping">MAINTENANCE CARD</td>
+                                <td class="text-center">COMPLETE</td>
+                                <td> </td>
+                                <td class="text-center">UNCOMPLETE</td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td class="samping">ATTENTION FOR MECHANIC <br> </br>(SARAN DARI MEIKANIK)</td>
+                                <td colspan="4"> </td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td colspan="4"> </td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td colspan="4"> </td>
+                            </tr>
+
+                        </table>
+                        </div>
+                   </div>
+
+            <!-- Product Requisition -->
+                    <style>
+                        .req-body{
+                            height:50px;
+                        }
+                    </style>
+                    <div class="row">
+                             <div  style="color:black; height:20px; font-weight:bold; font-size:14pt;" class="col-4">
+                                 <span> PRODUCT REQUISITION</span>
+                             </div>
+                    </div>
+                    <div class="row">
+                             <table style="margin-top: 10px; width:1000px;" class="table custom-table-bordered table-sm o_main_table">
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+
+                            <tr style="color:black; height:20px; font-weight:bold; font-size:12pt;">
+                                <td style="width:120px;">Item Number</td>
+                                <td class="text-center">Item Name</td>
+                                <td class="text-center">Qty</td>
+                                <td class="text-center">UoM</td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr class="req-body">
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                   </div>
+                    <!-- Mechanic Task -->
+                    <style>
+                        .req-body{
+                            height:50px;
+                        }
+                    </style>
+                    <div class="row">
+                             <div  style="color:black; height:20px; font-weight:bold; font-size:14pt;" class="col-4">
+                                 <span> MECHANIC TASK</span>
+                             </div>
+                    </div>
+                    <div class="row">
+                             <table style="margin-top: 10px; width:1000px;" class="table custom-table-bordered table-sm o_main_table">
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+
+                            <tr>
+                                <td class="text-center" colspan="3">TIME</td>
+                                <td class="text-center" rowspan="2" style="width:200px !important;">DESCRIPTION JOB</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" style="width:50px;">START</td>
+                                <td class="text-center" style="width:50px;">END</td>
+                                <td class="text-center" style="width:50px;">HOURS</td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                                 <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                                 <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                   </div>
+                    <div class="row">
+                        <div class="col">
+                            <p style="font-size:10px;">
+                                *Notes : <br> </br>
+                                1. WO/Job Assignment is returned completed with maintenance card/FAR (if need). <br> </br>
+                                2. Continously communicate job pgress and obstacle to superior. <br> </br>
+                                3. Return back all and literarute to Tool Room in complete and clean condition
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:100px;">
+                        <table style="border: 0px!important;">
+                            <tr>
+                                <td class="text-center" style="border: 0px!important;">
+                                    <span>Worked on by</span>
+                                    <div>
+                                        <div style="margin-top: 50px;">
+                                            <span>(___________________)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center" style="border: 0px!important;">
+                                    <span>Checked by</span>
+                                    <div>
+                                        <div style="margin-top: 50px;">
+                                            <span>(___________________)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center" style="border: 0px!important;">
+                                    <span>Approvedby</span>
+                                    <div>
+                                        <div style="margin-top: 50px;">
+                                            <span>(___________________)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .signature{
+                            height:100px;
+                        }
+                        .spacer{
+                                width:50px;
+                        }
+                    </style>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        <template id="report_work_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bisa_maintenance_print.report_work_order_document" t-lang="doc.created_by.lang"/>
+                </t>
+            </t>
+        </template>
+       <record id="action_report_work_order" model="ir.actions.report">
+            <field name="name">Work Order</field>
+            <field name="model">work.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bisa_maintenance_print.report_work_order</field>
+            <field name="report_file">bisa_maintenance_print.report_work_order</field>
+            <field name="print_report_name">'PR - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="bisa_maintenance.model_work_order"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

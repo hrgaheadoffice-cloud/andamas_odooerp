@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+leasing_management,leasing_management,model_leasing_management,,1,1,1,1
+leasing_management_detail_asset,leasing_management_detail_asset,model_leasing_management_detail_asset,,1,1,1,1
+leasing_management_line,leasing_management_line,model_leasing_management_line,,1,1,1,1
+lessor_leasing_management,lessor_leasing_management,model_lessor_leasing_management,,1,1,1,1
+asset_class,asset_class,model_asset_class,,1,1,1,1
+tennor_leasing_management,tennor_leasing_management,model_tennor_leasing_management,,1,1,1,1
+project_code_leasing_management,project_code_leasing_management,model_project_code_leasing_management,,1,1,1,1
+leasing_management_payment,leasing_management_payment,model_leasing_management_payment,,1,1,1,1
+lm_journal_voucher,lm_journal_voucher,model_lm_journal_voucher,,1,1,1,1
+lm_journal_voucher_line,lm_journal_voucher_line,model_lm_journal_voucher_line,,1,1,1,1

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+	<record id="form_tbl_mnt_request" model="ir.ui.view">
+		<field name="name">form.tbl_mnt_request</field>
+		<field name="model">tbl_mnt_request</field>
+		<field name="arch" type="xml">
+			<form string="Request">
+				<header>
+					<button name="action_submit" type="object" string="Submit"  attrs="{'invisible': [('status','!=','draft')]}" class="oe_highlight"/>
+					<button name="action_terima" type="object" string="Terima" attrs="{'invisible': [('status','!=','submit')]}" class="oe_highlight"/>
+					<button name="action_start" type="object" string="Start" attrs="{'invisible': [('status','!=','terima')]}" class="oe_highlight"/>
+					<button name="action_task" type="object" string="Job Sheet" attrs="{'invisible': [('status','!=','on_progress')]}" class="oe_highlight"/>
+					<button name="action_task" type="object" string="Job Sheet" attrs="{'invisible': [('status','!=','pending')]}" class="oe_highlight"/>
+					<button name="action_pending" type="object" string="Pending" attrs="{'invisible': [('status','!=','on_progress')]}" class="oe_highlight"/>
+					<button name="action_stop_pending" type="object" string="Stop Pending" attrs="{'invisible': [('status','!=','pending')]}" class="oe_highlight"/>
+					<button name="action_done" type="object" string="Done" attrs="{'invisible': [('status','!=','on_progress')]}" class="oe_highlight"/>
+					<field name="status" widget="statusbar" statusbar_visible='draft,submit,on_progress,pending,done'/>
+				</header>
+				<sheet>
+					<div class="oe_title">
+						<h2 style="color:#875A7B;font-weight:bold;">Request Order</h2>
+					</div>
+					<group>
+						<group string='General Info'>
+							<field name="company_id" invisible="1"/>
+							<field name="nomor"/>
+							<field name="tanggal"/>
+							<field name="request_by"/>
+							<field name="divisi"/>
+							<field name="prepare_by"/>
+						</group>
+						<group string=".">
+							<field name="name"/>
+							<field name="unit"/>
+							<field name="lokasi"/>
+						</group>
+					</group>
+					<group>
+						<group>
+
+						</group>
+						<group string="Keluhan">
+							<field name="tipe_mt" widget="radio"/>
+							<field name="template_service"/>
+							<field name="keluhan"/>
+							<field name="kat_keluhan"/>
+						</group>
+					</group>
+					<div class="oe_title">
+						<h2 style="color:#875A7B;font-weight:bold;">Detail Request Order</h2>
+					</div>
+					<group>
+						<group>
+							<field name="tgl_submit"/>
+							<field name="tgl_terima"/>
+						</group>
+						<group>
+							<field name="tgl_mulai_kerja"/>
+							<field name="tgl_selesai_kerja"/>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="mulai_pending"/>
+							<field name="stop_pending"/>
+						</group>
+						<group>
+							<field name="alasan_pending"/>
+							<field name="durasi"/>
+						</group>
+					</group>
+					<notebook>
+						<page string='Job Sheet'>
+							<field name="detail_task">
+								<tree editable="bottom" create="0" delete="0">
+
+									          <field name="name" readonly="1"/>
+									          <field name="task" readonly="1"/>
+									          <field name="employee" readonly="1"/>
+									          <field name="date_start" readonly="1"/>
+									          <field name="date_end" readonly="1"/>
+									          <field name="state" readonly="1"/>
+								</tree>
+								<form>
+									<group>
+										<group>
+											          <field name="name" readonly="1"/>
+											          <field name="task" readonly="1"/>
+											          <field name="employee" readonly="1"/>
+											          <field name="date_start" readonly="1"/>
+											          <field name="date_end" readonly="1"/>
+											          <field name="state" readonly="1"/>
+										</group>
+										<group>
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string='Part'>
+							<field name="detail_part">
+								<tree editable="bottom" create="0" delete="0">
+									<field name="name" readonly="1"/>
+									<field name="qty" readonly="1"/>
+									<field name="uom"/>
+									<field name="details_task" readonly="1"/>
+									<field name="source" readonly="1"/>
+									<field name="ket" readonly="1"/>
+								</tree>
+								<form>
+									<group>
+										<group>
+									<field name="name" readonly="1"/>
+									<field name="qty" readonly="1"/>
+									<field name="uom"/>
+									<field name="details_task" readonly="1"/>
+									<field name="source" readonly="1"/>
+									<field name="ket" readonly="1"/>
+										</group>
+										<group>
+
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="tree_tbl_mnt_request" model="ir.ui.view">
+		<field name="name">tree.tbl_mnt_request</field>
+		<field name="model">tbl_mnt_request</field>
+		<field name="arch" type="xml">
+			<tree string="Request">
+				<field name="company_id" invisible="1"/>
+				<field name="tanggal"/>
+				<field name="nomor"/>
+				<field name="name"/>
+				<field name="request_by"/>
+				<field name="status" decoration-success="status == 'done'" decoration-warning = "status == 'pending'" decoration-primary="status == 'on_progress'" decoration-muted = "status == 'draft'" widget="badge"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_mnt_request" model="ir.actions.act_window">
+		<field name="name">Request</field>
+		<field name="res_model">tbl_mnt_request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('status', 'in', ('draft','submit','on_progress','pending','done'))]</field>
+	</record> 
+
+<!--	<menuitem name="Request" id="menu_mnt_request_left" action="action_mnt_request" parent="menu_mnt_maintenance_top" sequence="10"/>-->
+
+	<record id="action_mnt_plan" model="ir.actions.act_window">
+		<field name="name">Planning</field>
+		<field name="res_model">tbl_mnt_request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('status', 'in', ('planning','done'))]</field>
+	</record> 
+
+<!--	<menuitem name="Planning" id="menu_mnt_plan_left" action="action_mnt_plan" parent="menu_mnt_maintenance_top" sequence="15"/>-->
+
+<!-- 	<record id="action_mnt_planning" model="ir.actions.act_window">
+		<field name="name">Planning</field>
+		<field name="res_model">tbl_mnt_request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('status', 'in', ('planning',submit','on_progress','pending','done'))]</field>
+		<field name="context">{'status': 'planning'}</field>
+	</record> 
+
+	<menuitem name="Planning" id="menu_mnt_planning_left" action="action_mnt_planning" parent="menu_mnt_maintenance_top" sequence="15"/> -->
+
+
+	<record id="action_mnt_workorder" model="ir.actions.act_window">
+		<field name="name">Work Order</field>
+		<field name="res_model">tbl_mnt_request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('status', 'in', ('submit','on_progress','pending','done'))]</field>
+	</record> 
+
+<!--	<menuitem name="Work Order" id="menu_mnt_workorder_left" action="action_mnt_workorder" parent="menu_mnt_maintenance_top" sequence="20"/>-->
+
+</odoo>

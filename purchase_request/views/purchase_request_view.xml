@@ -1,0 +1,995 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Request">
+                <header>
+                    <!-- <button
+                        name="action_send_email"
+                        string="Send Mail"
+                        type="object"/>  -->
+                    <!-- <button
+                        name="button_draft"
+                        states="rejected"
+                        string="Reject"
+                        type="object"
+                        groups="purchase_request.group_purchase_request_manager"/> -->
+                    <button
+                        name="button_to_prepare"
+                        states="draft"
+                        string="submit"
+                        type="object"
+                        class="oe_highlight"
+                    />
+<!--                    <button-->
+<!--                        name="button_to_approve"-->
+<!--                        states="draft"-->
+<!--                        string="Request approval"-->
+<!--                        type="object"-->
+<!--                        class="oe_highlight"-->
+<!--                    />-->
+                    <button
+                        name="button_to_approve_request"
+                        states="to_request_approve"
+                        string="Request approve"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_recommend"
+                        string="Recommend"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|',('status_vrecomend','=',0),('state','!=','to_recommend')]}"
+                        groups="purchase_request.group_purchase_request_recommend"
+                    />
+
+                    <button
+                        name="button_check"
+                        string="Check"
+                        states="to_check"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|',('status_vcheck','=', 0),('state','!=','to_check')]}"
+                        groups="purchase_request.group_purchase_request_check"
+                    />
+                    <button
+                        name="button_verify"
+                        string="Verify"
+                        type="object"
+                        class="oe_highlight"
+                        states="to_verify"
+                        groups="purchase_request.group_purchase_request_verify"
+                    />
+
+                    <button
+                        name="button_approved"
+                        states="to_approve"
+                        string="Approve"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+
+                    <button
+                        name="button_approved_matrix"
+                        states="to_approve_matrix"
+                        string="Approve Matrix"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+
+                    <button
+                        name="button_approved1"
+                        states="to_approve1"
+                        string="Approve Matrix 1"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved2"
+                        states="to_approve2"
+                        string="Approve Matrix 2"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved3"
+                        states="to_approve3"
+                        string="Approve Matrix 3"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved4"
+                        states="to_approve4"
+                        string="Approve Matrix 4"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved5"
+                        states="to_approve5"
+                        string="Approve Matrix 5"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved6"
+                        states="to_approve6"
+                        string="Approve Matrix 6"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved7"
+                        states="to_approve7"
+                        string="Approve Matrix 7"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_approved8"
+                        states="to_approve8"
+                        string="Approve Matrix 8"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    
+                    <button
+                        name="%(action_purchase_request_line_make_purchase_order)d"
+                        states="approved"
+                        string="Create RFQ"
+                        type="action"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_create_cash_advance_ho"
+                        states="approved"
+                        string="Create Cash Advance HO"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_create_cash_advance_site"
+                        states="approved"
+                        string="Create Cash Advance Site"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_create_sundry_site"
+                        states="approved"
+                        string="Create Sundry Site"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_create_noi"
+                        states="approved"
+                        string="Create NOI"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_preview_done"
+                        states="approved"
+                        string="Done"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_preview_reject"
+                        string="Reject"
+                        type="object"
+                        attrs="{'invisible':['|',('po_count', '!=', 0),('state','in',('rejected','cancel','done'))]}"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_set_to_draft"
+                        states="rejected"
+                        string="Set to Draft"
+                        type="object"
+                    />
+                    <button
+                        name="action_preview_cancel"
+                        states="draft,to_request_approve,to_approve_matrix,rejected"
+                        string="Cancel"
+                        type="object"
+                    />
+<!--                    <button-->
+<!--                        name="action_print_pr"-->
+<!--                        string="Print"-->
+<!--                        type="object"-->
+<!--                    />-->
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,to_request_approve,approved,done,rejected"
+                        statusbar_colors='{"approved":"blue"}'
+                    />
+                </header>
+
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_purchase_request_line"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('line_count', '=', 0)]}"
+                            icon="fa-list"
+                        >
+                            <field name="line_count" widget="statinfo" string="Lines" />
+                        </button>
+                        <!-- <button
+                            type="object"
+                            name="action_view_purchase_order"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('purchase_count', '=', 0)]}"
+                            icon="fa-shopping-cart"
+                        >
+                            <field
+                                name="purchase_count"
+                                widget="statinfo"
+                                string="Purchase Orders"
+                            />
+                        </button> -->
+                        <button
+                            type="object"
+                            name="action_view_rfq"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('rfq_count', '=', 0)]}"
+                            icon="fa-shopping-cart"
+                        >
+                            <field
+                                name="rfq_count"
+                                widget="statinfo"
+                                string="RFQ"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_po"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('po_count', '=', 0)]}"
+                            icon="fa-shopping-cart"
+                        >
+                            <field
+                                name="po_count"
+                                widget="statinfo"
+                                string="Purchase Orders"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_cah"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('cah_count', '=', 0)]}"
+                            icon="fa-list"
+                        >
+                            <field
+                                name="cah_count"
+                                widget="statinfo"
+                                string="Cash Advance HO"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_cas"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('cas_count', '=', 0)]}"
+                            icon="fa-list"
+                        >
+                            <field
+                                name="cas_count"
+                                widget="statinfo"
+                                string="Cash Advance Site"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_sundary_site"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('sundary_site_count', '=', 0)]}"
+                            icon="fa-list"
+                        >
+                            <field
+                                name="sundary_site_count"
+                                widget="statinfo"
+                                string="Sundry Site"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_noi"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('noi_count', '=', 0)]}"
+                            icon="fa-list"
+                        >
+                            <field
+                                name="noi_count"
+                                widget="statinfo"
+                                string="NOI"
+                            />
+                        </button>
+                        <button
+                            type="object"
+                            name="action_view_stock_move"
+                            class="oe_stat_button"
+                            attrs="{'invisible':[('move_count', '=', 0)]}"
+                            groups="stock.group_stock_manager"
+                            icon="fa-truck"
+                        >
+                        <field
+                                name="move_count"
+                                widget="statinfo"
+                                string="Stock Moves"
+                            />
+                        </button>
+                    </div>
+                    <div class="oe_edit_only">
+                        <label for="name" class="oe_inline" />
+                    </div>
+                    <h1>
+                        <field name="is_editable" attrs="{'invisible': True}" />
+                        <field
+                            name="name"
+                            class="oe_inline"
+                            readonly="True"
+                        />
+                    </h1>
+                    <group>
+                        <group>
+                            <field
+                                name="status_recomend_check"
+                                invisible="1"
+
+                            />
+                            <field
+                                name="status_vrecomend"
+                                invisible="1"
+
+                            />
+                            <field
+                                name="status_vcheck"
+                                invisible="1"
+
+                            />
+                            <field
+                                name="department_id" readonly="1"
+                            />
+                            <field
+                                name="location"
+                                
+                                domain="[('tipe','=',1)]" invisible="1"
+                            />
+<!--                            <field-->
+<!--                                name="cost_center"-->
+<!--                            />-->
+                            <!-- <field name="po_count"/>
+                            <field name="rfq_count"/> -->
+                            <field
+                                name="date_start"
+                                attrs="{'readonly': [('state','!=','draft')]}"
+                                
+                            />
+                            <field
+                                name="picking_type_id"
+                                options="{'no_open':True,'no_create': True}"
+                                attrs="{'readonly': [('state','!=','draft')]}"
+                                
+                            />
+                            
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                widget="selection"
+                                attrs="{'readonly': [('state','!=','draft')]}"
+                                
+                            />
+                        </group>
+                        <group>
+                            
+                            <field
+                                name="origin"
+                                 attrs="{'readonly': [('state','!=','draft')]}"
+                            />
+                            <field
+                                name="description"
+                                 attrs="{'readonly': [('state','!=','draft')]}"
+                            />
+                            <field
+                                name="request_to"
+                                 attrs="{'readonly': [('state','!=','draft')]}"
+                            />
+                            <field
+                                name="proc_group_id"
+                                required="1"
+                                options="{'no_open':True,'no_create': True}"
+                                attrs="{'readonly': [('state','!=','draft')]}"
+                            />
+                            <field
+                                name="priority_allow"
+                                invisible="1"
+                            />
+                            <!-- <field
+                                name="priority"
+                                attrs="{'readonly': ['|',('state','!=','to_approve'),('priority_allow','=',False)],'required': [('state','=','to_approve')]}"
+                            /> -->
+
+                            <field name="site_manager_id" invisible="1"/>
+                            <field name="head_finance_id" invisible="1"/>
+                            <field name="head_scm_id" invisible="1"/>
+                            <field name="deputy_gm_id" invisible="1"/>
+                            <field name="general_manager_id" invisible="1"/>
+                            <field name="checked_by_id" invisible="1"/>
+                            <field name="known_by_id" invisible="1"/>
+
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <table>
+                                <tr >
+                                    <td><label for="prepared_by"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><field name="prepared_by" readonly="1"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align:right"><field name="prepare_dt" readonly="1"/></td>
+                                </tr>
+                                <tr >
+                                    <td><label for="requested_by"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><field name="requested_by" attrs="{'readonly': [('state','!=','draft')]}"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align:right"><field name="requested_dt" readonly="1"/></td>
+                                </tr>
+                               
+                        </table>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Products">
+
+                            <!-- <field name="line_ids" attrs="{'readonly': [('is_editable','=', False)]}">  -->
+                                <field name="line_ids" attrs="{'readonly': [('state','in', ('approved','rejected','cancel','done'))]}"> 
+                                    <tree decoration-muted="cancelled == True">
+                                        <!-- <button
+                                            name="do_attach"
+                                            string="Cetak"
+                                            type="object"
+                                            /> -->
+<!--                                    <field name="file" filename="file_name" widget="binary" string="Attachment"/>-->
+<!--                                    <field name="file_name" invisible="1"/>-->
+                                    <field name="product_id" />
+                                    <field name="name"/>
+                                    <field name="estimated_price_unit" widget="monetary" />
+                                    <field name="product_qty" />
+                                    <field
+                                        name="product_uom_id"
+                                        groups="uom.group_uom"
+                                    />
+                                    <field name="estimated_cost" widget="monetary" />
+                                    <field name="specifications" string="Remarks"/>
+                                    <field name="qty_available" />
+                                    
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                        domain="[('tipe','=',2)]"
+                                    />
+<!--                                    <field name="analytic_tag_id" />-->
+                                    <field name="date_required" />
+<!--                                    <field name="lead_time" />-->
+                                    
+                                    <field name="currency_id" invisible="1" />
+                                    <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                        widget="selection"
+                                    />
+                                    <field name="cancelled" invisible="1" />
+                                    <field name="is_editable" invisible="1" />
+                                    <field name="purchased_qty" />
+                                    <field
+                                        name="purchase_state"
+                                        widget="badge"
+                                        decoration-success="purchase_state == ('done')"
+                                        decoration-muted="purchase_state == ('draft')"
+                                        decoration-info="purchase_state in ('sent', 'purchase')"
+                                        decoration-warning="purchase_state == ('to_approve')"
+                                        decoration-danger="purchase_state == 'cancelled'"
+                                    />
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group name="main">
+                                            <group>
+                                                <field
+                                                    name="is_editable"
+                                                    attrs="{'invisible': True}"
+                                                />
+                                                <field
+                                                    name="product_id"
+                                                   
+                                                />
+                                                <field
+                                                    name="name"
+                                                   
+                                                />
+                                                <field name="estimated_price_unit" widget="monetary"
+                                                     />
+                                    
+                                                <label for="product_qty" />
+                                                <div class="o_row">
+                                                    <field
+                                                        name="product_qty"
+                                                        class="oe_inline"
+                                                        
+                                                    />
+                                                    <field
+                                                        name="product_uom_id"
+                                                        groups="uom.group_uom"
+                                                        class="oe_inline"
+                                                        
+                                                    />
+                                                </div>
+                                                <field
+                                                    name="estimated_cost"
+                                                    widget="monetary"
+                                                    
+                                                />
+     
+                                                 <field
+                                                    name="avail_budget"
+                                                    widget="monetary"
+                                                    
+                                                />
+                                                
+<!--                                                <field name="analytic_tag_id" options="{'no_open':True,'no_create': True}"/>-->
+                                                
+                                                    <field
+                                                        name="analytic_account_id"
+                                                        class="oe_inline" domain="[('tipe','=',2)]"
+                                                        options="{'no_open':True,'no_create': True}"
+                                                        
+                                                    />
+<!--                                                    <button  name="notif_pr" string="Cek Budget" type="object" class="oe_highlight"/>-->
+                                               
+                                                <field
+                                                    name="date_required"
+                                                    
+                                                />
+<!--                                                <field name="lead_time" />-->
+                                                
+                                                <field
+                                                    name="currency_id"
+                                                    attrs="{'invisible': True}"
+                                                />
+                                                <field
+                                                    name="cancelled"
+                                                    widget="boolean"
+                                                />
+                                                <field
+                                                    name="cek_budget" invisible="1"
+                                                    
+                                                    />
+<!--                                                <field name="file" filename="file_name"/>-->
+<!--	            			                    <field name="file_name" invisible="1"/>-->
+                                            </group>
+                                        </group>
+                                        <group name="specifications">
+                                            <separator string="Remarks/Purpose" />
+                                            <newline />
+                                            <field
+                                                name="specifications"
+                                                nolabel="1"
+                                                
+                                            />
+                                        </group>
+                                        <group name="quantities" string="Tracking">
+                                            <group>
+                                                <field name="pending_qty_to_receive" />
+                                                <field name="qty_in_progress" />
+                                                <field name="qty_done" />
+                                                <field name="qty_cancelled" />
+                                            </group>
+                                        </group>
+                                        <notebook>
+                                            <page
+                                                name="purchase_lines"
+                                                string="Purchase Order Lines"
+                                            >
+                                                <group>
+                                                    <group name="purchase_state">
+                                                        <field name="purchased_qty" />
+                                                        <field name="purchase_state" />
+                                                        <field name="qty_in_progress" />
+                                                        <field name="qty_done" />
+                                                    </group>
+                                                </group>
+                                                <newline />
+                                                <group>
+                                                    <field
+                                                        name="purchase_lines"
+                                                        nolabel="1"
+                                                    />
+                                                </group>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="harga_total"/>
+                  
+                            </group>
+                        </page>
+                        <page string="Approval Matrix">
+                            <field name="approval_matrix_ids" readonly="1">
+                                <tree>
+                                    <field name="state"/>
+                                    <field name="user_ids" widget="many2many_tags"/>
+                                    <field name="realization_user_id"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="note"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_purchase_request_tree" model="ir.ui.view">
+        <field name="name">purchase.request.tree</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-bf="message_needaction==True"
+                decoration-info="state in ('draft','to_approve')"
+                decoration-muted="state in ('rejected')"
+                string="Purchase Request"
+            >
+                <field name="message_needaction" invisible="1" />
+                <field name="name" />
+                <field name="date_start" />
+                <field name="proc_group_id"/>
+                <field name="requested_by" widget="many2one_avatar_user" invisible="1" />
+                <field name="prepared_by" widget="many2one_avatar_user" />
+                <field
+                    name="company_id"
+                    groups="base.group_multi_company"
+                    widget="selection" optional="hide"
+                />
+                <field name="alasan_reject" optional="hide" />
+                <field name="alasan_cancel" optional="hide" />
+                <field
+                                name="origin"
+                                
+                            />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state in ('done', 'approved')"
+                    decoration-muted="state == 'draft'"
+                    decoration-warning="state == 'to_approve'"
+                    decoration-danger="state == 'rejected'"
+                />
+                <field name="todo_user_ids" widget="many2many_tags"/>
+                <field name="x_no_po"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_purchase_request_search" model="ir.ui.view">
+        <field name="name">purchase.request.list.select</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Request">
+                <field name="name" string="Purchase Request" />
+                <separator />
+                <field name="product_id" />
+                <field name="state" />
+                <filter
+                    name="state_draft"
+                    string="Draft"
+                    domain="[('state','=','draft')]"
+                    help="Request is to be approved"
+                />
+                <filter
+                    name="state_to_approve"
+                    string="To Approve"
+                    domain="[('state','=','to_approve')]"
+                    help="Request is to be approved"
+                />
+                <filter
+                    name="state_approved"
+                    string="Approved"
+                    domain="[('state','=','approved')]"
+                    help="Request is approved"
+                />
+                <filter
+                    name="state_rejected"
+                    string="Rejected"
+                    domain="[('state','=','rejected')]"
+                    help="Request is rejected"
+                />
+                <filter
+                    name="state_done"
+                    string="Done"
+                    domain="[('state','=','done')]"
+                    help="Request is done"
+                />
+                <filter
+                    string="Unread Messages"
+                    name="message_needaction"
+                    domain="[('message_needaction','=',True)]"
+                />
+                <filter
+                    name="assigned_to_me"
+                    domain="['|','|','|','|','|','|','|','|','|',('assigned_to','=', uid),('appr1','=', uid),
+                    ('appr2','=', uid),('appr3','=', uid),('appr4','=', uid),('verified_by','=', uid),
+                    ('checked_by','=', uid),('recommended_by','=', uid),('prepared_by','=', uid),
+                    ('requested_by','=', uid)]"
+                    help="Assigned to me"
+                />
+                <filter
+                    name="my_requests"
+                    domain="[('prepared_by','=', uid)]"
+                    help="My requests"
+                />
+                <field name="requested_by" />
+                <field name="assigned_to" />
+                <field name="picking_type_id" />
+                <group expand="0" string="Group By...">
+                    <filter
+                        name="requested_by"
+                        string="Requested by"
+                        icon="fa-user"
+                        domain="[]"
+                        context="{'group_by':'prepared_by'}"
+                    />
+                    <filter
+                        name="source"
+                        string="Source"
+                        icon="fa-caret-square-o-left"
+                        domain="[]"
+                        context="{'group_by':'origin'}"
+                    />
+                    <filter
+                        name="start_date"
+                        string="Start Date"
+                        icon="fa-calendar"
+                        domain="[]"
+                        context="{'group_by':'date_start'}"
+                    />
+                    <filter
+                        name="proc_group_id"
+                        string="Procurement Category"
+                        context="{'group_by':'proc_group_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="purchase_request_form_action">
+        <field name="name">Purchase Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_proc_group_id':1}</field>
+        <field name="domain">[('create_uid', '=', uid)]</field>
+        <field name="search_view_id" ref="view_purchase_request_search" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new purchase request process.
+            </p>
+            <p>
+                A purchase request is an instruction to Purchasing to procure
+            a certain quantity of materials services, so that they are
+            available at a certain point in time.
+            </p>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="purchase_request_form_action_manager">
+        <field name="name">Purchase Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_proc_group_id':1}</field>
+        <field name="search_view_id" ref="view_purchase_request_search" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new purchase request process.
+            </p>
+            <p>
+                A purchase request is an instruction to Purchasing to procure
+            a certain quantity of materials services, so that they are
+            available at a certain point in time.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_purchase_request_pro_mgt"
+        parent="purchase.menu_procurement_management"
+        action="purchase_request_form_action"
+        groups="group_purchase_request_user"
+    />
+    <menuitem
+        id="menu_purchase_request_pro_mgt_mgt"
+        parent="purchase.menu_procurement_management"
+        action="purchase_request_form_action_manager"
+        groups="group_purchase_request_manager"
+    />
+    <menuitem
+        id="parent_menu_purchase_request"
+        name="Purchase requests"
+        web_icon="purchase_request,static/description/icon.png"
+        groups="group_purchase_request_user,group_purchase_request_manager"
+    />
+    <menuitem
+        id="menu_purchase_request"
+        name="Purchase Requests"
+        parent="parent_menu_purchase_request"
+        groups="group_purchase_request_user,group_purchase_request_manager"
+    />
+    <menuitem
+        id="menu_purchase_request_act"
+        sequence="10"
+        parent="menu_purchase_request"
+        action="purchase_request_form_action"
+    />
+<!-- ALASAN REJECT -->
+    <record id="purchase_request_wizard" model="ir.ui.view">
+        <field name="name">purchase_request_wizard.form</field>
+        <field name="model">purchase.request</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+           <form duplicate="0" delete="0" create="0">
+              <group>
+                    <field name="alasan_reject"/>
+                    <!-- <field name="alasan_cancel" attrs="{'invisible': [('state','not in', ('draft','to_request_approve'))], 'required': [('state','in', ('draft','to_request_approve'))]}"/> -->
+                    <field name="state" invisible="1"/>
+              </group>
+              <footer>
+                 <button name="button_rejected"  string="Reject" class="btn-primary" type="object"/>
+                 <!-- <button name="button_rejected"  string="Cancel" class="btn-primary" type="object" states="draft,to_request_approve"/> -->
+                 <button string="No" class="btn-secondary" special="cancel"/>
+              </footer>
+           </form>
+        </field>
+     </record>
+<!-- TUTUP -->
+<!-- ALASAN CANCEL -->
+    <record id="purchase_request_cancel_wizard" model="ir.ui.view">
+        <field name="name">purchase_request_cancel_wizard.form</field>
+        <field name="model">purchase.request</field>
+        <field name="priority">101</field>
+        <field name="arch" type="xml">
+           <form duplicate="0" delete="0" create="0">
+              <group>
+                    <!-- <field name="alasan_reject"/> -->
+                    <field name="alasan_cancel"/>
+                    <field name="state" invisible="1"/>
+              </group>
+              <footer>
+                 <button name="button_cancel"  string="Cancel" class="btn-primary" type="object"/>
+                 <!-- <button name="button_rejected"  string="Cancel" class="btn-primary" type="object" states="draft,to_request_approve"/> -->
+                 <button string="No" class="btn-secondary" special="cancel"/>
+              </footer>
+           </form>
+        </field>
+     </record>
+<!-- TUTUP -->
+<!-- ALASAN Done -->
+    <record id="purchase_request_done_wizard" model="ir.ui.view">
+        <field name="name">purchase_request_done_wizard.form</field>
+        <field name="model">purchase.request</field>
+        <field name="priority">110</field>
+        <field name="arch" type="xml">
+           <form duplicate="0" delete="0" create="0">
+              <group>
+                    
+                    <field name="alasan_done" required="1"/>
+                    <field name="state" invisible="1"/>
+              </group>
+              <footer>
+                 <button name="button_done"  string="Yes" class="btn-primary" type="object"/>
+                 <button string="No" class="btn-secondary" special="cancel"/>
+              </footer>
+           </form>
+        </field>
+     </record>
+<!-- TUTUP -->
+    <record id="proc_group_tree_view" model="ir.ui.view">
+        <field name="name">proc.group.tree.view</field>
+        <field name="model">tbl_proc_group</field>
+        <field name="arch" type="xml">
+           <tree>
+               <field name="name"/>
+           </tree>
+        </field>
+    </record>
+    <record id="proc_group_form_view" model="ir.ui.view">
+        <field name="name">proc.group.form.view</field>
+        <field name="model">tbl_proc_group</field>
+        <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <group>
+                       <field name="name"/>
+                   </group>
+               </sheet>
+           </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="proc_group_action">
+        <field name="name">Procurement Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tbl_proc_group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="priority_tree_view" model="ir.ui.view">
+        <field name="name">priority.tree.view</field>
+        <field name="model">priority</field>
+        <field name="arch" type="xml">
+           <tree>
+               <field name="name"/>
+           </tree>
+        </field>
+    </record>
+    <record id="priority_form_view" model="ir.ui.view">
+        <field name="name">priority.form.view</field>
+        <field name="model">priority</field>
+        <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <group>
+                       <field name="name"/>
+                   </group>
+               </sheet>
+           </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="priority_action">
+        <field name="name">Priority</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">priority</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_config"
+        sequence="10"
+        parent="parent_menu_purchase_request"
+        name="Configuration"
+    />
+    <menuitem
+        id="menu_proc_group_act"
+        sequence="10"
+        parent="menu_config"
+        action="proc_group_action"
+    />
+    <menuitem
+        id="menu_priority_act"
+        sequence="10"
+        parent="menu_config"
+        action="priority_action"
+    />
+</odoo>

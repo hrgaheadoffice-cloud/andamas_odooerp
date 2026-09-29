@@ -1,0 +1,12 @@
+.o_FormRenderer_chatterContainer.o-aside {
+    width: -webkit-fill-available;
+    margin-bottom: 50px;
+}
+
+/* Move Chatter to bottom */
+.o_form_view.o_xxl_form_view {
+    -webkit-flex-flow: unset;
+    flex-flow: wrap;
+    height: auto! important;
+}
+- C

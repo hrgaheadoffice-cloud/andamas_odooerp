@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sgeede_config_settings,sgeede.config.settings,model_sgeede_config_settings,,1,1,1,1
+access_stock_internal_transfer,sgeede.stock.internal.transfer,model_stock_internal_transfer,,1,1,1,1
+access_stock_internal_transfer_line,sgeede.stock.internal.transfer.line,model_stock_internal_transfer_line,,1,1,1,1
+
+access_wizard_stock_internal_transfer,access.wizard.stock.internal.transfer,model_wizard_stock_internal_transfer,,1,1,1,1
+access_stock_internal_transfer_items,sgeede.stock.internal.transfer.items,model_stock_internal_transfer_items,,1,1,1,1
+
+access_stock_transfer_details,sgeede.stock_transfer_details,model_stock_transfer_details,,1,1,1,1
+access_stock_transfer_details_items,sgeede.stock_transfer_details_items,model_stock_transfer_details_items,,1,1,1,1
+access_tbl_ekspedisi,sgeede.tbl_ekspedisi,model_tbl_ekspedisi,,1,1,1,1

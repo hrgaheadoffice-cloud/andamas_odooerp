@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_bisa_account_bank_statement_form" model="ir.ui.view">
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form" />
+        <field name="arch" type="xml">
+<!--            <xpath expr="//group[1]/group[2]" position="inside">-->
+<!--                <field name="cost_center_id"  attrs="{'readonly': [('state', 'not in', ('open'))]}"/>-->
+<!--            </xpath>-->
+            <xpath expr="//group[1]" position="after">
+                <group>
+                    <group>
+                        <table width="100%">
+                            <tr >
+                                <td><label for="file"/></td>
+                                <td>
+                                    <field name="file" filename="file_name" attrs="{'readonly': [('state', 'not in', ('open'))]}"/>
+                                    <field name="file_name" invisible="1"/>
+                                </td>
+                                <td style="text-align:right" attrs="{'invisible':['|',('state', '!=', 'open'),('file', '=', False)]}"><button name="action_generate"  string="Generate" class="btn-primary" type="object"/></td>
+                            </tr>
+                        </table>
+                    </group>
+                    <group></group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

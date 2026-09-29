@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="seq_leasing_management" model="ir.sequence">
+        <field name="name">Leasing Management</field>
+        <field name="code">leasing.management</field>
+        <field name="prefix">LM/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_leasing_management_journal_voucher" model="ir.sequence">
+            <field name="name">Leasing Management Journal Voucher</field>
+            <field name="code">leasing.anagement.journal.voucher</field>
+            <field name="prefix">LMJV/</field>
+            <field name="padding">5</field>
+        </record>
+</odoo>

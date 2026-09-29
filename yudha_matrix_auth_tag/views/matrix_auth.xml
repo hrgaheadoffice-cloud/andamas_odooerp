@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+
+         <record id="matrix_auth_view_inherit" model="ir.ui.view">
+            <field name="name">matrix.auth.form.inherit.sale</field>
+            <field name="model">tbl_matrix_auth</field>
+            <field name="inherit_id" ref="bisa_matrix_auth.tbl_matrix_auth_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='approval_user']" position="after">
+                    <field name="tag_warehouse" widget="many2many_checkboxes" options="{'no_edit': True, 'no_create': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='cost_center']" position="replace">
+                    <field name="department_id" options="{'no_edit': True, 'no_create': True}"/>
+                    <field name="company_id" options="{'no_edit': True, 'no_create': True}"/>
+                </xpath>
+
+            </field>
+        </record>
+         <record id="matrix_auth_view_inherit_tree" model="ir.ui.view">
+            <field name="name">matrix.auth.form.inherit.tree</field>
+            <field name="model">tbl_matrix_auth</field>
+            <field name="inherit_id" ref="bisa_matrix_auth.tbl_matrix_auth_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cost_center']" position="replace">
+                    <field name="department_id"/>
+                    <field name="tag_warehouse" widget="many2many_tags"/>
+                    <field name="company_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

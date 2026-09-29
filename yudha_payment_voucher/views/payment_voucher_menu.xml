@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="yudha_payment_voucher.antrian_payment_action_window" model="ir.actions.client">
+            <field name="name">Payment Plan Queue</field>
+            <field name="tag">yudha_antrian_payment</field>
+<!--            <field name="params" eval="{'ks_dashboard_id': ref('ks_dashboard_ninja.ks_my_default_dashboard_board')}"/>-->
+<!--            <field name="res_model">ks_dashboard_ninja.board</field>-->
+<!--            <field name="context" eval="{'ks_dashboard_id': ref('ks_dashboard_ninja.ks_my_default_dashboard_board')}"/>-->
+        </record>
+        <menuitem name="Payment Plan" id="yudha_payment_voucher.pv_antrian_board_menu_root"
+                  web_icon="yudha_payment_voucher,static/description/icon.png"
+                  sequence="40"
+        />
+        <!-- <menuitem name="Payment Plan Queue"
+            id="menu_payment_voucher_queue"
+            parent="pv_antrian_board_menu_root" sequence="1"
+            action="yudha_payment_voucher.antrian_payment_action_window"
+        /> -->
+        <menuitem name="Payment Plan"
+            id="menu_payment_plan"
+            parent="pv_antrian_board_menu_root" sequence="2"
+            action="yudha_payment_voucher.yudha_payment_plan_action_view"
+        />
+     </data>
+ </odoo>

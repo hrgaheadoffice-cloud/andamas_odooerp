@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <menuitem
+        id="menu_report_pr"
+        parent="parent_menu_purchase_request"
+        name="Report"
+    />
+
+    <record id="view_tbl_pr_analisis_tree" model="ir.ui.view">
+        <field name="name">tbl_pr_analisis.tree</field>
+        <field name="model">tbl_pr_analisis</field>
+        <field name="arch" type="xml">
+            <tree
+                string="Quotation Selection"
+                create="0"
+                delete="0"
+            >
+                <field name="company_id" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="name"/>
+                <field name="state_pr"/>
+                <field name="prepared_by"/>
+                <field name="fully_approved_date"/>
+                <field name="procurement_officer"/>
+                <field name="alasan_reject"/>
+                <field name="alasan_cancel"/>
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="tbl_pr_analisis_form_action">
+        <field name="name">PR Analisis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tbl_pr_analisis</field>
+        <field name="view_mode">tree</field>
+        <!-- <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new Quotation Selection process.
+            </p>
+        </field> -->
+    </record>
+
+    <menuitem
+        id="menu_tbl_pr_analisis_mgt"
+        parent="menu_report_pr"
+        action="tbl_pr_analisis_form_action"
+    />
+</odoo>

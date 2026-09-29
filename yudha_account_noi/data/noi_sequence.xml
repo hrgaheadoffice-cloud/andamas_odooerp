@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--
+        Account Asset Number Sequences
+        -->
+<!--        <data noupdate="1">-->
+            <record id="sequence_account_noi_seq" model="ir.sequence">
+                <field name="name">Account Noi Sequence</field>
+                <field name="code">account.noi.number</field>
+                <field name="prefix">NOI/%(InitPT)s/%(month)s/%(year)s/</field>
+                <field name="padding">3</field>
+                <field name="implementation">no_gap</field>
+                <field eval="False" name="company_id"/>
+            </record>
+<!--        </data>-->
+</odoo>

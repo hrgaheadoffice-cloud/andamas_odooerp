@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_delivery_order_tree'>
+        <field name="name">view.fsm.delivery.order.tree</field>
+        <field name="model">fsm.delivery.order</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Order">
+                <field name="name"/>
+                <field name="date" string="Start Date &amp; Time"/>
+                <field name="nip"/>
+<!--                <field name="unloading_date" string="End Date &amp; Time"/>-->
+                <field name="driver_id"/>
+                <field name="working_hour"/>
+                <field name="equipment_id"/>
+                <field name="ready_hour" string="Ready Hour"/>
+                <field name="general_hour" string="General Hour"/>
+                <field name="ewh"/>
+                <field name="delay_hour"/>
+                <field name="idle_hour"/>
+                <field name="breakdown_hours"/>
+                <field name="shift"/>
+<!--                <field name="distance"/>-->
+<!--                <field name="netto_weight"/>-->
+            </tree>
+        </field>
+    </record>
+    <record id="view_transporter_do_search" model="ir.ui.view">
+        <field name="model">fsm.delivery.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="transport_order_id"/>
+                <field name="nip"/>
+                <field name="equipment_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_delivery_order_form'>
+        <field name="name">view.fsm.delivery.order.form</field>
+        <field name="model">fsm.delivery.order</field>
+        <field name="arch" type="xml">
+            <form string="Driver Perform" create="0">
+                <header>
+                    <button type="object" name="action_confirm" class="oe_highlight" string="Confirm" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> Name </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group attrs="{'readonly': [('state', '!=', 'draft')]}">
+                        <group>
+                            <field name="created_by"/>
+                            <field name="date"/>
+                            <field name="nip" readonly="1"/>
+                            <field name="driver_id" readonly="1"/>
+                            <field name="shift" />
+                        </group>
+                        <group>
+                            <field name="working_hour"/>
+                            <field name="equipment_id"/>
+                            <field name="ready_hour" string="Ready Hour"/>
+                            <field name="general_hour" string="General Hour"/>
+                            <field name="delay_hour"/>
+                            <field name="idle_hour"/>
+                            <field name="breakdown_hours"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fsm_delivery_order_view" model="ir.actions.act_window">
+        <field name="name">Delivery Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.delivery.order</field>
+        <field name="search_view_id" ref="view_transporter_do_search"/>
+    </record>
+
+    <menuitem name="Delivery Order" id="menu_fsm_delivery_order" parent="fieldservice.operations" action="action_fsm_delivery_order_view" sequence="40"/>
+
+    <record id="action_fsm_driver_report_view" model="ir.actions.act_window">
+        <field name="name">Driver Perform</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.delivery.order</field>
+        <field name="domain">[('state', '=', ('draft'))]</field>
+        <field name="context">{'search_default_driver_report_group': 1}</field>
+    </record>
+
+    <record id="driver_report_group" model="ir.ui.view">
+        <field name="name">driver.report.group</field>
+        <field name="model">fsm.delivery.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="driver_report_group" string="Driver" context="{'group_by':'driver_id'}"/>
+            </search>
+        </field>
+    </record>
+
+<!--    <menuitem name="Driver Report" id="menu_fsm_driver_report" parent="fieldservice.operations" action="action_fsm_driver_report_view" sequence="50"/>-->
+    <menuitem name="Driver Perform" id="menu_fsm_driver_report" parent="hr.menu_hr_root" action="action_fsm_driver_report_view" sequence="50"/>
+
+
+
+    <record model="ir.actions.server" id="action_confirm_delivery_order">
+       <field name="name">Confirm</field>
+       <field name="model_id" ref="fieldservice_custom.model_fsm_delivery_order"/>
+       <field name="binding_model_id" ref="fieldservice_custom.model_fsm_delivery_order"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.action_confirm()
+       </field>
+   </record>
+</odoo>

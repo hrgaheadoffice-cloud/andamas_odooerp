@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+	<record id="master_asset_search_view" model="ir.ui.view">
+	   <field name="name">master.asset.search.view</field>
+	   <field name="model">master_asset_maintenance</field>
+	    <field name="arch" type="xml">
+	        <search string="Master Asset Maintenance">
+				<field name="nama_asset"/>
+				<field name="kat_asset"/>
+				<field name="plat_no"/>
+				<field name="driver"/>
+				<group expand='0' string='Group by...'>
+                    <filter string='Used to' name="group_by_used_to" context="{'group_by': 'used_to'}"/>
+				</group>
+			</search>
+	   </field>
+	</record>
+	<record id="master_asset_mt_tree" model="ir.ui.view">
+		<field name="name">tree.master_asset_maintenance</field>
+		<field name="model">master_asset_maintenance</field>
+		<field name="arch" type="xml">
+			<tree string="Asset Maintenance">
+				<field name="company_id" invisible="1"/>
+				<field name="kat_asset"/>
+<!--				<field name="no_asset"/>-->
+				<field name="nama_asset"/>
+<!--				<field name="plat_no"/>-->
+				<field name="brand"/>
+				<field name="model"/>
+<!--				<field name="tahun_buat"/>-->
+				<field name="lokasi"/>
+				<field name="company_id"/>
+				<field name="state"/>
+<!--				<field name="nama_vendor"/>-->
+			</tree>
+		</field>
+	</record>
+
+	<record id="master_asset_mt_form" model="ir.ui.view">
+		<field name="name">form.master_asset_maintenance</field>
+		<field name="model">master_asset_maintenance</field>
+		<field name="arch" type="xml">
+			<form string="Asset Maintenance">
+				<header>
+					<button name="action_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
+					<button name="action_standby" type="object" string="Standby" states="running" class="oe_highlight"/>
+					<button name="action_disposal" type="object" string="Disposal" states="running"/>
+					<button name="action_running" type="object" string='Running' attrs="{'invisible': [('state', 'not in', ('service','standby'))]}" class="oe_highlight"/>
+					<field name="state" widget="statusbar" statusbar_visible='draft,running,service,standby,broken'/>
+				</header>
+				<sheet>
+					<group>
+						<group string="Asset Information">
+							<field name="company_id"/>
+							<field name="kat_asset" required="1"/>
+							<field name="equipment_id" string="Equipment ID" attrs="{'readonly': [('state', '=', 'running')]}" required="1"/>
+							<field name="nama_asset" required="1"/>
+							<field name="acc_asset_id"/>
+							<field name="own_status"/>
+							<field name="nama_vendor" attrs="{'invisible': [('own_status', '!=', 'Rental')]}"/>
+							<field name="plat_no"/>
+							<field name="tgl_beli"/>
+							<field name="harga_beli"/>
+							<field name="tahun_buat" required="1"/>
+							<field name="lokasi" required="1" options='{"no_open": True, "no_create": True}'/>
+						</group>
+						<group string="Asset Specification">
+							<field name="brand" options='{"no_open": True, "no_create": True}' required="1"/>
+							<field name="model" options='{"no_open": True, "no_create": True}' required="1"/>
+							<field name="no_mesin"/>
+							<field name="no_rangka"/>
+							<field name="category" required="1" options='{"no_open": True, "no_create": True}'/>
+							<field name="category_class" required="1"/>
+							<field name="plotting_location" required="1" options='{"no_open": True, "no_create": True}'/>
+							<field name="plotting_function" required="1"/>
+							<field name="meter_type"/>
+							<field name="kmhm_running"/>
+							<field name="bd_date" invisible="1"/>
+							<field name="problem" invisible="1"/>
+<!--                            <label for="hm" string="HM/KM"/>-->
+<!--                            <div class="o_row" name="lasthmkm">-->
+<!--                                <field name="hm" placeholder="Last HM ..." attrs="{'readonly': [('state', '!=', 'draft')]}"/> /-->
+<!--                                <field name="km" placeholder="Last KM ..." attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+<!--                            </div>-->
+<!--							<field name="driver"/>-->
+<!--							<field name="used_to"/>-->
+<!--							<field name="daily_rent_price" attrs="{'invisible':[('used_to','!=','rental')]}"/>-->
+<!--							<field name="hour_rent_price" attrs="{'invisible':[('used_to','!=','rental')]}"/>-->
+<!--							<field name="product_tmpl_id" context="{'default_type':'service','default_purchase_ok':False}" string="Rental Service" attrs="{'invisible':[('used_to','!=','rental')]}"/>-->
+						</group>
+					</group>
+					<notebook>
+						<page string="Document">
+							<field name="document_lines">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="attachment_ids" widget="many2many_binary"/>
+								</tree>
+							</field>
+						</page>
+<!--						history_transporter_lines -->
+
+						<page string="History Maintenance">
+							<field name="history_maintenance_lines">
+								<tree editable="bottom">
+									<field name="wr_date" string ="Date &amp; Time"/>
+									<field name="name" string ="No. Work Order"/>
+									<field name="location_problem" string ="Location"/>
+									<field name="description" string ="Description"/>
+<!--									<field name="status" decoration-success="status == 'done'" decoration-warning = "status == 'pending'" decoration-primary="status == 'on_progress'" decoration-muted = "status == 'draft'" widget="badge"/>-->
+								</tree>
+							</field>
+						</page>
+<!--						<page string="Detail Rental">-->
+<!--							<field name="rental_detail">-->
+<!--								<tree editable="bottom">-->
+<!--									<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="no_kontrak"/>-->
+<!--									<field name="ket"/>-->
+<!--								</tree>-->
+<!--								<form>-->
+<!--									<group>-->
+<!--										<group>-->
+<!--											<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--										</group>-->
+<!--										<group>-->
+<!--											<field name="no_kontrak"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="ket"/>-->
+<!--										</group>-->
+<!--									</group>-->
+<!--								</form>-->
+<!--							</field>-->
+<!--						</page>-->
+<!--						<page string="History Fuel">-->
+<!--							<field name="rental_detail">-->
+<!--								<tree editable="bottom">-->
+<!--									<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="no_kontrak"/>-->
+<!--									<field name="ket"/>-->
+<!--								</tree>-->
+<!--								<form>-->
+<!--									<group>-->
+<!--										<group>-->
+<!--											<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--										</group>-->
+<!--										<group>-->
+<!--											<field name="no_kontrak"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="ket"/>-->
+<!--										</group>-->
+<!--									</group>-->
+<!--								</form>-->
+<!--							</field>-->
+<!--						</page>-->
+<!--						<page string="History Tyre">-->
+<!--							<field name="rental_detail">-->
+<!--								<tree editable="bottom">-->
+<!--									<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="no_kontrak"/>-->
+<!--									<field name="ket"/>-->
+<!--								</tree>-->
+<!--								<form>-->
+<!--									<group>-->
+<!--										<group>-->
+<!--											<field name="tanggal_mulai"/>-->
+<!--									<field name="tanggal_akhir"/>-->
+<!--									<field name="vendor"/>-->
+<!--										</group>-->
+<!--										<group>-->
+<!--											<field name="no_kontrak"/>-->
+<!--									<field name="vendor"/>-->
+<!--									<field name="ket"/>-->
+<!--										</group>-->
+<!--									</group>-->
+<!--								</form>-->
+<!--							</field>-->
+<!--						</page>-->
+<!--						<page string="History Modify">-->
+<!--							<field name="rental_detail">-->
+<!--								<tree editable="bottom">-->
+<!--									<field name="nama_asset"/>-->
+<!--									<field name="attachment_ids" widget="many2many_binary"/>-->
+<!--								</tree>-->
+<!--							</field>-->
+<!--						</page>-->
+						<page string="Timesheet History">
+							<field name="timesheet_equipment_ids">
+								<tree default_order="id desc">
+									<field name="tanggal"/>
+									<field name="shift"/>
+									<field name="hm_awal" string="Start HM"/>
+									<field name="hm_akhir" string="End HM"/>
+									<field name="ewh"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Period Plan">
+							<field name="periodic_calculation_plan_ids">
+								<tree>
+                                    <field name="date"/>
+                                    <field name="maintenance_activity_id"/>
+                                    <field name="cycle"/>
+                                    <field name="wo_id"/>
+                                    <field name="kmhm_actual"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_master_asset_maintenance" model="ir.actions.act_window">
+		<field name="name">Master Asset Maintenance</field>
+		<field name="res_model">master_asset_maintenance</field>
+		<field name="view_mode">tree,form</field>
+		<!-- <field name="view_id" ref="bisa_maintenance.master_asset_mt_form"/> -->
+	</record>
+
+	<record id="master_asset_mt_tree_view" model="ir.actions.act_window.view">
+		<field name="sequence" eval="1"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="master_asset_mt_tree"/>
+		<field name="act_window_id" ref="action_master_asset_maintenance"/>
+	</record>
+
+	<record id="master_asset_mt_form_view" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="master_asset_mt_form"/>
+		<field name="act_window_id" ref="action_master_asset_maintenance"/>
+	</record>
+
+	<menuitem name="Asset Manajemen" id="menu_master_asset_manajemen" parent="menu_mnt_master_data" action="action_master_asset_maintenance" sequence="25"/>
+
+
+
+
+	 <record id="tbl_aset_lokasi_form" model="ir.ui.view">
+        <field name="name">form.tbl_aset.lokasi</field>
+        <field name="model">tbl_aset_lokasi</field>
+        <field name="arch" type="xml">
+            <form string="Lokasi Aset">
+              <sheet>
+                <group>
+					<field name="name"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tbl_aset_lokasi_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_aset_lokasi</field>
+    <field name="model">tbl_aset_lokasi</field>
+    <field name="arch" type="xml">
+        <tree string="Lokasi Aset">
+			<field name="name"/>
+			<field name="company_id"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_aset_lokasi" model="ir.actions.act_window">
+    <field name="name">Aset Lokasi</field>
+    <field name="res_model">tbl_aset_lokasi</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Asset Location" id="menu_aset_lokasi_left" action="action_aset_lokasi" parent="menu_mnt_master_data"  sequence="20"/>
+
+<!-- Shift -->
+	 <record id="tbl_master_shift_form" model="ir.ui.view">
+        <field name="name">form.master.shift.form</field>
+        <field name="model">work_shift</field>
+        <field name="arch" type="xml">
+            <form string="Master Shift">
+              <sheet>
+                <group>
+					<field name="company_id"/>
+					<field name="name"/>
+					<field name="start_shift" widget="float_full_time" options="{'round_off': True, 'time_only': True}"/>
+					<field name="end_shift" widget="float_full_time" options="{'round_off': True, 'time_only': True}"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tbl_master_shift_tree" model="ir.ui.view">
+    <field name="name">tree.master.shift</field>
+    <field name="model">work_shift</field>
+    <field name="arch" type="xml">
+        <tree string="Master Shift">
+			<field name="company_id"/>
+			<field name="name"/>
+			<field name="start_shift"/>
+			<field name="end_shift"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_work_shift" model="ir.actions.act_window">
+    <field name="name">Work Shift</field>
+    <field name="res_model">work_shift</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem name="Work Shift" id="menu_work_shift" action="action_work_shift" parent="menu_mnt_master_data"  sequence="60"/>
+<!-- Shift -->
+
+<!-- category -->
+	<record id="master_asset_category_form" model="ir.ui.view">
+        <field name="name">master.asset.category.form</field>
+        <field name="model">master.asset.category</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                <group>
+					<field name="name"/>
+<!--					<field name="incoming_account"/>-->
+					<field name="outgoing_account"/>
+					<field name="outgoing_product"/>
+					<field name="company_id"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+	</record>
+
+	<record id="master_asset_category_tree" model="ir.ui.view">
+		<field name="name">master.asset.category.tree</field>
+		<field name="model">master.asset.category</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+<!--				<field name="incoming_account"/>-->
+				<field name="outgoing_account"/>
+				<field name="outgoing_product"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_master_asset_category" model="ir.actions.act_window">
+		<field name="name">Category</field>
+		<field name="res_model">master.asset.category</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="Asset Category" id="menu_master_asset_category" action="action_master_asset_category" parent="menu_mnt_master_data"  sequence="15"/>
+<!-- category -->
+
+</odoo>

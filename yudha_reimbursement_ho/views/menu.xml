@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <menuitem
+            id="yudha_reimbursement_menu_ho_root"
+            name="Reimbursement HO"
+            web_icon="yudha_reimbursement_ho,static/description/icon.png"
+            sequence="25"/>
+        <menuitem id="yudha_hr_reimbursement_ho_main" name="Reimbursement" parent="yudha_reimbursement_ho.yudha_reimbursement_menu_ho_root"
+                   action="action_reimbursement_ho_Dynamic"
+            sequence="1"/>
+        <menuitem id="yudha_hr_reimbursement_config_main" name="Configuration" parent="yudha_reimbursement_ho.yudha_reimbursement_menu_ho_root"
+                   action="action_reimbursement_config_ho"
+            sequence="2"/>
+    </data>
+</odoo>

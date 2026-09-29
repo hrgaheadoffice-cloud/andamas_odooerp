@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="transporter_task_notification_24_hours_cron" model="ir.cron">
+          <field name="name">Transporter Task Notification 24 Hours</field>
+          <field name="model_id" ref="fieldservice_custom.model_fsm_transporter_task"/>
+          <field name="state">code</field>
+          <field name="code">model.execute_task_after_24_hours()</field>
+          <field name="user_id" ref="base.user_root"/>
+          <field name="interval_number">1</field>
+          <field name="interval_type">days</field>
+          <field name="numbercall">-1</field>
+          <field name="doall" eval="False"/>
+        </record>
+        <record id="transporter_task_notification_48_hours_cron" model="ir.cron">
+          <field name="name">Transporter Task Notification 48 Hours</field>
+          <field name="model_id" ref="fieldservice_custom.model_fsm_transporter_task"/>
+          <field name="state">code</field>
+          <field name="code">model.execute_task_after_48_hours()</field>
+          <field name="user_id" ref="base.user_root"/>
+          <field name="interval_number">1</field>
+          <field name="interval_type">days</field>
+          <field name="numbercall">-1</field>
+          <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

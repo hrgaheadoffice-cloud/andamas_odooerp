@@ -1,0 +1,86 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="cargo_manifest_tree_view" model="ir.ui.view">
+        <field name="name">cargo.manifest.tree.view</field>
+        <field name="model">cargo.manifest</field>
+        <field name="arch" type="xml">
+            <tree>
+<!--                <header>-->
+<!--                    <button name="action_cm" type="object" string="Confirm CM" class="oe_highlight"/>-->
+<!--                </header>-->
+                <field name="name"/>
+                <field name="reg_date"/>
+                <field name="ship_from"/>
+                <field name="ship_to"/>
+                <field name="transport"/>
+                <field name="driver"/>
+                <field name="user_id"/>
+                <field name="state" optional="show" decoration-info="state == 'draft'" decoration-warning="state in ['confirm']" decoration-danger="state == 'cancel'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="cargo_manifest_form_view" model="ir.ui.view">
+        <field name="name">cargo.manifest.form.view</field>
+        <field name="model">cargo.manifest</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_confirm" string="Confirm" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+<!--                    <button type="object" name="action_draft" string="Back to Draft" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>-->
+                    <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> Cargo Manifest </span>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group string="Form Input">
+                                    <field name="reg_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="description" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group string="Information Transport">
+                                    <field name="transport" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="driver" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="ship_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="ship_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                    </form>
+                    <notebook>
+                        <page name="detail_cm" string="Detail Product">
+                            <field name="purchase_order_line" mode="tree" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="top" create="1" delete="1" multi_edit="1">
+                                    <field name="order_id" string="No PO" readonly="1"/>
+                                    <field name="pr_id" string="No PR"/>
+                                    <field name="wo_id"/>
+                                    <field name="equipment_id"/>
+                                    <field name="requestor"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="product_qty" string="Qty Order" readonly="1"/>
+                                    <field name="product_uom" readonly="1"/>
+                                    <field name="qty_cm"/>
+                                    <field name="remarks"/>
+                                    <field name="product_uom_category_id" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="cargo_manifest_action" model="ir.actions.act_window">
+        <field name="name">Cargo Manifest</field>
+        <field name="res_model">cargo.manifest</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="cargo_manifest_tree_view"/>
+    </record>
+    <menuitem action="cargo_manifest_action" id="menu_cargo_manifest" name="Cargo Manifest" parent="cargo_manifest.menu_cargo_manifest_main" sequence="10"/>
+</odoo>

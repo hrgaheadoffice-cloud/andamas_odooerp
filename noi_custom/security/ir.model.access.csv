@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_noi,access.noi.user,model_noi,base.group_user,1,1,1,1
+access_noi_details,access.noi.details_user,model_noi_line,base.group_user,1,1,1,1
+access_noi_payment,access.noi.payment_user,model_noi_payment,base.group_user,1,1,1,1

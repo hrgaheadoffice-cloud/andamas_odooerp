@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="yudha_inv_product_extended_form" model="ir.ui.view">
+        <field name="name">yudha inventory product extended form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='default_code']" position="attributes">
+                 <attribute name="string">Kode Product</attribute>
+             </xpath>
+        </field>
+    </record>
+</odoo>

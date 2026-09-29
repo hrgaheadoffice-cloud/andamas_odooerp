@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="ca_access_rights">
+      <field name="name">Cost Advance Access Rights</field>
+      <field name="description">Category For Cost Advance Rights</field>
+    </record>
+    <record id="ca_approval" model="res.groups">
+        <field name="name">Cost Advance Approver</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_reject" model="res.groups">
+        <field name="name">Cost Advance Reject</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_request_settle" model="res.groups">
+        <field name="name">Cost Advance Request Settlement</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_done_settlement" model="res.groups">
+        <field name="name">Cost Advance Settlement</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_done" model="res.groups">
+        <field name="name">Cost Advance Post</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_view_balance" model="res.groups">
+        <field name="name">Cost Advance Balance View</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+    <record id="ca_view_balance_ho" model="res.groups">
+        <field name="name">Cost Advance HO Balance View</field>
+        <field name="category_id" ref="ca_access_rights"/>
+    </record>
+</odoo>

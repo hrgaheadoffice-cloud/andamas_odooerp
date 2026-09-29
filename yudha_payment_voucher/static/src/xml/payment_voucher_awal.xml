@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<templates id="template" xml:space="preserve">
+    <t t-name="YudhaPaymentVocuherMenuDashboardMain">
+        <div class="approval_menu_dashboards">
+            <div class="container-fluid approval_menu_dashboard">
+            </div>
+        </div>
+    </t>
+    <t t-name="yudha_payment_voucher.buttons">
+        <div class="row col-6" style="height: 120px; top: 30px">
+            <div class="col-2" style="top:20px; padding-left: 50px;">
+                <h3>Model :</h3>
+            </div>
+            <div class="col-4" style="top:20px;">
+                <select id="approval_selection_menu" class="oe_approval_model">
+                     <option id="pr_approval" value="vb_payment">Vendor Bills</option>
+                     <option id="pr_approval" value="nois_payment">NOI - HO</option>
+                     <option id="pr_approval" value="cashadvance_payment">Cash Advance - HO</option>
+                     <option id="pr_approval" value="settelement_payment">Settlement - HO</option>
+                     <option id="pr_approval" value="cashrequest_payment">Cash Request</option>
+                     <option id="pr_approval" value="reimbursement_payment">Reimbursement - HO</option>
+                </select>
+            </div>
+
+        </div>
+                <div class="approval_main" style="top:50px;">
+                    <div class="o_contents" style="top:50px;">
+
+                    </div>
+                </div>
+    </t>
+
+ </templates>

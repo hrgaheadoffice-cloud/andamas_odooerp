@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+    <record id="tbl_mnt_report_form" model="ir.ui.view">
+        <field name="name">form.maintenance_report</field>
+        <field name="model">maintenance_report</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Report">
+              <sheet>
+                <group>
+                  <group>
+                        <field name="tgl_awal"/>
+                        <button name="action_submit" type="object" string="Submit"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                      <group>
+                        <field name="tgl_akhir"/>
+                      </group>
+                    </group>
+                    </sheet>
+            </form>
+        </field>
+</record>
+<record model="ir.ui.view" id="tbl_mnt_task_pivot">
+    <field name="name">tbl_mnt_task.pivot</field>
+    <field name="model">tbl_mnt_task</field>
+    <field name="arch" type="xml">
+        <pivot string="Timesheet Employee" sample="1">
+            <field name="employee" type="row"/>
+        </pivot>
+    </field>
+</record>
+
+<record id="action_maintenance_report_generate" model="ir.actions.act_window">
+    <field name="name">Report</field>
+    <field name="res_model">maintenance_report</field>
+    <field name="view_mode">form</field>
+</record> 
+
+<menuitem name="Generate Report" id="menu_mnt_generate_left" action="action_maintenance_report_generate" parent="menu_mnt_maintenance_report"  sequence="10" />
+
+  <record id="tree_maintenance_report_detail" model="ir.ui.view">
+    <field name="name">tree.maintenance_report_detail</field>
+    <field name="model">maintenance_report_detail</field>
+    <field name="arch" type="xml">
+      <tree string="Request" create="0">
+          <field name="company_id" invisible="1"/>
+          <field name="tanggal1" width="50" string="Tanggal Awal"/>
+          <field name="tanggal2" width="50" string="Tanggal Akhir"/>
+          <field name="name"/>
+          <field name="start_wh"/>
+          <field name="end_wh"/>
+          <field name="total_wh"/>
+          <field name="total_bd"/>
+          <field name="mohh"/>
+          <field name="mtbf"/>
+          <field name="mttr"/>
+          <field name="even" string="Event"/>
+          <field name="pa" string="PA(%)"/>
+          <field name="ua" string="UA(%)"/>
+          <field name="ma" string="MA(%)"/>
+          <field name="eu" string="EU(%)"/>
+      </tree>
+    </field>
+  </record>
+    <record id="tbl_maintenance_report_detail_calendar" model="ir.ui.view">
+            <field name="name">maintenance_report_detail.calendar</field>
+            <field name="model">maintenance_report_detail</field>
+            <field name="arch" type="xml">
+                <calendar string="Analisa" date_start="tanggal1" color="name" hide_time="true" event_limit="5" quick_add="False">
+<!--                     <field name="request_by" avatar_field="image_128"/> -->
+                    <field name="name"/>
+                    <field name="name" filters="1" invisible="1"/>
+                </calendar>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="tbl_maintenance_report_detail_graph">
+            <field name="name">maintenance_report_detail.graph</field>
+            <field name="model">maintenance_report_detail</field>
+            <field name="arch" type="xml">
+                <graph string="Service" sample="1">
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="tbl_maintenance_report_detail_pivot">
+            <field name="name">maintenance_report_detail.pivot</field>
+            <field name="model">maintenance_report_detail</field>
+            <field name="arch" type="xml">
+                <pivot string="Service" sample="1">
+                    <field name="name" type="row"/>
+                </pivot>
+            </field>
+        </record>
+<record id="action_maintenance_report1" model="ir.actions.act_window">
+    <field name="name">Maintenance Report</field>
+    <field name="res_model">maintenance_report_detail</field>
+    <field name="view_mode">tree,pivot,graph,calendar</field>
+    <field name="context">{'group_by':['tanggal1:month', 'tanggal1:week']}</field>
+</record>
+
+<menuitem name="Maintenance Report" id="menu_maintenance_report_left" action="action_maintenance_report1" parent="menu_mnt_maintenance_report"  sequence="20" />
+
+
+</odoo>

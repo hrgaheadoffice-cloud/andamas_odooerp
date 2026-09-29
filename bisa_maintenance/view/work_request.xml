@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="work_request_tree" model="ir.ui.view">
+        <field name="name">work.request.tree</field>
+        <field name="model">work.request</field>
+        <field name="arch" type="xml">
+            <tree string="Work Request">
+<!--                <button name="action_submit"-->
+<!--                    string="Submit"-->
+<!--                    type="object"-->
+<!--                    class="btn-primary"/>-->
+                <header>
+                    <button type="object" name="action_submit_batch" string="Submit" class="oe_highlight" groups="bisa_maintenance.group_maintenance_ocr_ccr"/>
+                </header>
+                <field name="name"/>
+                <field name="date"/>
+<!--                <field name="bd"/>-->
+                <field name="equipment_id" readonly="False"/>
+<!--                <field name="priority" widget="priority"/>-->
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="state" optional="show" decoration-info="state == 'draft'" decoration-warning="state in ['confirm']" decoration-success="state in ['done']" decoration-bf="state == 'progress'" decoration-danger="state == 'cancel'" widget="badge"/>
+                <field name="work_order_state" optional="show" widget="badge"/>
+                <field name="delay_factor_state" optional="show" widget="badge" attrs="{'invisible': [('work_order_state', 'in', ['done','close'])]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_request_form" model="ir.ui.view">
+        <field name="name">work_request_form</field>
+        <field name="model">work.request</field>
+        <field name="arch" type="xml">
+            <form string="Work Request">
+                <header>
+                    <button type="object" name="action_submit" string="Submit" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}" groups="bisa_maintenance.group_maintenance_ocr_ccr"/>
+                    <button type="object" name="action_rfu" string="RFU" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'submit')]}" groups="bisa_maintenance.group_maintenance_ocr_ccr"/>
+                    <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', 'in', ['submit','cancel'])]}" groups="bisa_maintenance.group_maintenance_ocr_ccr"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,rfu"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> No Work Request </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group string="Main Info">
+                                <field name="user_id" readonly="1" required="1"/>
+                                <field name="company_id" readonly="1" required="1"/>
+                                <field name="date" force_save="1" required="1"/>
+                                <field name="actual_dtrfu" force_save="1" attrs="{'invisible': [('state', '=', 'draft')], 'required': [('state', '=', 'submit')]}"/>
+                                <field name="shift" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                                <field name="location_problem" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+<!--                                <field name="priority" widget="priority" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                                <field name="maintenance_type" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                                <field name="operation" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group string="Information Unit">
+                                <field name="employee_category" invisible="1"/>
+                                <field name="operator_driver" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                <field name="plotting_location" force_save="1" required="True"/>
+                                <field name="equipment_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_quick_create':True,'no_create_edit':True}" required="1"/>
+                                <field name="category_equipment" readonly="1"/>
+                                <field name="meter_type"/>
+                                <field name="kmhm_running" required="1"/>
+<!--                                <label for="hm" string="HM/KM"/>-->
+<!--                                <div class="o_row" name="lasthmkm">-->
+<!--                                        <field name="hm" placeholder="Last HM ..." attrs="{'readonly': [('state', '!=', 'draft')]}"/> /-->
+<!--                                        <field name="km" placeholder="Last KM ..." attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+<!--                                </div>-->
+                            </group>
+                            <group string="Problem">
+                                <field name="description" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                                <field name="bd" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                            </group>
+                            <group string="Work Order Information">
+                                <field name="work_order_id"/>
+<!--                                <field name="work_order_start"/>-->
+<!--                                <field name="work_order_rfu"/>-->
+                                <field name="work_order_state"/>
+                                <field name="duration_db"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Berita Acara'>
+                                <field name="handover_ids">
+                                    <tree editable="bottom">
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </form>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_work_request_search" model="ir.ui.view">
+        <field name="model">work.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="equipment_id"/>
+                <field name="priority"/>
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="work_order_state"/>
+                <field name="delay_factor_state"/>
+            </search>
+        </field>
+    </record>
+
+<record id="action_work_request" model="ir.actions.act_window">
+    <field name="name">Work Request</field>
+    <field name="res_model">work.request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="search_view_id" ref="view_work_request_search"/>
+    <field name="context">{}</field>
+    <field name="domain">[('search_ids', '=', 1)]</field>
+</record>
+
+
+    <menuitem name="Work Request / PPA" id="menu_work_request" action="action_work_request" parent="menu_mnt_operation_top"  sequence="10"/>
+
+    <record id="view_inherit_stock_vpicktree" model="ir.ui.view">
+            <field name="name">view_inherit_stock_vpicktree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <!-- we should not override the whole field but instead just set invisible attribute
+                 to 0. but this approach is not working. the work around is temporary -->
+                <xpath expr="//field[@name='origin']" position="replace">
+                    <field name="origin" string="Reference From" optional="show"/>
+                </xpath>
+            </field>
+    </record>
+</odoo>

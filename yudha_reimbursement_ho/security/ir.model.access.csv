@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_reimbursement_ho,access.reimbursement.ho.user,model_reimbursement_ho,base.group_user,1,1,1,1
+access_reimbursement_details_ho,access.reimbursement.details.ho.user,model_reimbursement_holine,base.group_user,1,1,1,1
+
+access_reimbursement_payment_ho,access.reimbursement.payment.ho.user,model_reimbursement_payment_ho,base.group_user,1,1,1,1
+access_account_account_ho_users,access.account.account.ho.user,model_account_account,base.group_user,1,1,1,1
+
+access_reimbursement_reason_ho,access_reimbursement_reason_ho_user,model_reimbursement_reason_howiz,base.group_user,1,1,1,1
+
+access_reimbursement_config_ho,access_reimbursement_config_user_ho,model_reimbursement_config_ho,base.group_user,1,1,1,1

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <template id="yudha_sc_confirm" inherit_id="web.assets_backend" name="Yudha SC Confirm Backend Assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/yudha_sc_confirm/static/src/js/switch_company_confirm.js"></script>
+        </xpath>
+    </template>
+</odoo>

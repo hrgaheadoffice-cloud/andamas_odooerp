@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+
+    <record id="tbl_mnt_matrial_form" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_matrial</field>
+        <field name="model">tbl_mnt_matrial</field>
+        <field name="arch" type="xml">
+            <form create="0">
+<!--                <header>-->
+<!--                    <button name="action_submit" type="object" string="Submit"  states='draft' class="oe_highlight"/>-->
+<!--                    <button name="action_po" type="object" string="Create PR" states='submit' class="oe_highlight"/>-->
+<!--                    <button name="action_do" type="object" string="Create Request" states='submit' class="oe_highlight"/>-->
+<!--                    <field name="state" widget="statusbar" statusbar_visible='draft,submit,done'/>-->
+<!--                </header>-->
+                <sheet>
+                    <group>
+                        <field name="component"/>
+                        <field name="part_name"/>
+                        <field name="price"/>
+                        <field name="avail_qty" string="Available Qty" readonly="1"/>
+                        <field name="quantity" string="To Consume"/>
+                        <field name="reserve_qty" string="Reserved" readonly="1"/>
+                        <field name="qty_done" string="Qty Done"/>
+                        <field name="total_price" string="Total Amount" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tbl_mnt_matrial_tree" model="ir.ui.view">
+        <field name="name">tree.tbl_mnt_matrial</field>
+        <field name="model">tbl_mnt_matrial</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="date" string="Date &amp; Time"/>
+                <field name="equipment_id"/>
+                <field name="part_number"/>
+                <field name="part_name"/>
+                <field name="quantity" string="Qty"/>
+                <field name="uom"/>
+                <field name="hm_km"/>
+                <field name="price"/>
+                <field name="total_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mnt_inventory" model="ir.actions.act_window">
+        <field name="name">Inventory</field>
+        <field name="res_model">tbl_mnt_matrial</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_mnt_partline" model="ir.actions.act_window">
+        <field name="name">Spare Part Usage</field>
+        <field name="res_model">requisition_product</field>
+        <field name="view_id" ref="bisa_maintenance.bisa_part_consumtion_move_tree_view"/>
+        <field name="domain">[]</field>
+    </record>
+
+<!--    <menuitem name="Inventory" id="menu_mnt_inventory_left" action="action_mnt_inventory" parent="menu_mnt_matrial_top"  sequence="10"/>-->
+    <menuitem name="Spare Part Usage" id="menu_mnt_partline_left" action="action_mnt_partline" parent="menu_mnt_matrial_top"  sequence="20"/>
+
+
+</odoo>

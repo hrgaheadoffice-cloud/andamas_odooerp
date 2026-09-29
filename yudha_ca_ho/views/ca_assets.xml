@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <template id="yudha_ca_asset_backend" inherit_id="web.assets_backend" name="Yudha CA Backend Assets">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/yudha_ca/static/src/css/chatter_position.css"/>
+        </xpath>
+    </template>
+</odoo>

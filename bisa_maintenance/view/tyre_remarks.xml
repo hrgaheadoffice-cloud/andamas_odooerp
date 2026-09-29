@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_tyre_remarks_tree'>
+        <field name="name">view.tyre.remarks.tree</field>
+        <field name="model">tyre.remarks</field>
+        <field name="arch" type="xml">
+            <tree string="Tyre Remarks">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_tyre_remarks_form'>
+        <field name="name">view.tyre.remarks.form</field>
+        <field name="model">tyre.remarks</field>
+        <field name="arch" type="xml">
+            <form string="Tyre Remarks">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_tyre_remarks_view" model="ir.actions.act_window">
+        <field name="name">Tyre Remarks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tyre.remarks</field>
+    </record>
+
+    <menuitem name="Tyre Remarks" id="menu_tyre_remarks" parent="menu_mnt_master_data" action="action_tyre_remarks_view" sequence="55"/>
+</odoo>

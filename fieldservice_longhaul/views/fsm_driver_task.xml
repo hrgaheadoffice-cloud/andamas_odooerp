@@ -1,0 +1,68 @@
+<odoo>
+    <record id="fieldservice_route.menu_fsm_route_dayroute" model="ir.ui.menu">
+        <field name="name">Driver Tasks</field>
+    </record>
+    <record id="fieldservice_route.action_fsm_route_dayroute" model="ir.actions.act_window">
+        <field name="name">Driver Tasks</field>
+    </record>
+
+    <!-- Modify form -->
+    <record id="fsm_route_dayroute_form" model="ir.ui.view">
+        <field name="name">fsm.route.dayroute.form</field>
+        <field name="model">fsm.route.dayroute</field>
+        <field name="inherit_id" ref="fieldservice_route.fsm_route_dayroute_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <form string="Day Route">
+                <header>
+                    <group>
+                        <field name="created_by" invisible="1" />
+                        <field name="date_time" invisible="1" />
+                        <field name="shift" options="{'no_create_edit': True}" />
+                        <field name="driver" widget="barcodescanner" />
+                        <field name="unit_code" invisible="1" />
+                        <field name="unit_spare" />
+                    </group>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <field name="loading_permit" readonly="1" />
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group id="main">
+                        <group id="left">
+                            <field name="freight_contract" />
+                            <field name="route_code" />
+                            <field name="loading_location" />
+                            <field name="unloading_location" />
+                            <field name="hauling_cost" />
+                        </group>
+                        <group id="right">
+                            <group>
+                                <field name="unit_status" string="Unit Status" />
+                                <field name="hse_status" string="HSE Status" />
+                                <field name="operation_status" string="Operation Status" />
+                            </group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Extra Info">
+                            <group id="extra_info">
+                                <field name="max_order" />
+                                <field name="order_count" />
+                                <field name="order_remaining" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="master_asset_mt_form_custom" model="ir.ui.view">
+            <field name="name">master_asset_mt.form.custom</field>
+            <field name="model">master_asset_maintenance</field>
+            <field name="inherit_id" ref="bisa_maintenance.master_asset_mt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Fuel History">
+                        <field name="fuel_cons_id" readonly="1">
+                            <tree default_order="id desc">
+                                <field name="name"/>
+                                <field name="date" string="Date"/>
+                                <field name="shift"/>
+                                <field name="fuel_qty"/>
+                                <field name="product_price"/>
+                                <field name="total_price" string="Total Cost"/>
+                                <field name="hm" string="KM/HM Running"/>
+<!--                                <field name="ewd"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+    </record>
+</odoo>

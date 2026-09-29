@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Cargo Manifest" id="menu_cargo_manifest_root"  web_icon="cargo_manifest,static/description/icon.png"  sequence="20"/>
+
+    <menuitem name="Cargo Manifest" id="menu_cargo_manifest_main" parent="cargo_manifest.menu_cargo_manifest_root" sequence="10"/>
+</odoo>

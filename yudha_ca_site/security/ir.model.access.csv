@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cash_advance_site,access_cash_advance_site_user,model_cash_advance_site,base.group_user,1,1,1,1
+access_cash_advance_site_details,access_cash_site_advance_details_user,model_cash_advance_siteline,base.group_user,1,1,1,1
+
+access_settelment_site,access_settelment_site_user,model_settelment_site,base.group_user,1,1,1,1
+access_settelment_site_details,access_settelment_site_details_user,model_settelment_siteline,base.group_user,1,1,1,1
+
+access_register_payment_site,access_register_payment_site_user,model_register_payment_sitewiz,base.group_user,1,1,1,1
+
+access_settelment_site_reason,access_settelment_site_reason_user,model_settelment_reason_sitewiz,base.group_user,1,1,1,1
+access_account_account_users,access.account.account.user,model_account_account,base.group_user,1,1,1,1
+
+access_cas_config_site_user,access_cas_config_site_user,model_cas_config_site,base.group_user,1,1,1,1
+

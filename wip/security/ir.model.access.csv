@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wip_management,wip.management,model_wip_management,base.group_user,1,1,1,1
+wip_project,wip_project,model_wip_project,,1,1,1,1
+access_do_category,do_category,model_do_category,,1,1,1,1

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="leasing_management_form" model="ir.ui.view">
+        <field name="name">leasing.management.form</field>
+        <field name="model">leasing.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="button_approved"
+                        states="draft"
+                        string="Submit"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="calculate"
+                        states="draft"
+                        string="Generate Installment"
+                        type="object"
+                        class="oe_highlight"
+                    />      
+                    <button
+                        name="generate_journal_voucher"
+                        states="draft"
+                        string="Generate Journal Voucher"
+                        type="object"
+                        class="oe_highlight"
+                    />   
+                    <button name="register_payment" type="object" string="Register Payment" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'waiting_on_payment')]}"/>
+                       
+                  <field name="state" widget="statusbar"/>
+              </header>
+              <sheet>
+              <div class="oe_edit_only">
+                        <label for="name" class="oe_inline"/>
+                    </div>
+                    <h1>
+                        <field name="name" class="oe_inline" readonly="True"/>
+                    </h1>
+                <group>
+                    <group>
+                        <field name="lessor_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="contract_number" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="asset_class_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="asset_name" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="processing_date"  required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="tennor_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <!-- <field name="total_principal_amount" attrs="{'readonly': [('state','!=','draft')]}"/>    -->
+                        <!-- <field name="total_interest_amount" attrs="{'readonly': [('state','!=','draft')]}"/>    -->
+                        <field name="total_leasing" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>   
+                        <!-- <field name="rate_amount" attrs="{'readonly': [('state','!=','draft')]}"/>    -->
+                    </group>
+
+                    <group>
+                        <field name="project_code_id" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="asset_qty" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    </group>
+                    <group>
+                    
+                    </group>
+                    <group string="Accounting" >
+                        <field name="company_id" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="loan_account_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="interest_account_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="journal_id" required="1" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="analytic_account_id" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="analytic_tag_ids" widget="many2many_tags" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="activity" options="{'no_open':True,'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    </group>
+
+                </group>
+
+                <notebook>
+                    <page string="Loan Summary">
+                        <field name="leasing_management_ids">
+                            <tree editable="bottom">
+                                <field name="tennor" readonly="1"/>
+                                <field name="due_date" readonly="1"/>
+                                <field name="journal_date" readonly="1"/>
+                                <field name="installment_amount" readonly="1"/>
+                                <field name="principal_amount"/>
+                                <field name="interest_amount"/>
+                                <field name="os_principal_amount" readonly="1" force_save="1"/>
+                                <field name="is_journal_voucher"/>
+                                <field name="journal_voucher_id" readonly="1"/>
+                                <field name="state_transaction" readonly="1"/>
+                            </tree>
+                            <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="tennor" readonly="1"/>
+                                                <field name="due_date" readonly="1"/>
+                                                <field name="journal_date" readonly="1"/>
+                                                <field name="installment_amount" readonly="1"/>
+                                                <field name="principal_amount"/>
+                                                <field name="interest_amount" readonly="1"/>
+                                                <field name="os_principal_amount" readonly="1"/>
+                                                <field name="is_journal_voucher"/>
+                                                <field name="journal_voucher_id" readonly="1"/>
+                                                <field name="state_transaction" readonly="1"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Detail Asset">
+                        <field name="detail_asset_leasing_management_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="leasing_management_tree" model="ir.ui.view">
+    <field name="name">leasing.management.tree</field>
+    <field name="model">leasing.management</field>
+    <field name="arch" type="xml">
+        <tree>
+        <field name="name"/>
+                        <field name="lessor_id"/>
+                        <field name="contract_number"/>
+                        <field name="asset_class_id"/>
+                        <field name="asset_name"/>
+                        <field name="asset_qty"/>
+                        <field name="project_code_id"/>
+                        <field name="processing_date"/>
+                        <field name="tennor_id"/>
+                        <field name="total_leasing"/> 
+                        <field name="total_paid"/> 
+                        <field name="remaining_amount"/> 
+                        <field name="state"/> 
+     </tree>
+ </field>
+</record>
+
+<record id="action_leasing_management" model="ir.actions.act_window">
+    <field name="name">Leasing Management</field>
+    <field name="res_model">leasing.management</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+<menuitem name="Leasing Management" id="menu_leasing_management_top" parent="menu_leasing_management_root" action="action_leasing_management"  sequence="1"/>
+
+ <record id="view_insert_ca_wizard_view_form_custom" model="ir.ui.view">
+        <field name="name">insert.ca.wizard.form.custom</field>
+        <field name="model">insert.ca.wizard</field>
+        <field name="inherit_id" ref="yudha_payment_voucher.insert_ca_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[6]" position="after">
+                <page name="leasing_management_voucher_ids" string="Leasing Management">
+                            <field name="leasing_management_voucher_ids"  domain="[('is_insert_plant','=',False),('state','=','approved')]">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="request_date" />
+                                    <field name="request_amount" />
+                                    <field name="request_by" />
+                                    <!-- <field name="cost_center" /> -->
+
+                                </tree>
+                             </field> 
+                            
+                        </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

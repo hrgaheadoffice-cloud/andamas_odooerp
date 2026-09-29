@@ -1,0 +1,102 @@
+<odoo>
+    <!-- Add column to table person -->
+    <record id="fsm_person_longhaul_tree_view" model="ir.ui.view">
+        <field name="name">fsm.person.tree.inherit.longhaul</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="nip" />
+                <field name="unit_code" />
+                <field name="status_pegawai" />
+            </field>
+            <xpath expr="//field[@name='calendar_id']" position="replace"/>
+            <xpath expr="//field[@name='email']" position="replace"/>
+            <field name="phone" position="after">
+                <field name="status_pegawai" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Add field to form person -->
+    <record id="fsm_person_longhaul_form_view" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit.longhaul</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form" />
+        <field name="arch" type="xml">
+            <field name="category_ids" position="before">
+                <field name="nip" string="NIP"/>
+                <field name="unit_code" string="Unit Code" />
+            </field>
+            <xpath expr="//field[@name='calendar_id']" position="replace"/>
+            <xpath expr="//field[@name='email']" position="replace"/>
+            <field name="phone" position="after">
+                <field name="status_pegawai" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Disable button next and previous -->
+    <record id="fsm_person_form_inherit_disable_buttons" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@id='previous_stage']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@id='next_stage']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Update the page name for "Territories" -->
+    <record id="fsm_person_form_territories" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit.territories</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[field[@name='territory_ids']]" position="attributes">
+                <attribute name="string">Extra Info</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Update the page name for "Linked Locations" -->
+    <record id="fsm_person_form_linked_locations" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit.linked_locations</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[field[@name='location_ids']]" position="attributes">
+                <attribute name="string">Disciplinary History</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Update the form view for fsm.person -->
+    <record id="fsm_person_form_inherit_update_form" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="attributes">
+                <attribute name="string">Active</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add the new field "Unit Code" after the related partner field -->
+    <record id="fsm_person_form_inherit_unit_code" model="ir.ui.view">
+        <field name="name">fsm.person.form.inherit.unit_code</field>
+        <field name="model">fsm.person</field>
+        <field name="inherit_id" ref="fieldservice.fsm_person_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="unit_code"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

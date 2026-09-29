@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_bisa_payment_form" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//group[@name='group3']" position="after">
+                <group>
+                        <table>
+                        <tr >
+                            <td><label for="prepared_by"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="prepared_by" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="prepare_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                        <tr >
+                            <td><label for="checked_by"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="checked_by" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="checked_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                        <tr >
+                            <td><label for="verified_by"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="verified_by" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="verify_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                        <tr >
+                            <td><label for="appr1" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr1" attrs="{'required': [('appr2', '!=', False)],'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr1_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                        <tr >
+                            <td><label for="appr2" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr2" attrs="{'required': [('appr3', '!=', False)],'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr2_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                        <tr >
+                            <td><label for="appr3" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr3" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr3_dt" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/></td>
+                        </tr>
+                    </table>
+                </group>
+            </xpath> -->
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="description"/>
+            </xpath>
+        </field>
+    </record>
+   
+
+</odoo>

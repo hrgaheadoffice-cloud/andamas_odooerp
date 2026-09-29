@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="fsm_asset_kmhm_move_tree_view" model="ir.ui.view">
+           <field name="name">fsm.asset.kmhm.move.tree.view</field>
+           <field name="model">fsm.asset.kmhm.move</field>
+           <field name="arch" type="xml">
+               <tree string="Asset KM/HM Move" create="false" js_class="maintenance_list_dashboard">
+                   <field name="name"/>
+                   <field name="date"/>
+                   <field name="equipment_id"/>
+                   <field name="meter_type"/>
+                   <field name="addition_meter" string="EWH"/>
+                   <field name="kmhm_running"/>
+                   <field name="hm_begin"/>
+                   <field name="hm_end"/>
+                   <field name="shift"/>
+               </tree>
+           </field>
+       </record>
+        <record id="fsm_asset_kmhm_move_action_view" model="ir.actions.act_window">
+            <field name="name">Asset KM/HM Move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fsm.asset.kmhm.move</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No move
+              </p><p>
+                Move is created from confirmed Delivery Order
+              </p>
+            </field>
+        </record>
+        <menuitem id="asset_kmhm_move_menu" name="Asset KM/HM Move" parent="bisa_maintenance.menu_mnt_timesheet_top" action="fsm_asset_kmhm_move_action_view" sequence="30"/>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="master_account_asset_search_view" model="ir.ui.view">
+	   <field name="name">master.account.asset.search.view</field>
+	   <field name="model">master_asset_maintenance</field>
+	    <field name="arch" type="xml">
+	        <search string="Master Account Asset Maintenance">
+				<field name="nama_asset"/>
+				<field name="kat_asset"/>
+				<field name="plat_no"/>
+				<field name="driver"/>
+				<group expand='0' string='Group by...'>
+                    <filter string='Used to' name="group_by_used_to" context="{'group_by': 'used_to'}"/>
+				</group>
+			</search>
+	   </field>
+	</record>
+    <record id="yudha_asset_maintenancec_form" model="ir.ui.view">
+        <field name="name">yudha asset maintenancec form</field>
+        <field name="model">master_asset_maintenance</field>
+        <field name="inherit_id" ref="bisa_maintenance.master_asset_mt_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='equipment_id']" position="before">
+				<field
+					name="nomor_asset"
+					required="1"
+				/>
+             </xpath>
+        </field>
+    </record>
+	<record id="action_master_account_asset_maintenance" model="ir.actions.act_window">
+		<field name="name">Master Asset Maintenance</field>
+		<field name="res_model">master_asset_maintenance</field>
+		<field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="master_account_asset_search_view"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No master asset maintenancen found. Let's create one!
+              </p>
+            </field>
+	</record>
+</odoo>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Fuel Management" id="menu_fuel_management_root"  web_icon="fuel_management,static/description/icon.png"  sequence="20"/>
+    <menuitem name="Master Data" id="menu_master_data" parent="menu_fuel_management_root" sequence="20"/>
+</odoo>

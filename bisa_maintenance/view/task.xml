@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+
+ <record id="tbl_mnt_task_form" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_task</field>
+        <field name="model">tbl_mnt_task</field>
+        <field name="arch" type="xml">
+            <form create="0">
+              <sheet>
+                <group>
+                    <field name="work_order_id" string="No. WO"/>
+                    <field name="employee" string="Mechanic Helper" widget="many2many_tags"/>
+                    <field name="spv_id"/>
+                    <field name="maintenance_type"/>
+                    <field name="equipment_id"/>
+                    <field name="task"/>
+                    <field name="working_time"/>
+                    <field name="state"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tbl_mnt_task_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_task</field>
+    <field name="model">tbl_mnt_task</field>
+    <field name="arch" type="xml">
+        <tree create="0">
+            <field name="work_order_id" string="No. WO"/>
+            <field name="mechanic" widget="many2many_tags"/>
+            <field name="spv_id"/>
+            <field name="maintenance_type"/>
+            <field name="equipment_id"/>
+            <field name="task"/>
+            <field name="working_time"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_jobsheet" model="ir.actions.act_window">
+    <field name="name">Job Sheet</field>
+    <field name="res_model">tbl_mnt_task</field>
+    <field name="view_mode">tree,form</field>
+</record>
+    <record id="action_mnt_mechanic" model="ir.actions.act_window">
+    <field name="name">Mechanic</field>
+    <field name="res_model">tbl_mnt_task</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!--<menuitem name="Job Sheet" id="menu_mnt_jobsheet_left" action="action_mnt_jobsheet" parent="menu_mnt_task_top"  sequence="10"/>-->
+<menuitem name="Mechanic" id="menu_mnt_mechanic_left" action="action_mnt_mechanic" parent="menu_mnt_timesheet_top"  sequence="11"/>
+
+
+</odoo>

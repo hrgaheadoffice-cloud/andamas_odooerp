@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="config_approval_matrix_form" model="ir.ui.view">
+        <field name="name">config.approval.matrix.form</field>
+        <field name="model">config.approval.matrix</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                <group>
+                    <group>
+                        <field name="modul"/>
+                        <field name="proc_group_id" attrs="{'required': [('modul', 'in', ('PR', 'PO'))],'invisible': [('modul', 'not in', ('PR', 'PO'))]}"/>
+                        <field name="department_id" attrs="{'required': [('modul', 'in', ('PR', 'PO'))],'invisible': [('modul', 'not in', ('PR', 'PO'))]}"/>
+                        <field name="tag_warehouse" widget="many2many_tags"/>
+                        <field name="matrix_level_id"/>
+                        <field name="expected_amount"/>
+                        <field name="company_id"/>
+                        <field name="approval_user_ids" widget="many2many_tags"/>
+                        <field name="delegate_user"/>
+                    </group>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="config_approval_matrix_tree" model="ir.ui.view">
+    <field name="name">config.approval.matrix.tree</field>
+    <field name="model">config.approval.matrix</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="modul"/>
+            <field name="proc_group_id"/>
+            <field name="department_id"/>
+            <field name="tag_warehouse" widget="many2many_tags"/>
+            <field name="matrix_level_id"/>
+            <field name="expected_amount"/>
+            <field name="company_id"/>
+            <field name="approval_user_ids" widget="many2many_tags"/>
+            <field name="delegate_user"/>
+        </tree>
+ </field>
+</record>
+
+<record id="action_config_approval_matrix" model="ir.actions.act_window">
+    <field name="name">Config Approval Matrix</field>
+    <field name="res_model">config.approval.matrix</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Config Approval Matrix" id="menu_action_config_approval_matrix" action="action_config_approval_matrix" parent="menu_matrix_auth_top"  sequence="11"/>
+
+
+
+
+
+</odoo>

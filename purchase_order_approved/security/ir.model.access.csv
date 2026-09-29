@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tbl_batch_notif_po,purchase.tbl_batch_notif_po,model_tbl_batch_notif_po,,1,1,1,1
+access_tbl_notif_po_user,purchase.tbl_notif_po_user,model_tbl_notif_po_user,,1,1,1,1
+access_tbl_notif_po_detail,purchase.tbl_notif_po_detail,model_tbl_notif_po_detail,,1,1,1,1

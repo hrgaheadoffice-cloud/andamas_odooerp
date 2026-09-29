@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_sundry_form" model="ir.ui.view">
+            <field name="name">sundry.form</field>
+            <field name="model">sundry</field>
+            <field name="arch" type="xml">
+              <form string="Sundry Site" class="o_sale_order">
+                <header>
+                      <field name="next_approver_ids" invisible="1"/>
+                    <button name="button_approve" type="object" states='to approve' string="Approve" class="oe_highlight"/>
+                    <button
+                        name="button_approved_matrix"
+                        states="to_approve_matrix"
+                        string="Approve Matrix"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+                    <button
+                            name="button_check"
+                            string="Check"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_check"
+                        />
+                    <button
+                            name="button_verify"
+                            string="Verify"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_verify"
+                        />
+                    <button
+                        name="button_appr1"
+                        type="object"
+                        states="approved1"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr2"
+                        type="object"
+                        states="approved2"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr3"
+                        type="object"
+                        states="approved3"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr4"
+                        type="object"
+                        states="approved4"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr5"
+                        type="object"
+                        states="approved5"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr6"
+                        type="object"
+                        states="approved6"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr7"
+                        type="object"
+                        states="approved7"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button name="button_appr8" type="object" states="approved8" string="Approve"
+                        class="oe_highlight"/>
+
+                    <button
+                        name="button_reject"
+                        string="Reject"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('state','in',['draft','approved','waiting_on_payment','rejected','done'])]}"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        states="rejected"
+                        string="Set To Draft"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_request_approval"
+                        type="object"
+                        states="draft"
+                        string="Request Approval"
+                        class="oe_highlight"
+                    />
+                    <button name="register_payment" type="object"
+                            string="Register Payment" class="oe_highlight"
+                            groups="account_custom.group_register_payment"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <field name="approval_stage" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,waiting_on_payment,done,rejected" readonly="1"/>
+                </header>
+                <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="request_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="ref"/>
+                                <field name="payment_type" widget="radio"/>
+<!--                                <field name="journal_id" widget="selection" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>-->
+<!--                                <field name="available_partner_bank_ids" invisible="1" />-->
+<!--                                <field name="request_bank" attrs="{'readonly': [('state','!=','draft')]}"/>-->
+                                <field name="request_amount" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+<!--                                <field name="cost_center" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}"/>-->
+                                <field name="warehouse_id" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+<!--                            <group>-->
+<!--                                <field name="payment_date" required="1"/>-->
+<!--                                <field name="payment_bank" options="{'no_create': True, 'no_open': True}"/>-->
+<!--                            </group>-->
+                        </group>
+                        <group>
+                            <group>
+                                        <!-- <table attrs="{'invisible': [('state', 'in', ('draft', 'sent','to_approve'))]}" > -->
+                                        <table>
+                                        <tr >
+                                            <td><label for="user_id" string="Prepared By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="user_id" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="submit_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="request_by" string="Requested By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="request_by" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}" required="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+           
+                                    </table>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sundry Site Details" name="sundry_id">
+                                <field name="sundry_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree editable="bottom">
+                                         <field name="sundry_id" invisible="1"/>
+                                         <field name="currency_id" invisible="1"/>
+                                         <field name="company_id" invisible="1"/>
+<!--                                         <field name="product_id" options="{'no_create': True, 'no_open': True}"/>-->
+<!--                                         <field name="description"/>-->
+                                         <field name="account_id"/>
+                                         <field name="activity"/>
+                                         <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Journal Items" name="jurnal_ids">
+                                <field name="acmove_ids" invisible="1"/>
+                                <field name="jurnal_ids" readonly="1">
+                                    <tree editable="bottom">
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Approval Matrix">
+                                <field name="approval_matrix_ids" readonly="1">
+                                    <tree>
+                                        <field name="state"/>
+                                        <field name="user_ids" widget="many2many_tags"/>
+                                        <field name="realization_user_id"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sundry_tree" model="ir.ui.view">
+            <field name="name">sundry.tree</field>
+            <field name="model">sundry</field>
+            <field name="arch" type="xml">
+                <tree string="Sundry Site Tree">
+                    <field name="name"/>
+                    <field name="request_date"/>
+<!--                    <field name="request_bank"/>-->
+                    <field name="request_by"/>
+                    <field name="user_id"/>
+                    <field name="request_amount"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+<!--                    <field name="request_by"/>-->
+<!--                    <field name="cost_center"/>-->
+<!--                    <field name="checked_by"/>-->
+                    <field name="payment_date"/>
+                    <field name="payment_bank"/>
+                    <field name="warehouse_id"/>
+                    <field name="state" string="Status"/>
+                    <field name="approval_matrix_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_sundry_filter" model="ir.ui.view">
+            <field name="name">sundry.select</field>
+            <field name="model">sundry</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Sundry Site">
+                    <field name="name" string="Order" filter_domain="[('name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sundry" model="ir.actions.act_window">
+            <field name="name">Sundry Site</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sundry</field>
+            <field name="search_view_id" ref="view_sundry_filter"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Sundry Site
+                </p>
+                <p>
+                    Create new Sundry Site
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

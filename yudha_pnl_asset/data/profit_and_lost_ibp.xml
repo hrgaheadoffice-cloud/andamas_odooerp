@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="ibp_financial_report_profitandloss0" model="account.financial.html.report">
+            <field name="name">Profit and Loss IBP</field>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+        </record>
+        <record id="ibp_report_sales_profit0" model="account.financial.html.report.line">
+            <field name="name">SALES</field>
+            <field name="code">SALSIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',119)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="ibp_report_cogs_profit0" model="account.financial.html.report.line">
+            <field name="name">COST OF GOODS SOLD</field>
+            <field name="code">COSTOFGSIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',120)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">sum</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="ibp_report_royalty_profit0" model="account.financial.html.report.line">
+            <field name="name">Royalty</field>
+            <field name="code">RYLTIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',121)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="ibp_report_gross_profit0" model="account.financial.html.report.line">
+            <field name="name">GROSS PROFIT</field>
+            <field name="code">GRPFTIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="formulas">SALS + (COSTOFGS) + RYLT </field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_general_administrative_expense" model="account.financial.html.report.line">
+            <field name="name">General And Administrative Expense</field>
+            <field name="code">GAAEXPENIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',122)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_selling_expense" model="account.financial.html.report.line">
+            <field name="name">Selling Expense</field>
+            <field name="code">SALEXIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',123)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_interest_incoime" model="account.financial.html.report.line">
+            <field name="name">Interest Income</field>
+            <field name="code">INCOMIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_foreign_exchange_gain_nett" model="account.financial.html.report.line">
+            <field name="name">Foreign exchange gain(loss) - Met</field>
+            <field name="code">FRGNETIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+             <field name="domain" eval="[('account_id.sub_group','=',126)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_finance_cost" model="account.financial.html.report.line">
+            <field name="name">Finance Cost</field>
+            <field name="code">FINCOSTIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+             <field name="domain" eval="[('account_id.sub_group','=',125)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_other_income_and_expense" model="account.financial.html.report.line">
+            <field name="name">Other Income And Expense - Nett</field>
+            <field name="code">OINAENTIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="domain" eval="[('account_id.sub_group','=',124)]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">-sum</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_profit_loss_before_tax" model="account.financial.html.report.line">
+            <field name="name">PROFIT (LOSS) BEFORE TAX</field>
+            <field name="code">PNLBTIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+            <field name="formulas">GRPFTIBP + GAAEXPENIBP +SALEXIBP+ FRGNETIBP + FINCOSTIBP + OINAENTIBP</field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_income_tax_expense" model="account.financial.html.report.line">
+            <field name="name">INCOME TAX EXPENSE</field>
+            <field name="code">INCTXEXIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_profit_loss_for_the_year" model="account.financial.html.report.line">
+            <field name="name">PROFIT (LOSS) FOR THE YEAR</field>
+            <field name="code">PNLFTYIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+            <field name="formulas">PNLBT</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_other_comprehensive_income_loss" model="account.financial.html.report.line">
+            <field name="name">OTHER COMPREHENSIVE INCOME (LOSS)</field>
+            <field name="code">OTCINLIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="14"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_gain_loss_actuary" model="account.financial.html.report.line">
+            <field name="name">GAIN OR LOSS ON ACTUARY</field>
+            <field name="code">GOLOAIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="15"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_defered_tax_OCI" model="account.financial.html.report.line">
+            <field name="name">Defered Tax OCI</field>
+            <field name="code">DEFTAOIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="16"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_total_other_comprehensive_income_loss" model="account.financial.html.report.line">
+            <field name="name">TOTAL OTHER COMPREHENSIVE INCOME (LOSS)</field>
+            <field name="code">TOCINLIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="formulas">sum</field>-->
+            <field name="sequence" eval="17"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="rmd_report_total_comprehensive_loss_year" model="account.financial.html.report.line">
+            <field name="name">TOTAL COMPREHENSIVE LOSS THE YEAR</field>
+            <field name="code">TOCLTYIBP</field>
+            <field name="parent_id" eval="False"/>
+            <field name="financial_report_id" ref="ibp_financial_report_profitandloss0"/>
+<!--            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_type_liquidity'))]" />-->
+<!--            <field name="groupby">account_id</field>-->
+            <field name="formulas">PNLFTY</field>
+            <field name="sequence" eval="18"/>
+            <field name="level" eval="0" />
+        </record>
+    </data>
+</odoo>

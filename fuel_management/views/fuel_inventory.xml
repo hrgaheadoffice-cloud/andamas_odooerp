@@ -1,0 +1,42 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="fuel_inventory_tree_view" model="ir.ui.view">
+        <field name="name">fuel.inventory.tree.view</field>
+        <field name="model">fuel.inventory</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="stock_start"/>
+                <field name="stock_in"/>
+                <field name="stock_out"/>
+                <field name="stock_end"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="fuel_inventory_form_view" model="ir.ui.view">
+        <field name="name">fuel.inventory.form.view</field>
+        <field name="model">fuel.inventory</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="stock_start"/>
+                        <field name="stock_in"/>
+                        <field name="stock_out"/>
+                        <field name="stock_end"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="fuel_inventory_action" model="ir.actions.act_window">
+        <field name="name">Fuel Inventory</field>
+        <field name="res_model">fuel.inventory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="fuel_inventory_action" id="menu_fuel_inventory" name="Fuel Inventory" parent="menu_fuel_management_root" sequence="10"/>
+</odoo>

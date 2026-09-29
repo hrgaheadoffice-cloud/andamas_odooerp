@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_plan,access_payment_plan_user,model_payment_plan,base.group_user,1,1,1,1
+access_payment_plan_details,access_payment_plan_details_user,model_payment_plan_details,base.group_user,1,1,1,1
+access_ca_payment_detail,access_ca_payment_detail,model_ca_payment_detail,base.group_user,1,1,1,1
+access_insert_ca_wizard,insert_ca_wizard,model_insert_ca_wizard,base.group_user,1,1,1,1
+

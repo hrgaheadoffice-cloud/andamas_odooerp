@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <menuitem
+            id="noi_menu_root"
+            name="NOI"
+            sequence="25"
+            web_icon="noi_custom,static/description/icon.png"/>
+            <menuitem id="noi_main" name="NOI"
+                      parent="noi_custom.noi_menu_root"
+                      action="action_noi"
+                      sequence="1"/>
+    </data>
+</odoo>

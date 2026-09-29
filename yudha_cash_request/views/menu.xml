@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <menuitem
+            id="yudha_cash_request_menu_root"
+            name="Cash Request"
+            web_icon="yudha_cash_request,static/description/icon.png"
+            sequence="25"/>
+        <menuitem id="yudha_hr_cash_request_main" name="Cash Request" parent="yudha_cash_request.yudha_cash_request_menu_root"
+                   action="action_cash_request"
+            sequence="1"/>
+          <menuitem id="yudha_hr_cr_config_main" name="Configuration" parent="yudha_cash_request.yudha_cash_request_menu_root"
+                   action="action_cr_config"
+            sequence="2"/>
+    </data>
+</odoo>

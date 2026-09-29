@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree" position="inside">
+                <field name="purchase_request_lines" invisible="1" />
+                <button
+                    attrs="{'invisible': [('purchase_request_lines', '=', [])]}"
+                    name="action_open_request_line_tree_view"
+                    type="object"
+                    icon="fa-folder-open-o"
+                />
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='analytic_tag_ids']" position="replace">
+                <field name="analytic_tag_id" optional="hide" groups="analytic.group_analytic_tags" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+                <field name="analytic_tag_ids" invisible="1" groups="analytic.group_analytic_tags" widget="many2many_tags" options="{'color_field': 'color'}" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']/form/field[@name='analytic_tag_ids']" position="replace">
+                <field name="analytic_tag_id" groups="analytic.group_analytic_tags" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+                <field name="analytic_tag_ids" invisible="1" groups="analytic.group_analytic_tags" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath> -->
+            <field name='partner_ref' position='after'>
+                <field name='pr_id'/>
+                <field name='priority_pr'/>
+                <field name='no_rfq' attrs="{'invisible': [('state','in', ('draft','sent','to_approve'))]}"/>
+                <field name='proc_group_id' attrs="{'readonly': [('state','not in', ('draft','po_draft'))]}"/>
+                <field name='location' domain="[('tipe','=',1)]" attrs="{'readonly': [('state','not in', ('draft','po_draft'))]}" invisible="1"/>
+<!--                <field name='cost_center'  attrs="{'readonly': [('state','not in', ('draft','po_draft'))]}"/>-->
+            </field>
+<!--            <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">-->
+<!--                <page string="RFQ Line" name="rfq_line">-->
+<!--                    <field name="rfq_line"> -->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="pilih" invisible="1"/>-->
+<!--                            <field name="pr_id" options="{'no_open':True,'no_create': True}"/>-->
+<!--                            <field name="pr_line_id" invisible="1"/>-->
+<!--                            <field name="pr_qty"/>-->
+<!--                            <field name="product_id" invisible="1"/>-->
+<!--                            <field name="product_add_id" attrs="{'readonly': [('pr_id','!=', False)]}" options="{'no_open':True,'no_create': True}"/>-->
+<!--                            <field name="name" readonly="1" invisible="1"/>-->
+<!--                            <field name="no_rfq"/>-->
+<!--                            <field name="partner_id" readonly="1" options="{'no_open':True,'no_create': True}"/>-->
+<!--                            <field name="po_line_id" invisible="1"/>-->
+<!--                            <field name="state" readonly="1"/>-->
+<!--                            <field name="product_qty" />-->
+<!--                            <field name="price_ori" invisible="1"/>-->
+<!--                            <field name="price_unit" />-->
+<!--                            <field name="discount" />-->
+<!--                            <field name="harga_setelah_discount" />-->
+<!--                            <field name="taxes_id" widget="many2many_tags" optional="show"/>-->
+<!--                            <field name="price_tax" invisible="1" />-->
+<!--                            <field name="price_total" />-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <group class="oe_subtotal_footer oe_right">-->
+<!--                        <field name="amount_rfq_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+<!--                        <field name="amount_rfq_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+<!--                        <div class="oe_subtotal_footer_separator oe_inline">-->
+<!--                            <label for="amount_rfq_total"/>-->
+<!--                        </div>-->
+<!--                        <field name="amount_rfq_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+    <record id="purchase_order_line_form2" model="ir.ui.view">
+        <field name="name">purchase.order.line.form2</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <separator string="Purchase Request Lines" />
+                <field name="purchase_request_lines" />
+            </field>
+        </field>
+    </record>
+    <record id="purchase_order_line_tree" model="ir.ui.view">
+        <field name="name">purchase.order.line.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="purchase_request_lines" invisible="1" />
+                <field name="pr_id" />
+                <button
+                    attrs="{'invisible': [('purchase_request_lines', '=', [])]}"
+                    name="action_open_request_line_tree_view"
+                    type="object"
+                    icon="fa-folder-open-o"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="bisa_rfq_purchase_order_tree" model="ir.ui.view">
+        <field name="name">bisa_rfq_purchase.order.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="replace">
+                <field name="amount_total" string="Total PO" sum="Total amount" widget="monetary" optional="show" decoration-bf="1"/>
+                <field name="amount_rfq_total" sum="Total amount rfq" widget="monetary" optional="show" decoration-bf="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

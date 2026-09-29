@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- ===================================================RMB========================================= -->
+        <record id="print_po_rmb_a1" model="ir.actions.report">
+                <field name="name">print_po_rmb_a1</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a1_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a1_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <!-- Old Print -->
+        <!-- <record id="print_po_rmb_a2" model="ir.actions.report">
+                <field name="name">print_po_rmb_a2</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a2_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a2_tmp</field> -->
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <!-- <field name="binding_type">report</field> -->
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        <!-- </record> -->
+        <!-- New Print -->
+        <record id="print_po_rmb_a2" model="ir.actions.report">
+                <field name="name">print_po_rmb_a2</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a2_tmp_qweb</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a2_tmp_qweb</field>
+                <field name="print_report_name">'Report Purchase Order'</field>
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <!-- Old -->
+        <!-- <record id="print_po_rmb_a3" model="ir.actions.report">
+                <field name="name">print_po_rmb_a3</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a3_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a3_tmp</field> -->
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <!-- <field name="binding_type">report</field> -->
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        <!-- </record> -->
+        <!-- New -->
+        <record id="print_po_rmb_a3" model="ir.actions.report">
+                <field name="name">print_po_rmb_a3</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a3_tmp_qweb</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a3_tmp_qweb</field>
+                <field name="print_report_name">'Report Purchase Order'</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_rmb_a4" model="ir.actions.report">
+                <field name="name">print_po_rmb_a4</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a4_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a4_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_rmb_a5" model="ir.actions.report">
+                <field name="name">print_po_rmb_a5</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_rmb_a5_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_rmb_a5_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <!-- IBP=========================================================== -->
+        <record id="print_po_ibp_a1" model="ir.actions.report">
+                <field name="name">print_po_ibp_a1</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_ibp_a1_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_ibp_a1_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_ibp_a2" model="ir.actions.report">
+                <field name="name">print_po_ibp_a2</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_ibp_a2_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_ibp_a2_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_ibp_a3" model="ir.actions.report">
+                <field name="name">print_po_ibp_a3</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_ibp_a3_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_ibp_a3_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_ibp_a4" model="ir.actions.report">
+                <field name="name">print_po_ibp_a4</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_ibp_a4_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_ibp_a4_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_po_ibp_a5" model="ir.actions.report">
+                <field name="name">print_po_ibp_a5</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_po_ibp_a5_tmp</field>
+                <field name="report_file">purchase_order_approved.print_po_ibp_a5_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+
+        <!-- RFQ -->
+        <!-- RMB -->
+        <!-- New -->
+         <record id="print_rfq_rmb" model="ir.actions.report">
+                <field name="name">print_rfq_rmb</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">purchase_order_approved.print_rfq_rfq_line_rmb_qweb</field>
+                <field name="report_file">purchase_order_approved.print_rfq_rfq_line_rmb_qweb</field>
+                <field name="print_report_name">'Report Request For Quotation'</field>
+                <field name="binding_type">report</field>
+        
+        </record>
+        <!-- Old -->
+        <!-- <record id="print_rfq_rmb" model="ir.actions.report">
+                <field name="name">print_rfq_rmb</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_rfq_rmb_tmp</field>
+                <field name="report_file">purchase_order_approved.print_rfq_rmb_tmp</field>
+               
+                <field name="binding_type">report</field>
+        
+        </record> -->
+        <!-- New -->
+             <record id="print_rfq_rfq_line_rmb" model="ir.actions.report">
+                <field name="name">print_rfq_rfq_line_rmb</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">purchase_order_approved.print_rfq_rfq_line_rmb_qweb</field>
+                <field name="report_file">purchase_order_approved.print_rfq_rfq_line_rmb_qweb</field>
+                <field name="print_report_name">'Report Request For Quotation Line'</field>
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <!-- Old -->
+        <!-- <record id="print_rfq_rfq_line_rmb" model="ir.actions.report">
+                <field name="name">print_rfq_rfq_line_rmb</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_rfq_rfq_line_rmb_tmp</field>
+                <field name="report_file">purchase_order_approved.print_rfq_rfq_line_rmb_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+
+        <!-- IBP -->
+        <record id="print_rfq_ibp" model="ir.actions.report">
+                <field name="name">print_rfq_ibp</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_rfq_ibp_tmp</field>
+                <field name="report_file">purchase_order_approved.print_rfq_ibp_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+        <record id="print_rfq_rfq_line_ibp" model="ir.actions.report">
+                <field name="name">print_rfq_rfq_line_ibp</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">purchase_order_approved.print_rfq_rfq_line_ibp_tmp</field>
+                <field name="report_file">purchase_order_approved.print_rfq_rfq_line_ibp_tmp</field>
+                <!-- <field name="print_report_name">'Tunjangan - %s' % (object.nama_karyawan.name)</field> -->
+                <!-- <field name="binding_model_id" ref="model_sale_order"/> -->
+                <field name="binding_type">report</field>
+                <!-- <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/> -->
+        </record>
+    <!-- <report id="print_po_rmb_a1" 
+            model="purchase.order" 
+            string="print_po_rmb_a1"
+            name="purchase_order_approved.print_po_rmb_a1_tmp" 
+            file="purchase_order_approved.print_po_rmb_a1_tmp"
+            report_type="docx"/>
+    <report id="print_po_rmb_a2" 
+            model="purchase.order" 
+            string="print_po_rmb_a2"
+            name="purchase_order_approved.print_po_rmb_a2_tmp" 
+            file="purchase_order_approved.print_po_rmb_a2_tmp"
+            report_type="docx"/>
+    <report id="print_po_rmb_a3" 
+            model="purchase.order" 
+            string="print_po_rmb_a3"
+            name="purchase_order_approved.print_po_rmb_a3_tmp" 
+            file="purchase_order_approved.print_po_rmb_a3_tmp"
+            report_type="docx"/>
+    <report id="print_po_rmb_a4" 
+            model="purchase.order" 
+            string="print_po_rmb_a4"
+            name="purchase_order_approved.print_po_rmb_a4_tmp" 
+            file="purchase_order_approved.print_po_rmb_a4_tmp"
+            report_type="docx"/>
+    <report id="print_po_rmb_a5" 
+            model="purchase.order" 
+            string="print_po_rmb_a5"
+            name="purchase_order_approved.print_po_rmb_a5_tmp" 
+            file="purchase_order_approved.print_po_rmb_a5_tmp"
+            report_type="docx"/>
+  -->
+</odoo>

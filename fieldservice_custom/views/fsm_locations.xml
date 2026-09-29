@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_locations_tree'>
+        <field name="name">view.fsm.locations.tree</field>
+        <field name="model">fsm.locations</field>
+        <field name="arch" type="xml">
+            <tree string="Locations">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_locations_form'>
+        <field name="name">view.fsm.locations.form</field>
+        <field name="model">fsm.locations</field>
+        <field name="arch" type="xml">
+            <form string="Locations">
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> Location Code </span>
+                        <h1>
+                            <field name="code"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="category"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_locations_view" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.locations</field>
+    </record>
+
+    <menuitem name="Locations" id="menu_fsm_locations" parent="data" action="action_fsm_locations_view" sequence="30"/>
+</odoo>

@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="paperformat_cash_request_report" model="report.paperformat">
+            <field name="name">Custom Paperformat for Cash Request report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <!-- this one is to make the pdf to become horizontal, if landscape=False, pdf will become vertical -->
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="dpi">96</field>
+        </record>
+        <record id="action_report_cash_request" model="ir.actions.report">
+            <field name="name">Cash Request</field>
+            <field name="model">cash.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">yudha_cash_request.cash_request_report</field>
+            <field name="report_file">yudha_cash_request.cash_request_report</field>
+            <field name="print_report_name">('Cash Request - %s' % (object.name))</field>
+            <field name="binding_model_id" ref="model_cash_request" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_cash_request_report"/>
+        </record>
+        <template id="external_layout_standard_cash_request">
+            <t t-if="not o" t-set="o" t-value="doc" />
+            <t t-if="not company">
+                <!-- multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id" />
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()" />
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company" />
+                </t>
+            </t>
+
+            <div t-attf-class="header o_company_#{company.id}_layout"
+                t-att-style="report_header_style">
+                <div class="row align-items-end">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-out="0" />
+            </div>
+
+        </template>
+        <template id="cash_request_report_document">
+                <div class="page">
+                    <div class="oe_structure" />
+                    <div class="row" id="hash_header">
+                        <div class="col-12">
+                            <table style="border: 1px solid; width: 100%; height: 60px">
+                                <tr style="height: 60px; border: 1px solid;">
+                                    <td style="width: 138px;"> <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                style="max-height: 60px; width: 138px; height: 60px;border:1px solid; right:1px" alt="Logo" /></td>
+                                    <td style="width: 380px;"><center><strong><h2>PAYMENT REQUEST</h2></strong></center></td>
+                                    <td style=" width: 200px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-12" style="border: 1px solid;left:100px">
+                            <br/>
+                            <div class="row">
+                                <div class="col-12" style=" padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width:150px;"><span>Cost Center</span></td>
+                                            <td style="width: 1px;padding-left: 25px;">:</td>
+                                            <td><t t-esc="doc.cost_center"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style=" padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td><span>Invoice Date</span> <span style="padding-left: 73px;">:</span></td>
+                                            <td><span>Due Date</span>  <span style="padding-left: 97px;">:</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Inv. Receive </span> <span style="padding-left: 75px;">:</span></td>
+                                            <td><span>Journal Number </span> <span style="padding-left: 48px;">:</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style=" padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width:150px;"><span>Document</span></td>
+                                            <td style="width: 1px;padding-left: 25px;">:</td>
+                                            <td><span>Cash Request</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style=" padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width:150px;"><span>Document Number</span></td>
+                                            <td style="width: 1px;padding-left: 25px;">:</td>
+                                            <td><span><t t-esc="doc.name"/></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div style="display: flex; justify-content: center;" class="col-12">
+                                <div class="col-1"/>
+                                <div class="col-10">
+                                <table style="width:100%;right: 80px;left:80px; padding-left: 25px;padding-right: 25px;table-layout: fixed;">
+                                    <thead>
+                                        <th style="border: 1px solid; width; 5px;">No</th>
+                                        <th style="border: 1px solid;width:950px">Description</th>
+                                        <th style="border: 1px solid;width:450px">Price Total</th>
+                                    </thead>
+
+                                     <tbody style="border: 1px solid black;">
+                                            <t t-set="counter" t-value="1"/>
+                                            <t t-set="total_price" t-value="0.0"/>
+                                            <t t-foreach="doc.cashrequest_ids" t-as="line">
+                                                <tr>
+                                                    <td style="border: 1px solid; text-align: center;width; 5px;"><t t-esc="counter"/></td>
+                                                    <td style="padding-left: 25px;border: 1px solid; left: 80px; text-align: left;width:850px"><t t-esc="line.description"/></td>
+                                                    <td style="padding-left: 25px;border: 1px solid; left: 80px; text-align: left;width:450px"><t t-esc="line.amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+                                                    <t t-set="counter" t-value="counter+1"/>
+                                                    <t t-set="total_price" t-value="total_price + line.amount"/>
+                                                </tr>
+                                            </t>
+                                     </tbody>
+                                </table>
+                                 <table style="width:100%;right: 80px;left:80px;padding-left: 25px;padding-right: 25px;">
+                                        <tr class="is-subtotal text-end">
+                                            <td name="td_section_subtotal" colspan="2" style="width: 1150px;" >
+                                                <strong class="mr16" style="position: absolute;left:520px;">TOTAL</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span><t t-esc="total_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></span></td>
+                                        </tr>
+                                        <tr class="is-subtotal text-end">
+                                            <t t-set="myvat" t-value="doc.request_amount"/>
+                                            <td name="td_section_subtotal" colspan="2" style="width:1150px;">
+                                                <strong class="mr16" style="position: absolute;left:520px;">VAT</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span>-</span></td>
+                                        </tr>
+                                        <tr class="is-subtotal text-end">
+                                            <td name="td_section_subtotal" colspan="2"  style="width:1150px;">
+                                                <strong class="mr16" style="position: absolute;left:520px;">TOTAL AMOUNT</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span><t t-esc="doc.request_amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></span></td>
+                                        </tr>
+                                </table>
+                                </div>
+                                 <div class="col-1"/>
+                          </div>
+                         <div class="col-12">
+                              <div class="col-3"/>
+                            <div class="col-6" style="padding-left: 25px;">
+                               <p style="line-height: 0.4; left: 15px"><strong>Vendor</strong></p>
+                                <p style="line-height: 0.4; left: 15px;">Vendor Name<span style="padding-left: 66px;">:</span></p>
+                                <p style="line-height: 0.4; left: 15px">Address<span style="padding-left: 111px;">:</span></p>
+
+                                <p style="line-height: 0.4; left: 15px"><strong>Payment Transfer To</strong></p>
+                                <p style="line-height: 0.4; left: 15px;">Bank Name<span style="padding-left: 84px;">:</span><span t-esc="doc.request_by.bank_tujuan" style="padding-left: 25px;"/></p>
+                                <p style="line-height: 0.4; left: 15px">Account Number<span style="padding-left: 44px;">:</span><span t-esc="doc.request_by.bank_rekening" style="padding-left: 25px;"/></p>
+                                <p style="line-height: 0.4; left: 15px">Account Name<span style="padding-left: 61px;">:</span><span t-esc="doc.request_by.name" style="padding-left: 25px;"/></p>
+                            </div>
+                         </div>
+                            <br/>
+                            <br/>
+                         <table style="width:100%; padding-left: 25px;padding-right: 25px;height: 50px;">
+                             <tr style="height: 50px;">
+                                <td style="width: 40%; border: 1px solid;">
+                                    <table style="border: 1px solid;width: 100%">
+                                        <tr>
+                                            <td style="border: 1px solid;width: 150px;text-align: center;">PREPARED BY</td>
+                                             <td style="border: 1px solid;width: 150px;text-align: center;">CHECKED BY</td>
+                                            <td style="border: 1px solid;width: 150px;text-align: center;">VERIFIED BY</td>
+                                        </tr>
+                                        <tr sytle="height: 50px;">
+                                            <td style="height: 50px; border: 1px solid;width: 150px"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                            <td style="height: 50px; border: 1px solid;width: 150px"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                            <td style="height: 50px; border: 1px solid;width: 150px"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+
+                                        </tr>
+                                        <tr sytle="height: 50px;">
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">NAME: <t t-esc="doc.prepaid_by.name"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">NAME: <t t-esc="doc.prepaid_by.name"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">NAME: <t t-esc="doc.prepaid_by.name"/></td>
+
+                                        </tr>
+                                        <tr sytle="height: 50px;">
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">DATE: <t t-esc="doc.prepare_bydate"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">DATE: <t t-esc="doc.prepare_bydate"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;">DATE: <t t-esc="doc.prepare_bydate"/></td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 60%; border: 1px solid;">
+                                    <table style="border: 1px solid;width: 100%">
+                                        <tr>
+                                             <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                             <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                             <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                             <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                        </tr>
+                                       <tr style="height: 50px;">
+                                            <td style="height: 50px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                            <td style="height: 50px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                            <td style="height: 50px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                             <td style="height: 50px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                        </tr>
+                                        <tr style="height: 50px;">
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">NAME : <t t-esc="doc.approved_by1.name"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">NAME : <t t-esc="doc.approved_by2.name"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">NAME : <t t-esc="doc.approved_by3.name"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">NAME : <t t-esc="doc.approved_by4.name"/></td>
+                                        </tr>
+                                        <tr style="height: 50px;">
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">DATE : <t t-esc="doc.approved_bydate1"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">DATE : <t t-esc="doc.approved_bydate2"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">DATE : <t t-esc="doc.approved_bydate3"/></td>
+                                             <td style="border: 1px solid;width: 200px;height: 50px;">DATE : <t t-esc="doc.approved_bydate4"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                             </tr>
+
+                         </table>
+                    <br />
+                         </div>
+
+                        </div>
+
+                    </div>
+<!--                    <p style="page-break-after:always;">   </p>-->
+                    <div class="col-12">
+                        <div class="row">
+                            <p style="line-height: 1; padding-left: 25px;">Finance Accounting Tax Verification :</p>
+                            <table style="table-layout: fixed;padding-left: 25px;padding-right: 25px; width: 100%">
+                                <tr style="width: 250px;">
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                </tr>
+                                <tr style="width: 250px;height: 50px;">
+                                    <td style="height: 50px; border: 1px solid;width: 250px"><img t-if="doc.approved_finance1.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance1.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                     <td style="height: 50px; border: 1px solid;width: 250px"><img t-if="doc.approved_finance2.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance2.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                     <td style="height: 80px; border: 1px solid;width: 200px"><img t-if="doc.approved_finance3.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance3.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                     <td style="height: 50px; border: 1px solid;width: 250px"><img t-if="doc.approved_finance4.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance4.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                     <td style="height: 50px; border: 1px solid;width: 200px"><img t-if="doc.approved_finance5.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance5.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                     <td style="height: 50px; border: 1px solid;width: 250px"><img t-if="doc.approved_finance6.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance6.tanda_tangan)"
+                        style="max-height: 60px; width: 150px; height: 50px;border:1px solid; right:1px" alt="Logo" /></td>
+                                </tr>
+                                <tr style="width: 250px;height: 50px;">
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance1.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance2.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance3.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance4.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance5.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.approved_finance6.name"/></td>
+                                </tr>
+                                <tr style="width: 250px;height: 50px;">
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">DATE : <t t-esc="doc.verify1_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">DATE : <t t-esc="doc.verify2_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.verify3_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.verify4_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;">NAME : <t t-esc="doc.verify5_date"/></td>
+                                     <td style="border: 1px solid;width: 250p;height: 50px;x">NAME : <t t-esc="doc.verify6_date"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </template>
+
+        <template id="cash_request_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="yudha_cash_request.cash_request_report_document" />
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

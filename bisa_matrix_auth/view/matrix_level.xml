@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<record id="tbl_matrix_auth_level_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_matrix_auth_level</field>
+    <field name="model">matrix.level</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+        <field name="name"/>
+     </tree>
+ </field>
+</record>
+
+<record id="action_matrix_level_auth" model="ir.actions.act_window">
+    <field name="name">Matrix Level</field>
+    <field name="res_model">matrix.level</field>
+    <field name="view_mode">tree</field>
+</record> 
+
+<menuitem name="Matrix Level" id="menu_matrix_level_auth_left" action="action_matrix_level_auth" parent="menu_matrix_auth_top"  sequence="12"/>
+
+
+
+
+
+</odoo>

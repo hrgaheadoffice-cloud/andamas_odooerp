@@ -1,0 +1,107 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_msi_bondst_tree">
+        <field name="name">tbl_msi_bonds.tree</field>
+        <field name="model">tbl_msi_bonds</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+		                	<field name="jenis"/>
+		                	<field name="keterangan"/>
+		                	<field name="partner_id"/>
+		                	<field name="sso"/>
+		                	<field name="journal_asal_id"/>
+		                	<field name="journal_tujuan_id"/>
+		                	<field name="amount"/>
+		                	<field name="lama"/>
+		                	<field name="due_date"/>
+		                	<field name="currency_id"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_bonds_form">
+        <field name="name">tbl_msi_bonds.form</field>
+        <field name="model">tbl_msi_bonds</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Submit" type="object" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" states="approve"/>
+                    <button name="action_out" string="Transfer Out" type="object" states="out"/>
+                    <button name="action_in" string="Receive IN" type="object" states="inprogress"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="jenis"/>
+		                	<field name="keterangan"/>
+		                	<field name="partner_id"/>
+		                	<field name="sso"/>
+		                </group>
+		                <group>
+		                	<field name="date"/>
+		               </group>
+			</group>
+
+                	<group>
+                		<group>
+		                	<field name="journal_asal_id"/>
+		                	<field name="journal_tujuan_id"/>
+		                	<field name="amount"/>
+
+		                </group>
+		                <group>
+		                	<field name="lama"/>
+		                	<field name="due_date"/>
+		                	<field name="currency_id"/>
+		               </group>
+			</group>
+
+                	<group>
+                		<group>
+		                	<field name="payment_out_id"/>
+		                </group>
+		                <group>
+		                	<field name="payment_in_id"/>
+		               </group>
+			</group>
+
+
+
+			</sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_bonds">
+        <field name="name">Bonds</field> 
+        <field name="res_model">tbl_msi_bonds</field> 
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_bonds" id="menu_action_bonds" parent="menu_top_bonds" sequence="10"/>
+
+
+
+
+</odoo>

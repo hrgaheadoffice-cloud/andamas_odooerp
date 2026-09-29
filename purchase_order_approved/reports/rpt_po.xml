@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="paperformat_purchase_order_report" model="report.paperformat">
+            <field name="name">Custom Paperformat for Purchase Order report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="dpi">96</field>
+        </record>
+        <record id="custom_purchase_order_report_view" model="ir.actions.report">
+            <field name="name">Purchase Order</field>
+            <field name="type">ir.actions.report</field>
+            <field name="model">purchase.order</field>
+            <field name="report_name">po_report</field>
+            <field name="report_type">py3o</field>
+            <field name="py3o_filetype">pdf</field>
+            <field name="module">purchase_order_approved</field>
+            <field name="py3o_template_fallback">reports/po.odt</field>
+            <field name="binding_model_id" ref="purchase_order_approved.model_purchase_order" />
+            <field name="binding_type">report</field>
+             <field name="paperformat_id" ref="paperformat_purchase_order_report"/>
+        </record>
+
+        <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+            <field name="binding_model_id" eval="False"/>
+        </record>
+        <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+            <field name="binding_model_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

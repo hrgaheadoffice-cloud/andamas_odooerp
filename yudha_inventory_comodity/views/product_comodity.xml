@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!--        View Form    -->
+        <record id="product_comodity_form" model="ir.ui.view">
+            <field name="name">product.comodity.form</field>
+            <field name="model">product.comodity</field>
+            <field name="arch" type="xml">
+                <form string="Product Comodity">
+                    <sheet>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--      List View    -->
+        <record id="product_comodity_tree" model="ir.ui.view">
+            <field name="name">product.comodity.tree</field>
+            <field name="model">product.comodity</field>
+            <field name="arch" type="xml">
+                <tree string="Product Comodity">
+                    <field name="name" optional="show" />
+                </tree>
+            </field>
+        </record>
+        <!--    Action Windows    -->
+        <record id="action_product_comodity" model="ir.actions.act_window">
+            <field name="name">Comodity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.comodity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Product Comodity
+                </p>
+                <p>
+                    Create new Product Comodity
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_product_comodity" parent="stock.menu_product_in_config_stock" action="yudha_inventory_comodity.action_product_comodity"
+            sequence="1"/>
+    </data>
+</odoo>

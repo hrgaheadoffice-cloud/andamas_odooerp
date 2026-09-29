@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Leasing Management" id="menu_leasing_management_root"  sequence="60"  />
+    
+    <menuitem name="Configuration" id="menu_leasing_management_config" parent="menu_leasing_management_root"  sequence="3"/>
+</odoo>

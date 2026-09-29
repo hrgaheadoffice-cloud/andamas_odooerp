@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+<!--        <delete model="tbl_proc_group" search="[]"/>-->
+        <data noupdate="1">
+            <record id="purchase_request_ir" model="tbl_proc_group">
+                <field name="name">INVENTORY REQUEST</field>
+                <field name="active">1</field>
+            </record>
+            <record id="purchase_request_pr" model="tbl_proc_group">
+                <field name="name">PURCHASE REQUEST</field>
+                 <field name="active">1</field>
+            </record>
+        </data>
+</odoo>
+

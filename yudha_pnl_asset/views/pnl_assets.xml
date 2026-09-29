@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <template id="yudha_pnl_backend" inherit_id="web.assets_backend" name="Yudha PNL Backend Assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/yudha_pnl_asset/static/src/js/account_reports.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

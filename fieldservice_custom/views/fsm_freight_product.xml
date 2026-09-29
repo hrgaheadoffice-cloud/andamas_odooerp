@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_freight_product_tree'>
+        <field name="name">view.fsm.freight.product.tree</field>
+        <field name="model">fsm.freight.product</field>
+        <field name="arch" type="xml">
+            <tree string="Freight Product">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_freight_product_form'>
+        <field name="name">view.fsm.freight.product.form</field>
+        <field name="model">fsm.freight.product</field>
+        <field name="arch" type="xml">
+            <form string="Freight Product">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_freight_product_view" model="ir.actions.act_window">
+        <field name="name">Freight Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.freight.product</field>
+    </record>
+
+    <menuitem name="Freight Product" id="menu_fsm_freight_product" parent="data" action="action_fsm_freight_product_view" sequence="60"/>
+</odoo>

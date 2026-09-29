@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="contact_cash_advance_view">
+        <field name="name">contact.cash.advance</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']" position="replace">
+                    <page string="Accounting" name="accounting" groups="account.group_account_invoice,account.group_account_readonly">
+                        <group>
+
+                            <group string="Bank Accounts" name="banks" groups="account.group_account_invoice,account.group_account_readonly">
+                                <field name="bank_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="bank_id"/>
+                                        <field name="acc_number"/>
+                                        <field name="acc_holder_name" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <button type="action" class="btn-link"
+                                    name="%(base.action_res_partner_bank_account_form)d"
+                                    context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'form_view_ref': 'account.view_company_partner_bank_form'}"
+                                    string="View accounts detail"
+                                    colspan="2"
+                                />
+                            </group>
+                            <group string="Accounting Entries" name="accounting_entries" groups="account.group_account_readonly">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="property_account_receivable_id"/>
+                                <field name="property_account_payable_id"/>
+                            </group>
+                        </group>
+                        <group string="Cash Advance" name="ca_coa">
+                            <field name="coa_tujuan"/>
+                            <field name="bank_tujuan"/>
+                            <field name="bank_rekening"/>
+                        </group>
+                    </page>
+            </xpath>
+            <xpath expr="//page[@name='accounting_disabled']" position="replace"/>
+        </field>
+    </record>
+</odoo>

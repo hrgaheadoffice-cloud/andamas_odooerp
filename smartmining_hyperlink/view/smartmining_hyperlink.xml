@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Smart Mining" id="menu_smartmining_hyperlink_root" web_icon="smartmining_hyperlink,static/description/icon.jpeg"  sequence="20"/>
+
+    <record id="smartmining_hyperlink_tree_view" model="ir.ui.view">
+        <field name="name">smartmining.hyperlink.tree.view</field>
+        <field name="model">smartmining.hyperlink</field>
+        <field name="arch" type="xml">
+            <tree js_class="button">
+                <field name="name"/>
+<!--                <field name="link" widget="url"/>-->
+<!--                <field name="token"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="smartmining_hyperlink_form_view" model="ir.ui.view">
+        <field name="name">smartmining.hyperlink.form.view</field>
+        <field name="model">smartmining.hyperlink</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="smartmining_hyperlink_action" model="ir.actions.act_window">
+        <field name="name">Smart Mining</field>
+        <field name="res_model">smartmining.hyperlink</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click Open Button to Open Smart Mining
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="smartmining_hyperlink_action" id="menu_smartmining_hyperlink" name="Smart Mining" groups="smartmining_hyperlink.smartmining_access" parent="menu_smartmining_hyperlink_root" sequence="10"/>
+
+</odoo>

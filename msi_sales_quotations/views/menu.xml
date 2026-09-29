@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <menuitem name="Accounting Addon" id="menu_root_accadon"  web_icon="msi_sales_quotations,static/description/icon.png"/>
+     <menuitem name="Cash &amp; Bank" id="menu_top_cashbank"  parent="menu_root_accadon" sequence="10"/>
+     <menuitem name="Loan" id="menu_top_loan"  parent="menu_root_accadon" sequence="20"/>
+     <menuitem name="Bonds" id="menu_top_bonds"  parent="menu_root_accadon" sequence="30"/>
+     <menuitem name="Report" id="menu_top_addon_report"  parent="menu_root_accadon" sequence="40"/>
+</odoo>

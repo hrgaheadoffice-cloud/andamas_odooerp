@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fsm_cost_advance_form_view" model="ir.ui.view">
+           <field name="name">fsm.cost.advance.form.view</field>
+           <field name="model">fsm.cost.advance</field>
+
+           <field name="arch" type="xml">
+               <form string="Cash Advance" create="true" duplicate="false">
+                   <header>
+                       <button name="button_to_prepare" string="Request Approval" attrs="{'invisible': ['|',('state', 'not in', ['draft']),('ca_type', '=', 'pc')]}" class="oe_highlight" type="object"/>
+                       <button name="action_submit" string="Approve" class="oe_highlight" states="requested" type="object" groups="fieldservice_custom.ca_approval" attrs="{'invisible': ['|',('state', 'not in', ['requested']),('ca_type', '=', 'pc')]}"/>
+                       <button name="action_to_settle" string="To Settle" class="oe_highlight" type="object" groups="fieldservice_custom.ca_request_settle" attrs="{'invisible': ['|',('state', 'in', ['requested','rejected','to_settle','done']),('ca_type', 'not in', 'pc')]}"/>
+                       <button name="action_to_settle" string="To Settle" class="oe_highlight" type="object" groups="fieldservice_custom.ca_request_settle" attrs="{'invisible': ['|',('state', 'in', ['draft','requested','rejected','to_settle','done']),('ca_type', 'not in', 'ca')]}"/>
+                       <button name="action_done" string="Done" class="oe_highlight" type="object" attrs="{'invisible': [('state', '!=', 'to_settle')]}" groups="fieldservice_custom.ca_done"/>
+                       <button name="button_to_reject" string="Reject" class="oe_highlight" type="object" groups="fieldservice_custom.ca_reject" attrs="{'invisible': [('state', 'in', ['draft','done','rejected','to_settle','submit'])]}"/>
+                       <field name="state" widget="statusbar" statusbar_visible="draft,requested,submit,to_settle,done"/>
+                   </header>
+                   <sheet>
+                       <widget name="web_ribbon" title="No Diff To Be Paid" bg_color="bg-info" attrs="{'invisible': ['|',('state','!=','done'),('difference_to_be_paid', '&gt;', 0)]}"/>
+                       <widget name="web_ribbon" title="Difference Claimed" bg_color="bg-success" attrs="{'invisible': [('is_difference_claimed', '=', False)]}"/>
+                       <div class="oe_title">
+                           <label for="name" string="Doc No."/>
+                           <h1>
+                               <field name="name"/>
+                           </h1>
+                       </div>
+                       <group>
+                           <group>
+                               <field name="is_difference_claimed" invisible="1"/>
+                               <field name="ca_type"/>
+                               <field name="request_date" attrs="{'invisible': [('ca_type', '=', 'pc')]}"/>
+                               <field name="amount_requested" attrs="{'invisible': [('ca_type', '=', 'pc')]}" readonly="0" force_save="1"/>
+                               <field name="req_attachment" attrs="{'invisible': [('ca_type', '=', 'pc')]}" widget="many2many_binary"/>
+                           </group>
+                           <group>
+                               <!--                               <field name="delivery_order_id" domain="[('state','=','confirm')]" attrs="{'readonly':[('state','!=','submit')],'required':[('state','=','submit')],'invisible':[('state','=','draft')]}"/>-->
+                               <field name="settlement_amount" readonly="0" force_save="1"/>
+                               <field name="difference_to_be_paid" readonly="0" force_save="1"/>
+                               <field name="settlement_date" force_save="1"/>
+                               <field name="settle_attachment" widget="many2many_binary"/>
+                               <field name="petty" groups="fieldservice_custom.ca_view_balance"/>
+                               <field name="petty_ho" groups="fieldservice_custom.ca_view_balance_ho"/>
+                               <field name="payment_settlement_id"/>
+                           </group>
+                       </group>
+                       <group>
+                           <group attrs="{'invisible': [('ca_type', '=', 'pc')]}">
+                               <field name="requested_by"/>
+                               <field name="assigned_to"/>
+                               <field name="department"/>
+                               <field name="payment_request_id"/>
+                           </group>
+                       </group>
+                       <notebook>
+                           <page string="Detail Advanced" attrs="{'invisible': [('ca_type', '=', 'pc')]}">
+                               <group>
+                                   <field name="request_line_ids" nolabel="1">
+                                       <tree editable="bottom">
+                                           <field name="name"/>
+                                           <field name="description"/>
+                                           <field name="amount"/>
+                                       </tree>
+                                   </field>
+                               </group>
+                           </page>
+                           <page string="Detail Settlement">
+                               <group>
+                                   <field name="settlement_line_ids" nolabel="1" force_save="1" attrs="{'required':[('state','=','to_settle')]}">
+                                       <tree editable="bottom">
+                                           <field name="name" readonly="0" force_save="1"/>
+                                           <field name="description"/>
+                                           <field name="account_id" force_save="1" attrs="{'required':[('parent.state','=','to_settle')]}"/>
+                                           <field name="amount" readonly="0" force_save="1"/>
+                                       </tree>
+                                   </field>
+                               </group>
+                           </page>
+                           <page string="Account">
+                               <group>
+                                   <group>
+                                       <field name="bank_account_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" domain="[('type','in',['bank','cash'])]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                       <field name="advance_account_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" attrs="{'invisible':[('ca_type','=','pc')],'readonly':[('state','!=','draft')]}"/>
+                                   </group>
+                               </group>
+                           </page>
+                       </notebook>
+                   </sheet>
+                   <div class="oe_chatter">
+                       <field name="message_follower_ids" widget="mail_followers" />
+                       <field name="activity_ids" widget="mail_activity" />
+                       <field name="message_ids" widget="mail_thread" />
+                   </div>
+               </form>
+           </field>
+        </record>
+        <record id="fsm_cost_difference_policy_search_view" model="ir.ui.view">
+           <field name="name">fsm.cost.difference.policy.search.view</field>
+           <field name="model">fsm.cost.advance</field>
+            <field name="arch" type="xml">
+                <search string="Cash Advance">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="transporter_task_id"/>
+                    <field name="delivery_order_id"/>
+                    <field name="bank_account_id"/>
+                    <field name="advance_account_id"/>
+                    <separator/>
+                    <filter name="policy_deduct_next_advance" string="Deduct Next Advance" domain="[('cost_difference_policy', '=', 'deduct_next_advance')]"/>
+                    <filter name="policy_deduct_accumulate_in_payroll" string="Accumulate In Payroll" domain="[('cost_difference_policy', '=', 'accumulate_in_payroll')]"/>
+                </search>
+           </field>
+        </record>
+        <record id="fsm_cost_advance_tree_view" model="ir.ui.view">
+            <field name="name">fsm.cost.advance.tree.view</field>
+            <field name="model">fsm.cost.advance</field>
+            <field name="arch" type="xml">
+                <tree string="Cash Advance" duplicate="false">
+                    <field name="name"/>
+                    <field name="requested_by"/>
+                    <field name="department"/>
+                    <field name="request_date"/>
+                    <field name="amount_requested"/>
+                    <field name="settlement_date"/>
+                    <field name="settlement_amount"/>
+                    <field name="difference_to_be_paid"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="fsm_cost_advance_action_view" model="ir.actions.act_window">
+            <field name="name">Cash Advance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fsm.cost.advance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No cash advance
+              </p><p>
+                Cash advance comes from confirmed transporter task.
+              </p>
+            </field>
+        </record>
+<!--        <menuitem id="fieldservice_cost" name="Cost" parent="fieldservice.root" sequence="30"/>-->
+<!--        <menuitem id="fieldservice_cost_advance" name="Cost Advance" parent="cost" action="fsm_cost_advance_action_view" sequence="20"/>-->
+
+        <record model="ir.actions.server" id="action_submit_cost_advance">
+           <field name="name">Submit</field>
+           <field name="model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="binding_model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="state">code</field>
+           <field name="code">
+               action = records.action_submit()
+           </field>
+       </record>
+
+       <record model="ir.actions.server" id="action_to_settle_cost_advance">
+           <field name="name">To Settle</field>
+           <field name="model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="binding_model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="state">code</field>
+           <field name="code">
+               action = records.action_to_settle()
+           </field>
+       </record>
+
+        <record model="ir.actions.server" id="action_done_cost_advance">
+           <field name="name">Done</field>
+           <field name="model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="binding_model_id" ref="fieldservice_custom.model_fsm_cost_advance"/>
+           <field name="state">code</field>
+           <field name="code">
+               action = records.action_done()
+           </field>
+       </record>
+    </data>
+</odoo>

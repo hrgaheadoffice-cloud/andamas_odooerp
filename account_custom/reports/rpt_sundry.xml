@@ -1,0 +1,731 @@
+<!--Albertus Restiyanto Pramayudha-->
+<odoo>
+    <data>
+        <record id="paperformat_sundry_ho_reports" model="report.paperformat">
+            <field name="name">Custom Paperformat for Sundry HO report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <!-- this one is to make the pdf to become horizontal, if landscape=False, pdf will become vertical -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="dpi">96</field>
+        </record>
+    <record id="yudha_sundry_ho_reports_view" model="ir.actions.report">
+        <field name="name">Sundry</field>
+        <field name="type">ir.actions.report</field>
+        <field name="model">account.move</field>
+        <field name="report_name">sundry_ho_report</field>
+        <field name="report_type">py3o</field>
+        <field name="py3o_filetype">pdf</field>
+        <field name="module">account_custom</field>
+        <field name="py3o_template_fallback">reports/sundry.odt</field>
+        <field name="binding_model_id" ref="account_custom.model_account_move"/>
+        <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="paperformat_sundry_ho_reports"/>
+        <field name="print_report_name">'Sundry - %s' % (object.name)</field>
+    </record>
+ <!--       <record id="paperformat_cash_reimbursement_report" model="report.paperformat">
+            <field name="name">Custom Paperformat for Reimbursement report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            &lt;!&ndash; this one is to make the pdf to become horizontal, if landscape=False, pdf will become vertical &ndash;&gt;
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="dpi">96</field>
+        </record>
+        <record id="action_report_reimbursement" model="ir.actions.report">
+            <field name="name">Reimbursement</field>
+            <field name="model">reimbursement</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">yudha_reimburesement.reimbursement_report</field>
+            <field name="report_file">yudha_reimburesement.reimbursement_report</field>
+            <field name="print_report_name">('Reimbursement Request - %s' % (object.name))</field>
+            <field name="binding_model_id" ref="model_reimbursement" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_cash_reimbursement_report"/>
+        </record>-->
+        <template id="external_layout_standard_reimbursement">
+            <t t-if="not o" t-set="o" t-value="doc" />
+            <t t-if="not company">
+                <!-- multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id" />
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()" />
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company" />
+                </t>
+            </t>
+
+            <div t-attf-class="header o_company_#{company.id}_layout"
+                t-att-style="report_header_style">
+                <div class="row align-items-end">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-out="0" />
+            </div>
+
+        </template>
+        <template id="reimbursement_report_document">
+                <div class="page">
+                    <div class="oe_structure" />
+                    <div class="row" id="hash_header">
+                        <div class="col-12">
+                            <table style="border: 1px solid; width: 100%; height: 60px">
+                                <tr style="height: 60px; border: 1px solid;">
+                                    <td style="width: 138px;"> <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                style="max-height: 60px; width: 138px; height: 60px;border:1px solid; right:1px" alt="Logo" /></td>
+                                    <td style="width: 380px;"><center><strong><h2>PAYMENT APPLICATION</h2></strong></center></td>
+                                    <td style=" width: 200px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="border: 1px solid; width: 100%">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12" style="padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width: 125px;"><span>Cost Center</span></td>
+                                            <td style="width: 1px;padding-left: 25px;">:</td>
+                                            <td><span style="padding-left: 20px"><t t-esc="doc.cost_center"/></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td><span>Invoice Date</span> <span style="padding-left: 73px;">:</span></td>
+                                            <td><span>Due Date</span>  <span style="padding-left: 85px;">:</span></td>
+                                        </tr>
+                                        <tr>
+                                       <td><span>Inv. Receive </span> <span style="padding-left: 75px;">:</span></td>
+                                           <td><span>Journal Number </span> <span style="padding-left: 48px;">:</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width:125px;"><span>Document</span></td>
+                                            <td style="width: 1px;padding-left: 25px;">:</td>
+                                            <td><span style="padding-left: 20px">Reimbursement</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="padding-left: 25px;padding-right: 25px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width:125px;"><span>Document Number</span></td>
+                                            <td style="width: 1px; padding-left: 25px;">:</td>
+                                            <td><span style="padding-left: 20px"><t t-esc="doc.name"/></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                            <div style="display: flex; justify-content: center;" class="col-12">
+                                <div class="col-1"/>
+                                <div class="col-10">
+                                <table style="width:100%;right: 80px;left:80px; padding-left: 25px;padding-right: 25px;table-layout: fixed;">
+                                    <thead>
+                                        <th style="border: 1px solid; width; 5px;">No</th>
+                                        <th style="border: 1px solid;width:950px">Description</th>
+                                        <th style="border: 1px solid;width:450px">Price Total</th>
+                                    </thead>
+
+                                     <tbody style="border: 1px solid black;">
+                                            <t t-set="counter" t-value="1"/>
+                                            <t t-set="total_price" t-value="0.0"/>
+                                            <t t-foreach="doc.reimbursement_ids" t-as="line">
+                                                <tr>
+                                                    <td style="border: 1px solid; text-align: center;width; 5px;"><t t-esc="counter"/></td>
+                                                    <td style="padding-left: 25px;border: 1px solid; left: 80px; text-align: left; width:840px"><t t-esc="line.description"/></td>
+                                                    <td style="padding-left: 25px;border: 1px solid; left: 80px; text-align: left; width:445px"><t t-esc="line.amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+                                                    <t t-set="counter" t-value="counter+1"/>
+                                                    <t t-set="total_price" t-value="total_price + line.amount"/>
+                                                </tr>
+                                            </t>
+                                     </tbody>
+                                </table>
+                                 <table style="width:100%;right: 80px;left:80px;padding-left: 25px;padding-right: 25px;">
+                                        <tr class="is-subtotal text-end">
+                                            <td name="td_section_subtotal" colspan="2" style="width: 1140px;" >
+                                                <strong class="mr16" style="position: absolute;padding-left:750px;">AMOUNT</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span><t t-esc="total_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></span></td>
+                                        </tr>
+                                        <tr class="is-subtotal text-end">
+                                            <t t-set="myvat" t-value="doc.request_amount"/>
+                                            <td name="td_section_subtotal" colspan="2" style="width:1140px;">
+                                                <strong class="mr16" style="position: absolute;padding-left:750px;">VAT</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span>-</span></td>
+                                        </tr>
+                                        <tr class="is-subtotal text-end">
+                                            <td name="td_section_subtotal" colspan="2"  style="width:1140px;">
+                                                <strong class="mr16" style="position: absolute;padding-left:750px;">TOTAL AMOUNT</strong>
+                                            </td>
+                                            <td style="padding-left: 25px; border: 1px solid;width:425px"><span><t t-esc="doc.request_amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></span></td>
+                                        </tr>
+                                </table>
+                                </div>
+                                 <div class="col-1"/>
+                          </div>
+                         <div class="col-12">
+                              <div class="col-3"/>
+                            <div class="col-6" style="padding-left: 25px;">
+                                <p style="line-height: 0.4; left: 15px"><u><strong>Vendor</strong></u></p>
+                                <p style="line-height: 0.4; left: 15px;">Vendor Name<span style="padding-left: 70px;">:</span></p>
+                                <p style="line-height: 0.4; left: 15px">Address<span style="padding-left: 105px;">:</span></p>
+
+                                <p style="line-height: 0.4; left: 15px"><u><strong>Payment Transfer To</strong></u></p>
+                                <p style="line-height: 0.4; left: 15px;">Bank Name<span style="padding-left: 80px;">:</span><span t-esc="doc.request_by.bank_tujuan" style="padding-left: 25px;"/></p>
+                                <p style="line-height: 0.4; left: 15px">Account Number<span style="padding-left: 48px;">:</span><span t-esc="doc.request_by.bank_rekening" style="padding-left: 25px;"/></p>
+                                <p style="line-height: 0.4; left: 15px">Account Name<span style="padding-left: 61px;">:</span><span t-esc="doc.request_by.name" style="padding-left: 25px;"/></p>
+                            </div>
+                         </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                         <table style="width:100%; padding-left: 25px;padding-right: 25px;height: 250px;">
+                             <tr style="height: 180px; width: 150px">
+                                 <t t-if="doc.prepaid_by">
+                                <td style="width: 40%; border: 1px solid;">
+                                    <table style="border: 1px solid;width: 100%">
+                                        <tr>
+                                            <td style="border: 1px solid;width: 150px;text-align: center;">PREPARED BY</td>
+                                             <td style="border: 1px solid;width: 150px;text-align: center;">CHECKED BY</td>
+                                            <td style="border: 1px solid;width: 150px;text-align: center;">VERIFIED BY</td>
+                                        </tr>
+                                        <tr style="width: 150px; height: 180px;">
+                                            <td style="height: 180px; border: 1px solid; width: 150px; padding: 0px; margin: 0px;"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                            <td style="height: 180px; border: 1px solid; width: 150px; padding: 0px; margin: 0px;"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                            <td style="height: 180px; border: 1px solid;width: 150px; padding: 0px; margin: 0px;"><img t-if="doc.prepaid_by.tanda_tangan" t-att-src="image_data_uri(doc.prepaid_by.tanda_tangan)"
+                                style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+
+                                        </tr>
+                                        <tr sytle="height: 50px;width: 150px;">
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.prepaid_by.name"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.prepaid_by.name"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.prepaid_by.name"/></td>
+
+                                        </tr>
+                                        <tr sytle="height: 50px;width: 150px;">
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.prepare_bydate"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.prepare_bydate"/></td>
+                                            <td style="border: 1px solid;width: 150px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.prepare_bydate"/></td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                                </t>
+                                 <t t-else=""/>
+                                <t t-if="doc.approved_by1 or doc.approved_by2 or doc.approved_by3 or doc.approved_by4">
+                                <td style="width: 60%; border: 1px solid;">
+                                    <t t-if="doc.approved_by1 and doc.approved_by2 and doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="mmax-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME : </span> <t t-esc="doc.approved_by1.name"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME : </span> <t t-esc="doc.approved_by2.name"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME : </span> <t t-esc="doc.approved_by3.name"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME : </span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE : </span> <t t-esc="doc.approved_bydate1"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE : </span> <t t-esc="doc.approved_bydate2"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE : </span> <t t-esc="doc.approved_bydate3"/></td>
+                                                 <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE : </span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and doc.approved_by2 and doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and doc.approved_by2 and not doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and doc.approved_by2 and not doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and not doc.approved_by2 and doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and doc.approved_by2 and not  doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                   <t t-elif="doc.approved_by1 and not doc.approved_by2 and doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and not doc.approved_by2 and doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 180px; width: 150px">
+                                                <td style="height: 180px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 180px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                                <td style="height: 130px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and not doc.approved_by2 and not doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                 <td style="height: 130px; border: 1px solid;width: 150px"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and not doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and not doc.approved_by2 and not doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px; align: center;"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and not  doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px; align: center;">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and not doc.approved_by2 and doc.approved_by3 and not doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px; align: center;">  <img t-if="doc.approved_by3.tanda_tangan" t-att-src="image_data_uri(doc.approved_by3.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by3.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate3"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="doc.approved_by1 and not doc.approved_by2 and not doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px; align: center;"> <img t-if="doc.approved_by1.tanda_tangan" t-att-src="image_data_uri(doc.approved_by1.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                                 <td style="height: 130px; border: 1px solid;width: 150px; align: center;"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px right:1px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by1.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate1"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-elif="not doc.approved_by1 and doc.approved_by2 and not doc.approved_by3 and doc.approved_by4">
+                                        <table style="border: 1px solid;width: 100%">
+                                            <tr>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                                 <td style="border: 1px solid;width: 200px; text-align: center;">APPROVED BY</td>
+                                            </tr>
+                                           <tr style="height: 130px;">
+                                                <td style="height: 130px; border: 1px solid;width: 150px;">  <img t-if="doc.approved_by2.tanda_tangan" t-att-src="image_data_uri(doc.approved_by2.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                                 <td style="height: 130px; border: 1px solid;width: 150px;"> <img t-if="doc.approved_by4.tanda_tangan" t-att-src="image_data_uri(doc.approved_by4.tanda_tangan)"
+                                    style="max-height: 180px; width: 150px; height: 180px; border: 1px solid; align: center; padding-left: 10px;padding-right:10px" alt="Logo" /></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by2.name"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_by4.name"/></td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate2"/></td>
+                                                <td style="border: 1px solid;width: 200px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.approved_bydate4"/></td>
+                                            </tr>
+                                        </table>
+                                    </t>
+
+                                    <t t-else=""/>
+                                </td>
+                                </t>
+                                 <t t-else=""/>
+                             </tr>
+
+                         </table>
+                    <br />
+                        <div class="row">
+                            <p style="line-height: 1; padding-left: 25px;">Finance Accounting Tax Verification :</p>
+                            <table style="table-layout: fixed;padding-left: 25px;padding-right: 25px; width: 100%">
+                                <tr style="width: 250px;">
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                     <td style="border: 1px solid;width: 250px; text-align: center;">VERIFIED BY</td>
+                                </tr>
+                                <tr style="width: 250px; height: 180px;">
+                                    <td style="height: 180px; border: 1px solid; width: 250px; padding: 0px; margin: 0px;"><img t-if="doc.approved_finance1.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance1.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                     <td style="height: 180px; border: 1px solid;width: 250px; padding: 0px; margin: 0px;"><img t-if="doc.approved_finance2.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance2.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                     <td style="height: 180px; border: 1px solid; width: 250px; padding: 0px; margin: 0px;;"><img t-if="doc.approved_finance3.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance3.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                     <td style="height: 180px; border: 1px solid;width: 200px; padding: 0px; margin: 0px;"><img t-if="doc.approved_finance4.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance4.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                     <td style="height: 180px; border: 1px solid;width: 200px; padding: 0px; margin: 0px;"><img t-if="doc.approved_finance5.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance5.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                     <td style="height: 180px; border: 1px solid;width: 200px; padding: 0px; margin: 0px;"><img t-if="doc.approved_finance6.tanda_tangan" t-att-src="image_data_uri(doc.approved_finance6.tanda_tangan)"
+                        style="max-height: 180px; width: 250px; height: 180px; border: 1px solid; padding: 0px; margin: 0px;" alt="Logo" /></td>
+                                </tr>
+                                <tr style="width: 250px;height: 50px;">
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance1.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance2.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance3.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance4.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance5.name"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">NAME :</span> <t t-esc="doc.approved_finance6.name"/></td>
+                                </tr>
+                                <tr style="width: 250px;height: 50px;">
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify1_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify2_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify3_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify4_date"/></td>
+                                     <td style="border: 1px solid;width: 250px;height: 50px;"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify5_date"/></td>
+                                     <td style="border: 1px solid;width: 250p;height: 50px;x"><span style="padding-left: 15px;">DATE :</span> <t t-esc="doc.verify6_date"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+        </template>
+
+        <template id="reimbursement_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="yudha_reimburesement.reimbursement_report_document" />
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

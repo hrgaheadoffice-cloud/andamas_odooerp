@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_tire_service_tree'>
+        <field name="name">view.tire.service.tree</field>
+        <field name="model">tire.service</field>
+        <field name="arch" type="xml">
+            <tree string="Tire Service" create="0">
+                <field name="name"/>
+                <field name="work_order_id"/>
+                <field name="created_by"/>
+                <field name="location_problem"/>
+                <field name="equipment_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_tire_service_form'>
+        <field name="name">view.tire.service.form</field>
+        <field name="model">tire.service</field>
+        <field name="arch" type="xml">
+            <form string="Tire Service" create="0">
+                <header>
+                    <button type="object" name="action_confirm" class="oe_highlight" string="Submit" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"> Tire Service </span>
+                        <h1>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group attrs="{'readonly': [('state', '!=', 'draft')]}">
+                            <field name="work_order_id" readonly="1"/>
+                            <field name="created_by"/>
+                            <field name="company_id"/>
+                            <field name="location_problem" string="Location"/>
+                            <field name="equipment_id" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tyre Removal">
+                            <field name="tyre_removal_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree>
+                                    <field name="pos"/>
+                                    <field name="serial_number"/>
+                                    <field name="product_id"/>
+                                    <field name="rtd_percentage"/>
+                                    <field name="tur"/>
+                                    <field name="remove_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Tyre Fitment">
+                            <field name="tyre_fitment_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree>
+                                    <field name="pos"/>
+                                    <field name="serial_number"/>
+                                    <field name="product_id"/>
+                                    <field name="rtd_percentage"/>
+                                    <field name="tur"/>
+                                    <field name="install_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_tire_service_view" model="ir.actions.act_window">
+        <field name="name">Tire Service</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tire.service</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem name="Tire Service" id="menu_tire_service" parent="menu_mnt_maintenance_top" action="action_tire_service_view" sequence="30"/>
+</odoo>

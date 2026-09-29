@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_transporter_task_document">
+
+            <t t-call="bisa_maintenance_print.custom_layout">
+                <t t-set="report_type" t-value="'trasporter_task'"/>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.created_by.lang)" />
+
+                <div class="page">
+                    <div class="oe_structure"/>
+
+                    <div class="row header_doc">
+                        <div class="row col-12" style="margin-top: 75px;">
+                            <div class="col-6 mb4">
+                                <div class="row">
+                                    <div class="col-12 mb4">
+                                        <h4>DRIVER INFORMATION</h4>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>NIP</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.nip"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Driver</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.driver_id"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Unit Code</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.equipment_id"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Unit Spare</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.equipment_spare_id" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb4">
+                                <div class="other-info">
+                                    <div class="row">
+                                        <div class="col-12 mb4">
+                                            <h4>TASK INFORMATION</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>No. Transporter Order</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.transport_order_id" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Route Code</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.transporter_cost_id"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Loading Location</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.loading_location" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Unloading Location</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.unloading_location"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Transporter Cost</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.transporter_cost"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <table class="text-center" style="border: 0px!important; margin-top: 50px; width: 100%">
+                        <tr>
+                            <td>
+                                <span>Diserahkan Oleh,</span>
+                                <div style="margin-top: 100px;">
+                                    <span>(</span><span style="margin-left: 50px;margin-right: 50px;">Kasir</span><span>)</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span>Diterima Oleh,</span>
+                                <div style="margin-top: 100px;">
+                                    <span>(</span><span style="margin-left: 50px;margin-right: 50px;">Nama Jelas</span><span>)</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        <template id="report_transporter_task">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bisa_maintenance_print.report_transporter_task_document" t-lang="doc.created_by.lang"/>
+                </t>
+            </t>
+        </template>
+       <record id="action_report_transporter_task" model="ir.actions.report">
+            <field name="name">Transporter Task</field>
+            <field name="model">fsm.transporter.task</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bisa_maintenance_print.report_transporter_task</field>
+            <field name="report_file">bisa_maintenance_print.report_transporter_task</field>
+            <field name="print_report_name">'Transporter Task - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="fieldservice_custom.model_fsm_transporter_task"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

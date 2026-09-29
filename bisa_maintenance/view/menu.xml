@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Maintenance" id="menu_mnt_maintenance_root"  web_icon="bisa_maintenance,static/description/maintenance.png"  sequence="46"/>
+    <menuitem name="Operation" id="menu_mnt_operation_top" parent="menu_mnt_maintenance_root"  sequence="10"/>
+    <menuitem name="Maintenance" id="menu_mnt_maintenance_top" parent="menu_mnt_maintenance_root"  sequence="15"/>
+    <!--    <menuitem name="Job Sheet" id="menu_mnt_task_top" parent="menu_mnt_maintenance_root"  sequence="15"/>-->
+    <menuitem name="Timesheet" id="menu_mnt_timesheet_top" parent="menu_mnt_maintenance_root"  sequence="20"/>
+    <menuitem name="Reporting" id="menu_mnt_matrial_top" parent="menu_mnt_maintenance_root"  sequence="30"/>
+    <menuitem name="Maintenance Reporting" id="menu_mnt_maintenance_report" parent="menu_mnt_matrial_top"  sequence="30"/>
+    <menuitem name="Master Data" id="menu_mnt_master_data" parent="menu_mnt_maintenance_root"  sequence="100"/>
+    <menuitem name="Configuration" id="menu_mnt_config" parent="menu_mnt_maintenance_root"  sequence="200"/>
+</odoo>

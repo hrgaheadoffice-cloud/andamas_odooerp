@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_po_rmb_a2_tmp_qweb">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                 <div class="header" >
+                    <table cellspacing="0" cellpadding="0" style="width:100%; margin-bottom:0pt; border-collapse:collapse;">
+                        <tbody>
+                            <tr style="height:5pt;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                                <td rowspan="5" style="width:189.95pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">
+                                        <strong t-field="doc.company_id.partner_id.name" />
+                                    </p>
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:10pt;">
+                                        <span t-field="doc.company_id.street" /> <span t-field="doc.company_id.city" /> <span t-field="doc.company_id.state_id" /> <span t-field="doc.company_id.zip" /> <span t-field="doc.company_id.country_id" />
+                                    </p>
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:10pt;" t-if="doc.company_id.email">
+                                        <span style="font-family:Arial;">Email :</span>
+                                        <span t-field="doc.company_id.email" />
+                                    </p>
+                                    <p style="margin-bottom:0pt; line-height:normal; font-size:10pt;" t-if="doc.company_id.phone">
+                                        <span style="font-family:Arial;">P :</span>
+                                        <span t-field="doc.company_id.phone" />
+                                    </p>
+                                    <p>
+                                    </p>
+
+                                </td>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                                <td style="width:34pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">Page</p>
+                                </td>
+                                <td style="width:2.85pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">:</p>
+                                </td>
+                                <td style="width:136.05pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;">1 of 1</p>
+                                </td>
+                                <td rowspan="5" style="width:76.55pt; padding-right:4.25pt; vertical-align:middle;">
+                                    <div style="width:100%; height:12.75pt;  margin-bottom:40pt; display:inline-block; overflow:visible;">
+                                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" alt="Company Logo" style="width:120px; height:81px; margin: 0 0 0 auto; display: block;"/>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                             <td style="width:34pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">Order Date</p>
+                                </td>
+                                <td style="width:2.85pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">:</p>
+                                </td>
+                                <td style="width:136.05pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"> 
+                                      <t t-esc="doc.date_order and doc.date_order.strftime('%d/%m/%Y').split()[0]" />
+                                    </p>
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <td style="width:34pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">PO</p>
+                                </td>
+                                <td style="width:2.85pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">:</p>
+                                </td>
+                                <td style="width:136.05pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"> <span t-field="doc.name"/></p>
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                 <td style="width:50pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">Vendor Ref</p>
+                                </td>
+                                <td style="width:2.85pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">:</p>
+                                </td>
+                                <td style="width:136.05pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <!-- <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"> <span t-field="doc.partner_id.phone"/></p> -->
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"> <span t-field="doc.partner_ref"/></p>
+                                </td>
+                            </tr>
+                               <tr>
+                                 <td style="width:70pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">Payment Term</p>
+                                </td>
+                                <td style="width:2.85pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;">:</p>
+                                </td>
+                                <td style="width:136.05pt; padding-right:4.25pt; padding-left:4.25pt; vertical-align:middle;">
+                                
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"> <span t-field="doc.payment_term_id" /></p>
+                                </td>
+                            </tr>
+                            <!-- Add more rows for Date, PO, and Contact fields here -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+                        <h1 style="margin-bottom:2pt; text-align:center; line-height:105%; border-top:2.25pt solid #000000; border-bottom:2.25pt solid #000000; padding-top:1pt; padding-bottom:1pt; font-size:14pt;">
+                        <!-- <span style="width:95.25pt; text-transform:uppercase; letter-spacing:0.2pt; display:inline-block;">&#160;</span>
+                        <span style="width:79.19pt; text-transform:uppercase; letter-spacing:0.2pt; display:inline-block;">&#160;</span> -->
+                            <span style="text-transform:uppercase; letter-spacing:0.2pt;">PURCHASE ORDER</span>
+                        </h1>
+                <table cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse;">
+                    <tbody>
+                        <tr>
+                            <td style="width:218.25pt; border-style:solid; border-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong>SUPPLIER /VENDOR ADDRESS:</strong></p>
+                            </td>
+                            <td style="width:19.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong>&#160;</strong></p>
+                            </td>
+                            <td style="width:218.25pt; border-style:solid; border-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong>Delivery to:</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:218.25pt; border-style:solid; border-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:top;">
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.partner_id.name" /></p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.partner_id.street" /><span t-field="doc.partner_id.street2" /> <span t-field="doc.partner_id.city" /> <span t-field="doc.partner_id.zip" /> </p>
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.partner_id.city" /><span t-field="doc.partner_id.state_id.name" /></p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.partner_id.country_id.name" /><span t-field="doc.partner_id.zip" /></p> -->
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">Email:<span t-field="doc.partner_id.email" /></p> -->
+                                 <p style="margin-bottom:0pt;  margin-left:17pt; line-height:normal; font-size:8pt;" t-if="doc.partner_id.email">
+                                        <span style="font-family:Arial;">Email :</span>
+                                        <span t-field="doc.partner_id.email" />
+                                    </p>
+                                 <p style="margin-bottom:0pt;  margin-left:17pt; line-height:normal; font-size:8pt;" t-if="doc.partner_id.phone">
+                                        <span style="font-family:Arial;">P :</span>
+                                        <span t-field="doc.partner_id.phone" />
+                                    </p>
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">P:<span t-field="doc.partner_id.phone" />/<span t-field="doc.partner_id.mobile" /></p> -->
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; text-align:justify; font-size:8pt;">&#160;</p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; text-align:justify; font-size:8pt;">&#160;</p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; text-align:justify; font-size:8pt;">&#160;</p> -->
+                            </td>
+                            <td style="width:19.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:top;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:218.25pt; border-style:solid; border-width:0.75pt; padding-right:3.88pt; padding-left:3.88pt; vertical-align:top;">
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">&#160;</p> -->
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">
+                                    <span t-if="not doc.location.company_id.partner_id.name or doc.location.company_id.partner_id.name == ''">
+                                        SAMARINDA (DEFAULT)
+                                    </span>
+                                    <span t-else="doc.location.company_id.partner_id.name" />
+                                </p> -->
+<!--                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.cost_center.company_id.name" /></p>-->
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.picking_type_id.warehouse_id.name" /></p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.picking_type_id.warehouse_id.partner_id.street" /> <span t-field="doc.picking_type_id.warehouse_id.partner_id.street2" />  <span t-field="doc.picking_type_id.warehouse_id.partner_id.state_id" /> <span t-field="doc.picking_type_id.warehouse_id.partner_id.zip" /> <span t-field="doc.picking_type_id.warehouse_id.partner_id.country_id" /></p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"><span t-field="doc.picking_type_id.warehouse_id.partner_id.mobile" /></p>
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">  <span t-field="doc.picking_type_id.warehouse_id.partner_id.email" /></p> -->
+                                <p style="margin-bottom:0pt;  margin-left:17pt; line-height:normal; font-size:8pt;" t-if="doc.picking_type_id.warehouse_id.partner_id.email">
+                                        <span style="font-family:Arial;">Email :</span>
+                                        <span t-field="doc.picking_type_id.warehouse_id.partner_id.email" />
+                                    </p>
+                                <!-- <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;"> <span t-field="doc.picking_type_id.warehouse_id.partner_id.phone" />   -->
+                                <p style="margin-bottom:0pt;  margin-left:17pt; line-height:normal; font-size:8pt;" t-if="doc.picking_type_id.warehouse_id.partner_id.phone">
+                                        <span style="font-family:Arial;">P :</span>
+                                        <span t-field="doc.picking_type_id.warehouse_id.partner_id.phone" />
+                                    </p>
+                                <p style="margin-top:0pt; margin-left:17pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:5pt;">&#160;</p>
+                    <table cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse;">
+                        <tbody>
+                            <tr style="height:13.3pt;">
+                                <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>No</strong></p>
+                                </td>
+                                <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>PRODUCT</strong></p>
+                                </td>
+                                 <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>DESCRIPTION</strong></p>
+                                </td>
+                                 <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>QTY</strong></p>
+                                </td>
+                                 <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>UoM</strong></p>
+                                </td>
+                                 <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>RATE (IDR)</strong></p>
+                                </td>
+                                 <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><strong>AMOUNT (IDR)</strong></p>
+                                </td>
+                                <!-- Add more cells for the new table as needed -->
+                            </tr>
+                            <tr style="height:11.05pt;" t-foreach="doc.order_line" t-as="line">
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;"><span t-esc="line_index + 1"/></p>
+                                </td>
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;text-align:left;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="line.product_id.name"/></p>
+                                </td>
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; text-align:left;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="line.name"/></p>
+                                </td>
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="line.product_qty"/></p>
+                                </td>
+                                <td style=" border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; text-align:center;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="line.product_uom.name"/></p>
+                                </td>
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; text-align:right;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="line.price_unit"/></p>
+                                </td>
+                                <td style="border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; text-align:right;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong>&#160;&#160;</strong><strong>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</strong><span t-field="line.price_subtotal"/></p>
+                                </td>
+                                
+                                
+                                <!-- Add more cells for the new table as needed -->
+
+                            </tr>
+                             <tr style="height:11.05pt;">
+                                <td style="width:11.15pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong>&#160;</strong></p>
+                                </td>
+                                <td colspan="3" style="width:243.7pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong>Discount:</strong></p>
+                                </td>
+                                <td colspan="3" style="width:196pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong></strong><strong>&#160;</strong><strong></strong></p>
+                                </td>
+                            </tr>
+                            
+                            <tr style="height:11.05pt;">
+                                <td style="width:11.15pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong>&#160;</strong></p>
+                                </td>
+                                <td colspan="3" style="width:243.7pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong>Total</strong></p>
+                                </td>
+                                <td colspan="3" style="width:196pt; border-top-style:solid; border-top-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong></strong><strong>&#160;</strong><strong></strong><strong><span t-field="doc.amount_total"/></strong></p>
+                                </td>
+                            </tr>
+                            <!-- Add more rows for the new table as needed -->
+                        </tbody>
+                    </table>
+                    <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:5pt;">&#160;</p>
+                    <table cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse;">
+                    <tbody>
+                        <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"></p>
+                            </td>
+                            <td style="width:109.65pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Sub Total (Round-down)</p>
+                            </td>
+                                <td style="width:103.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_untaxed" /></p>
+                            </td>
+                        </tr>
+                         <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"> VAT Total(PPN 11%)</p>
+                            </td>
+
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_tax" /></p>
+                            </td>
+                            
+                        </tr>
+                        <!-- <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"> VAT Total(PBBKB 7.5%)</p>
+                            </td>
+
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_tax" /></p>
+                            </td>
+                            
+                        </tr>
+                         <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"> VAT Total(Exempt)</p>
+                            </td>
+
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_tax" /></p>
+                            </td>
+                            
+                        </tr>
+                         <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"> VAT Total(Pph 23 -2%)</p>
+                            </td>
+
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_tax" /></p>
+                            </td>
+                            
+                        </tr>
+                         <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"> VAT Total(0%)</p>
+                            </td>
+
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><span t-field="doc.amount_tax" /></p>
+                            </td>
+                            
+                        </tr> -->
+                        <tr style="height:14.6pt;">
+                            <td style="width:237.05pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Notes: <span t-field="doc.notes" /></p>
+                            </td>
+                             <td style="width:109.65pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong>Total Excld. VAT</strong></p>
+                            </td>
+                            <td style="width:103.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:8pt;"><strong></strong><strong>&#160;</strong><strong><span t-field="doc.amount_total" /></strong></p>
+                            </td>
+                        </tr>
+                        
+                        
+                        <!-- Add more rows and cells for the new table as needed -->
+                    </tbody>
+                </table>
+                <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:5pt;">&#160;</p>
+                <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                    <tbody>
+                        <tr>
+                            <td style="width:470.6pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                <p style="margin-top:0pt; margin-left:8.2pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:470.6pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                <p style="margin-top:0pt; margin-left:22.35pt; margin-bottom:0pt; text-indent:-7.1pt; text-align:justify; font-size:8pt;"></p>
+                            </td>
+                           
+                        </tr>
+                         <!-- <tr>
+                            <td style="width:470.6pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+                                <p style="margin-top:0pt; margin-left:8.2pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"> <span t-field="doc.payment_term_id" /></p>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                        <p style="margin-top:0pt; margin-bottom:8pt;">&#160;</p>
+                        <p style="margin-top:0pt; margin-bottom:8pt;">&#160;</p>
+                <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                    <tbody>
+                        <tr style="height:11.35pt;">
+                            <td colspan="3" style="width:50%; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Supplier</p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong><span t-field="doc.partner_id.name" t-options='{"widget": "upper"}'/></strong></p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Authorized</p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Signature:</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td colspan="3" style="width:50%; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong><span t-field="doc.company_id.name" t-options='{"widget": "upper"}'/></strong></p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Authorized</p>
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Signature:</p>
+                            </td>
+                        </tr>
+
+                       <t t-set="latest_approved_user" t-value="doc.appr5 or doc.appr4 or doc.appr3 or doc.appr2 or doc.appr1"/>
+                        <t t-set="latest_approved_date" t-value="doc.appr1_dt or doc.appr2_dt or doc.appr3_dt or doc.appr4_dt or doc.appr5_dt"/>
+                        <t t-set="latest_approved_user_with_date" t-value="(doc.appr5_dt and doc.appr5) or
+                                                                    (doc.appr4_dt and doc.appr4) or
+                                                                    (doc.appr3_dt and doc.appr3) or
+                                                                    (doc.appr2_dt and doc.appr2) or
+                                                                    (doc.appr1_dt and doc.appr1)"/>
+
+                       <!-- <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(latest_approved_user_with_date.tanda_tangan) if latest_approved_user_with_date and latest_approved_user_with_date.tanda_tangan else ''"/> -->
+
+
+                        <tr style="height:85.05pt;">
+                            <td colspan="3" style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td colspan="3" style="width:223.6pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                    <!-- <t t-if="doc.appr5">
+                                         <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr5.tanda_tangan)"/>
+                                        <t t-if="doc.appr5_dt">
+                                                        <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                        </t>
+                                    </t> -->
+                                    <t t-if="doc.appr5">
+                                        <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr5.tanda_tangan_stempel)"/>
+                                        <t t-set="signature_image_ibp" t-value="'data:image/png;base64,%s' % to_text(doc.appr5.tanda_tangan_stempel_ibp)"/>
+                                        <t t-if="doc.company_id.name == 'PT RENCANA MULIA BARATAMA'">
+                                            <t t-if="doc.appr5_dt">
+                                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.company_id.name == 'PT INDO BARA PRATAMA'">
+                                            <t t-if="doc.appr5_dt">
+                                                <img t-attf-src="{{signature_image_ibp}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-elif="doc.appr4">
+                                        <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr4.tanda_tangan_stempel)"/>
+                                        <t t-set="signature_image_ibp" t-value="'data:image/png;base64,%s' % to_text(doc.appr4.tanda_tangan_stempel_ibp)"/>
+                                         <t t-if="doc.company_id.name == 'PT RENCANA MULIA BARATAMA'">
+                                            <t t-if="doc.appr4_dt">
+                                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.company_id.name == 'PT INDO BARA PRATAMA'">
+                                            <t t-if="doc.appr4_dt">
+                                                <img t-attf-src="{{signature_image_ibp}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-elif="doc.appr3">
+                                         <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr3.tanda_tangan_stempel)"/>
+                                        <t t-set="signature_image_ibp" t-value="'data:image/png;base64,%s' % to_text(doc.appr3.tanda_tangan_stempel_ibp)"/>
+                                         <t t-if="doc.company_id.name == 'PT RENCANA MULIA BARATAMA'">
+                                            <t t-if="doc.appr3_dt">
+                                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.company_id.name == 'PT INDO BARA PRATAMA'">
+                                            <t t-if="doc.appr3_dt">
+                                                <img t-attf-src="{{signature_image_ibp}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-elif="doc.appr2">
+                                         <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr2.tanda_tangan_stempel)"/>
+                                        <t t-set="signature_image_ibp" t-value="'data:image/png;base64,%s' % to_text(doc.appr2.tanda_tangan_stempel_ibp)"/>
+                                          <t t-if="doc.company_id.name == 'PT RENCANA MULIA BARATAMA'">
+                                            <t t-if="doc.appr2_dt">
+                                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.company_id.name == 'PT INDO BARA PRATAMA'">
+                                            <t t-if="doc.appr2_dt">
+                                                <img t-attf-src="{{signature_image_ibp}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                     <t t-elif="doc.appr1">
+                                        <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(doc.appr1.tanda_tangan_stempel)"/>
+                                        <t t-set="signature_image_ibp" t-value="'data:image/png;base64,%s' % to_text(doc.appr1.tanda_tangan_stempel_ibp)"/>
+                                         <t t-if="doc.company_id.name == 'PT RENCANA MULIA BARATAMA'">
+                                            <t t-if="doc.appr1_dt">
+                                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.company_id.name == 'PT INDO BARA PRATAMA'">
+                                            <t t-if="doc.appr1_dt">
+                                                <img t-attf-src="{{signature_image_ibp}}" width="120px" height="120px" alt="Signature"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                   <t t-if="not latest_approved_date">
+                                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                        <!-- Display nothing when latest_approved_date is empty -->
+                                    </p>
+                                </t>
+                                </p>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- Rest of your code -->
+                        
+
+
+                        <tr style="height:11.35pt;">
+                            <td style="width:21.4pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Name</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:177.85pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:21.5pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Name</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:178.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                <t t-if="latest_approved_user.name">
+                                    <span t-field="latest_approved_user.name" />
+                                </t>
+                                <t t-if="not latest_approved_user or not latest_approved_user.name">
+                                    <span t-field="latest_approved_user.name" />
+                                </t>
+                            </p>
+
+                            </td>
+                        </tr>
+
+                        <tr style="height:11.35pt;">
+                            <td style="width:21.4pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Title</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:177.85pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:21.5pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Title</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:178.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><t t-esc="last_approved_function" /></p>
+                            </td>
+                        </tr>
+
+
+                            <!-- <t t-set="last_approved_user" t-value="doc.appr5 or doc.appr4 or doc.appr3 or doc.appr2 or doc.appr1"/>
+                            <t t-set="last_approved_function" t-value="last_approved_user.partner_id.function"/>
+                            <t t-set="signature_image" t-value="'data:image/png;base64,%s' % to_text(last_approved_user.tanda_tangan)"/>
+                        <tr style="height:85.05pt;">
+                            <td colspan="3" style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td colspan="3" style="width:223.6pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                <img t-attf-src="{{signature_image}}" width="120px" height="120px" alt="Signature"/>
+                               
+                                </p>
+                            </td>
+                        </tr>
+                       
+                        <tr style="height:11.35pt;">
+                            <td style="width:21.4pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Name</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:177.85pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:21.5pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Name</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:178.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span t-field="last_approved_user.name" /></p>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr style="height:11.35pt;">
+                            <td style="width:21.4pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Title</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:177.85pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:2.8pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">&#160;</p>
+                            </td>
+                            <td style="width:21.5pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">Title</p>
+                            </td>
+                            <td style="width:2.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">:</p>
+                            </td>
+                            <td style="width:178.25pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:middle;">
+                                <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><t t-esc="last_approved_function" /></p>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <p style="margin-top:0pt; margin-bottom:8pt;">&#160;</p>
+            </t>
+        </t>
+    </template>
+</odoo>
+
+
+
+
+

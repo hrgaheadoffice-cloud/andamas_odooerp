@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_timesheet_period_plan_tree'>
+        <field name="name">view.timesheet.period.plan.tree</field>
+        <field name="model">timesheet.period.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Period Plan">
+                <field name="asset_name"/>
+                <field name="unit_code"/>
+                <field name="meter_type"/>
+                <field name="kmhm_running"/>
+                <field name="avg_ewh_ewd"/>
+                <field name="forecast"/>
+                <field name="forecast_2"/>
+                <field name="forecast_3"/>
+                <field name="forecast_4"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_timesheet_period_plan_form'>
+        <field name="name">view.timesheet.period.plan.form</field>
+        <field name="model">timesheet.period.plan</field>
+        <field name="arch" type="xml">
+            <form string="Period Plan">
+                <header>
+                    <button name="periodic_calculation" type="object" string="Calculate" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Asset Info">
+                            <field name="unit_code"/>
+                            <field name="equipment_id"/>
+                            <field name="asset_name"/>
+                        </group>
+                        <group string="Asset Data">
+                            <field name="meter_type"/>
+                            <field name="kmhm_running"/>
+                            <field name="avg_ewh_ewd" force_save="1"/>
+                        </group>
+                        <group string="Forecast">
+                            <field name="forecast" readonly="1" force_save="1"/>
+                            <field name="forecast_2" readonly="1" force_save="1"/>
+                            <field name="forecast_3" readonly="1" force_save="1"/>
+                            <field name="forecast_4" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Periodic Calculation">
+                            <field name="periodic_calculation_plan_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="maintenance_activity_id"/>
+                                    <field name="cycle"/>
+                                    <field name="wo_id"/>
+                                    <field name="kmhm_actual"/>
+                                </tree>
+                            </field>
+                        </page>
+<!--                        <page string="Timesheet Unit">-->
+<!--                            <field name="timesheet_unit_plan_ids">-->
+<!--                                <tree>-->
+<!--                                    <field name="date"/>-->
+<!--                                    <field name="shift"/>-->
+<!--                                    <field name="start_hm"/>-->
+<!--                                    <field name="end_hm"/>-->
+<!--                                    <field name="ewh"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                        <page string="Forecast Calculation">-->
+<!--                            <field name="forecast_calculation_plan_ids">-->
+<!--                                <tree>-->
+<!--                                    <field name="periodic_category"/>-->
+<!--                                    <field name="cycle"/>-->
+<!--                                    <field name="date"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_periodic_calculation_plan_tree'>
+        <field name="name">view.periodic.calculation.plan.tree</field>
+        <field name="model">periodic.calculation.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cycle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_timesheet_period_plan_view" model="ir.actions.act_window">
+        <field name="name">Period Plan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">timesheet.period.plan</field>
+    </record>
+
+    <menuitem name="Period Plan" id="menu_timesheet_period_plan" parent="menu_mnt_timesheet_top" action="action_timesheet_period_plan_view" sequence="20"/>
+
+    <record model="ir.actions.server" id="action_calculate_period_plan">
+       <field name="name">Calculate</field>
+       <field name="model_id" ref="bisa_maintenance.model_timesheet_period_plan"/>
+       <field name="binding_model_id" ref="bisa_maintenance.model_timesheet_period_plan"/>
+       <field name="state">code</field>
+       <field name="code">
+           action = records.periodic_calculation()
+       </field>
+   </record>
+</odoo>

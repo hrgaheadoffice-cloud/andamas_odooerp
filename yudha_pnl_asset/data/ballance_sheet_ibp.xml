@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+<!--        <record id="cash_on_bank" model="account.groups">-->
+<!--            <field name="id" search="[('model', '=', 'account.group'), ('name', '=', 'trust')]"/>-->
+
+<!--        </record>-->
+        <record id="ibp_report_balancesheet0" model="account.financial.html.report">
+            <field name="name">Balance Sheet IBP</field>
+            <field name="date_range" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+        </record>
+
+        <record id="ibp_report_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Current Assets</field>
+            <field name="code">CASSETIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0" />
+        </record>
+
+                <record id="ibp_report_cash_on_hand0" model="account.financial.html.report.line">
+                    <field name="name">Cash On Hand And In Bank</field>
+                    <field name="code">COHAIBIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',85)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_restricted_cash0" model="account.financial.html.report.line">
+                    <field name="name">Restricted Cash</field>
+                    <field name="code">RSTCASHIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                   <field name="domain" eval="[('account_id.sub_group','=',86)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_trade_recieveable0" model="account.financial.html.report.line">
+                    <field name="name">Trade Account Reciveable</field>
+                    <field name="code">TRARCVIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                   <field name="domain" eval="[('account_id.sub_group','=',87)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_other_reciveable0" model="account.financial.html.report.line">
+                    <field name="name">Other Reciveable - Related Parties</field>
+                    <field name="code">ORCVRPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',89)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_other_reciveable_thirdparty0" model="account.financial.html.report.line">
+                    <field name="name">Other Reciveable - Third Parties</field>
+                    <field name="code">ORPTPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+<!--                    <field name="domain" eval="[('account_id.sub_group','=',87)]"/>-->
+<!--                    <field name="groupby">account_id</field>-->
+<!--                    <field name="formulas">sum</field>-->
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_prepaid_taxes0" model="account.financial.html.report.line">
+                    <field name="name">Prepaid Taxes</field>
+                    <field name="code">PRETXIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',91)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_inventory0" model="account.financial.html.report.line">
+                    <field name="name">Inventory</field>
+                    <field name="code">PINVTIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',92)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_otherca0" model="account.financial.html.report.line">
+                    <field name="name">Other Current Asset</field>
+                    <field name="code">OCATIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_assets_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',93)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="8"/>
+                    <field name="level" eval="1" />
+                </record>
+
+        <record id="ibp_report_total_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Total Current Assets</field>
+            <field name="code">TCASSIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">COHAIBIBP + RSTCASHIBP + TRARCVIBP+ ORCVRPIBP + ORPTPIBP + PRETXIBP + PINVTIBP + OCATIBP</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="ibp_report_non_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Non Current Assets</field>
+            <field name="code">NONCURASSIBP</field>
+             <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="ibp_report_planequipment0" model="account.financial.html.report.line">
+                    <field name="name">Property Plan And Equipment</field>
+                    <field name="code">PROPMEQUIPIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',94)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_aqumulatedepreciation0" model="account.financial.html.report.line">
+                    <field name="name">Accumulatted Depreciation</field>
+                    <field name="code">ACCDEPIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',95)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_constructio_inprogress0" model="account.financial.html.report.line">
+                    <field name="name">Construction In Progress</field>
+                    <field name="code">CONSIPROIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',96)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_rightuseasset0" model="account.financial.html.report.line">
+                    <field name="name">Right-of-use Asset</field>
+                    <field name="code">RIOUAIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',97)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_mining_property0" model="account.financial.html.report.line">
+                    <field name="name">Mining Properties</field>
+                    <field name="code">MININGPROIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',98)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_reclamation0" model="account.financial.html.report.line">
+                    <field name="name">Reclamation and post mining deposit</field>
+                    <field name="code">RAPMDIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',99)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_stripping0" model="account.financial.html.report.line">
+                    <field name="name">Stripping Activity Asset</field>
+                    <field name="code">SAASETIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',100)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_defferedtaxasset0" model="account.financial.html.report.line">
+                    <field name="name">Deffered Tax Asset</field>
+                    <field name="code">DETTAIBP</field>
+                    <field name="parent_id" ref='ibp_report_non_current_assets_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',101)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">sum</field>
+                    <field name="sequence" eval="8"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="ibp_report_total_non_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">Total Non Current Assets</field>
+            <field name="code">TNCASIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">PROPMEQUIPIBP + ACCDEPIBP + CONSIPROIBP + RIOUAIBP + MININGPROIBP + RAPMDIBP + SAASETIBP + DETTAIBP</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="ibp_report_total_non_plus_current_assets_view0" model="account.financial.html.report.line">
+            <field name="name">TOTAL ASSETS</field>
+            <field name="code">TOTASIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">TNCASIBP + TCASSIBP</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="ibp_report_current_liability_view0" model="account.financial.html.report.line">
+            <field name="name">CURRENT LIABILITY</field>
+            <field name="code">CLBITIBP</field>
+             <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="ibp_report_tradeaccountpayable0" model="account.financial.html.report.line">
+                    <field name="name">Trade Account Payable</field>
+                    <field name="code">TAPYIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',102)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_accruedexpense0" model="account.financial.html.report.line">
+                    <field name="name">Accrued Expense</field>
+                    <field name="code">ACEXPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',103)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_otheraccountpay0" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable</field>
+                    <field name="code">OAPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_otheraccountRELATED0" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable - Related Parties</field>
+                    <field name="code">OAPRPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                     <field name="domain" eval="[('account_id.sub_group','=',105)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_otheraccountthirdparties" model="account.financial.html.report.line">
+                    <field name="name">Other Account Payable - Third Parties</field>
+                    <field name="code">OAPRTHRDPIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','21310101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_advancefromcustomer" model="account.financial.html.report.line">
+                    <field name="name">Advance From Customer</field>
+                    <field name="code">ADFRCUIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',107)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="6"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_shortteibpankloanborrowing" model="account.financial.html.report.line">
+                    <field name="name">Short Term Bank Loan/Borrowing</field>
+                    <field name="code">STBLBIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','21610101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_taxespayables" model="account.financial.html.report.line">
+                    <field name="name">Taxes Payable</field>
+                    <field name="code">TAXPAYIBP</field>
+                    <field name="parent_id" ref='ibp_report_current_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',109)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="7"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="ibp_report_total_current_liability_view0" model="account.financial.html.report.line">
+            <field name="name">Total Current Liability</field>
+            <field name="code">TOTCASLIIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">TAPYIBP + ACEXPIBP + OAPIBP+ OAPRPIBP + OAPRTHRDPIBP + ADFRCUIBP + STBLBIBP + TAXPAYIBP</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="ibp_report_noncurrent_liability_view0" model="account.financial.html.report.line">
+            <field name="name">NON CURRENT LIABILITY</field>
+            <field name="code">NCLBIIBP</field>
+             <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="ibp_report_longtermloans0" model="account.financial.html.report.line">
+                    <field name="name">Long Term Bank Loans</field>
+                    <field name="code">LTBLOIBP</field>
+                    <field name="parent_id" ref='ibp_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',110)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_loantermrelatedparty0" model="account.financial.html.report.line">
+                    <field name="name">Loan Term Related Parties</field>
+                    <field name="code">LOANTRPARIBP</field>
+                    <field name="parent_id" ref='ibp_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',111)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_employe_obligation0" model="account.financial.html.report.line">
+                    <field name="name">Employee Benefit Obligations</field>
+                    <field name="code">EMBOBIBP</field>
+                    <field name="parent_id" ref='ibp_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',112)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_lease_liability0" model="account.financial.html.report.line">
+                    <field name="name">Lease Liability</field>
+                    <field name="code">LEALIIBP</field>
+                    <field name="parent_id" ref='ibp_report_noncurrent_liability_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',113)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="ibp_report_total_noncurrent_liability_view0" model="account.financial.html.report.line">
+            <field name="name">Total Non Current Liability</field>
+            <field name="code">TONOCASIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">LTBLOIBP+ LOANTRPARIBP + LEALIIBP+ EMBOBIBP</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="0" />
+        </record>
+         <record id="ibp_report_equity_view0" model="account.financial.html.report.line">
+            <field name="name">EQUITY</field>
+            <field name="code">EQUTIBP</field>
+             <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+<!--            <field name="formulas"></field>-->
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="0" />
+        </record>
+                <record id="ibp_report_share_capital0" model="account.financial.html.report.line">
+                    <field name="name">Share Capital</field>
+                    <field name="code">SHCAIBP</field>
+                    <field name="parent_id" ref='ibp_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',114)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="1"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_advance_subcription0" model="account.financial.html.report.line">
+                    <field name="name">Advance For Share Subcriptions</field>
+                    <field name="code">ADFSSIBP</field>
+                    <field name="parent_id" ref='ibp_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.sub_group','=',115)]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="2"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_additional_capital0" model="account.financial.html.report.line">
+                    <field name="name">Additional Paid In Capital</field>
+                    <field name="code">ADDPICIBP</field>
+                    <field name="parent_id" ref='ibp_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','31310101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="3"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_retained_earnings0" model="account.financial.html.report.line">
+                    <field name="name">Current Years</field>
+                    <field name="code">RETEARIBP</field>
+                    <field name="parent_id" ref='ibp_report_equity_view0'/>
+                    <field name="formulas">TOCLTYIBP</field>
+                    <field name="sequence" eval="4"/>
+                    <field name="level" eval="1" />
+                </record>
+                <record id="ibp_report_retained_earning0" model="account.financial.html.report.line">
+                    <field name="name">Previous Years</field>
+                    <field name="code">RETEARSIBP</field>
+                    <field name="parent_id" ref='ibp_report_equity_view0'/>
+                    <field name="domain" eval="[('account_id.code','=','31410101')]"/>
+                    <field name="groupby">account_id</field>
+                    <field name="formulas">-sum</field>
+                    <field name="sequence" eval="5"/>
+                    <field name="level" eval="1" />
+                </record>
+        <record id="ibp_report_total_equity_view0" model="account.financial.html.report.line">
+            <field name="name">Total Equity</field>
+            <field name="code">TOTEQIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">SHCAIBP + ADFSSIBP + ADDPICIBP + RETEARIBP + RETEARSIBP </field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="ibp_report_total_liability_equity_view0" model="account.financial.html.report.line">
+            <field name="name">TOTAL LIABILITY AND EQUITY</field>
+            <field name="code">TLAEIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">TOTCASLIIBP + TONOCASIBP + TOTEQIBP</field>
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="ibp_report_totalss_assetsview0" model="account.financial.html.report.line">
+            <field name="name">TOTAL ASSETS</field>
+            <field name="code">TOTASSIBP</field>
+            <field name="financial_report_id" ref="ibp_report_balancesheet0"/>
+            <field name="parent_id" ref='ibp_report_balancesheet0'/>
+            <field name="formulas">TLAE</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="0" />
+        </record>
+    </data>
+</odoo>

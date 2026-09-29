@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cogs_management,cogs_management,model_cogs_management,base.group_user,1,1,1,1
+access_wip_detail,wip_detail,model_wip_detail,base.group_user,1,1,1,1

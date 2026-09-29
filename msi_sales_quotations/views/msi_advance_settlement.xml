@@ -1,0 +1,129 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_msi_acc_settlement_tree">
+        <field name="name">tbl_msi_acc_settlement.tree</field>
+        <field name="model">tbl_msi_acc_settlement</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+            	<field name="employee_id"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_acc_settlement_form">
+        <field name="name">tbl_msi_acc_settlement.form</field>
+        <field name="model">tbl_msi_acc_settlement</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+<!--                    <button name="action_submit" string="Submit Advanced" type="object" states="draft"/>-->
+                    <button name="action_approve_adv" string="Approve Advanced" type="object" states="appr" groups="msi_sales_quotations.grup_appr_advance"/>
+                    <button name="action_approve1" string="Payment" type="object" states="reg_payment"/>
+                    <button name="action_submit2" string="Submit Settlement" type="object" states="submit2"/>
+                    <button name="action_approve_set" string="Approve Settlement" type="object" states="appr2" groups="msi_sales_quotations.grup_appr_advance"/>
+                    <button name="action_approve2" string="Post Journal Settlement" type="object" states="post"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="date"/>
+		                	<field name="employee_id"/>
+
+		                </group>
+		                <group>
+		                	<field name="saldo"/>
+				        <field name="date_settlement"/>
+		                	<field name="settlement"/>
+		                	<field name="selisih"/>
+		               </group>
+			</group>
+ 
+                	<group>
+                		<group>
+		                	<field name="payment_out_id"/>
+
+
+		                </group>
+		                <group>
+		                	<field name="payment_inout_id"/>
+
+		               </group>
+			</group>
+
+
+
+
+	     <notebook>
+
+                        <page string="Detail Advanced">
+		            		<field name="detail_advanced_id">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="name"/>
+				                	<field name="amount"/>
+
+				                </tree>
+				            </field>
+                        </page>
+                        <page string="Detail Settlement">
+		            		<field name="detail_settlement_id">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="name"/>
+				                	<field name="amount"/>
+				                	<field name="property_account_expense"/>
+				                	<field name="analytic_id"/>
+
+				                </tree>
+				            </field>
+                        </page>
+                        <page string="Account">
+                	<group>
+                		<group>
+		                	<field name="journal_id"/>
+		                	<field name="property_account_uang_muka" domain="[('user_type_id','=',7)]"/>
+		                </group>
+		                <group>
+
+
+		               </group>
+			</group>
+                        </page>
+
+	     </notebook>
+
+			</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_advance33">
+        <field name="name">Advanced</field> 
+        <field name="res_model">tbl_msi_acc_settlement</field> 
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_advance33" id="menu_action_advanced33" parent="menu_top_cashbank" sequence="10"/>
+
+
+
+
+</odoo>

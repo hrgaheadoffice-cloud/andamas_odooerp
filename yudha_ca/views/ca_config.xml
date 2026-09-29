@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="view_ca_config_form" model="ir.ui.view">
+            <field name="name">cas.config.form</field>
+            <field name="model">cas.config</field>
+            <field name="arch" type="xml">
+              <form string="CAS Config">
+                <header>
+                </header>
+                <sheet>
+                        <div class="oe_title">
+                            <label for="is_default" string="Set Default"/>
+                            <h1>
+                                <field name="is_default"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="approval_finance" string="Finance Accounting Verification">
+                                    <field name="approved_finance1" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}" />
+                                    <field name="approved_finance2" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="approved_finance3" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="approved_finance4" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="approved_finance5" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="approved_finance6" attrs="{'required': True}" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cas_tree" model="ir.ui.view">
+            <field name="name">cas.tree</field>
+            <field name="model">cas.config</field>
+            <field name="arch" type="xml">
+                <tree string="CAS Config Tree">
+                    <field name="is_default"/>
+                    <field name="approved_finance1"/>
+                    <field name="approved_finance2"/>
+                    <field name="approved_finance3"/>
+                    <field name="approved_finance4"/>
+                    <field name="approved_finance5"/>
+                    <field name="approved_finance6"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_cas_filter" model="ir.ui.view">
+            <field name="name">cas.select</field>
+            <field name="model">cas.config</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Cash Advance">
+                    <field name="is_default"/>
+                    <field name="approved_finance1" />
+                    <field name="approved_finance2"/>
+                    <field name="approved_finance3"/>
+                    <field name="approved_finance4"/>
+                    <field name="approved_finance5"/>
+                    <field name="approved_finance6"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cas_config" model="ir.actions.act_window">
+            <field name="name">Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cas.config</field>
+            <field name="search_view_id" ref="view_cas_filter"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Configuration
+                </p>
+                <p>
+                    Create new Configuration
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

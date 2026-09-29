@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<record id="lessor_leasing_management_tree" model="ir.ui.view">
+    <field name="name">lessor.leasing.management.tree</field>
+    <field name="model">lessor.leasing.management</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="name"/>
+        </tree>
+ </field>
+</record>
+
+<record id="action_lessor_leasing_management" model="ir.actions.act_window">
+    <field name="name">lessor</field>
+    <field name="res_model">lessor.leasing.management</field>
+    <field name="view_mode">tree</field>
+</record> 
+<menuitem name="Lessor" id="menu_lessor_leasing_management_top" parent="menu_leasing_management_config" action="action_lessor_leasing_management"  sequence="1"/>
+
+<record id="lessor_asset_class_tree" model="ir.ui.view">
+    <field name="name">asset.class.tree</field>
+    <field name="model">asset.class</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="name"/>
+        </tree>
+ </field>
+</record>
+
+<record id="action_asset_class_leasing_management" model="ir.actions.act_window">
+    <field name="name">Asset Class</field>
+    <field name="res_model">asset.class</field>
+    <field name="view_mode">tree</field>
+</record> 
+<menuitem name="Asset Class" id="menu_asset_class_leasing_management_top" parent="menu_leasing_management_config" action="action_asset_class_leasing_management"  sequence="2"/>
+
+<record id="tennor_lm_tree" model="ir.ui.view">
+    <field name="name">tennor.leasing.management.tree</field>
+    <field name="model">tennor.leasing.management</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="name"/>
+            <field name="tennor"/>
+        </tree>
+ </field>
+</record>
+
+<record id="action_tennor_leasing_management" model="ir.actions.act_window">
+    <field name="name">Tennor</field>
+    <field name="res_model">tennor.leasing.management</field>
+    <field name="view_mode">tree</field>
+</record> 
+<menuitem name="Tennor" id="menu_tennor_leasing_management_top" parent="menu_leasing_management_config" action="action_tennor_leasing_management"  sequence="3"/>
+
+<record id="project_code_tree" model="ir.ui.view">
+    <field name="name">project.code.leasing.management.tree</field>
+    <field name="model">project.code.leasing.management</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="name"/>
+        </tree>
+ </field>
+</record>
+
+<record id="action_project_code_leasing_management" model="ir.actions.act_window">
+    <field name="name">Project Code</field>
+    <field name="res_model">project.code.leasing.management</field>
+    <field name="view_mode">tree</field>
+</record> 
+<menuitem name="Project Code" id="menu_project_code_leasing_management" parent="menu_leasing_management_config" action="action_project_code_leasing_management"  sequence="4"/>
+
+</odoo>

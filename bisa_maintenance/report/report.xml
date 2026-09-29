@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <template id="doc_id">
+       <!-- <t t-call="website.layout"> -->
+       <t t-set="Title">Document Id</t>
+       <t t-foreach="isidata" t-as="datanya">
+           <div class="container">
+               <t t-esc="datanya.name"/> - <t t-esc="datanya.lokasi"/>
+
+           </div>
+       </t>
+           
+        <!-- </t> -->
+    </template>
+    </data>
+</odoo>

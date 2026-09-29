@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="generate_budget_plan_asset_tree" model="ir.ui.view">
+        <field name="name">generate.budget.plan.asset.tree</field>
+        <field name="model">generate.budget.plan.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Generate Budget Plan Asset">
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="budget_plan_asset_ids" string="Record"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="generate_budget_plan_asset_form" model="ir.ui.view">
+        <field name="name">generate.budget.plan.asset.form</field>
+        <field name="model">generate.budget.plan.asset</field>
+        <field name="arch" type="xml">
+           <form>
+                <header>
+                    <button type="object" name="action_generate" string="Generate" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button type="object" name="action_update" string="Update" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'generate')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible='draft,generate'/>
+                </header>
+               <sheet>
+                   <group>
+                       <group>
+<!--                            <field name="create_date"/>-->
+<!--                            <field name="create_uid"/>-->
+                            <field name="month"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="year" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                       </group>
+                   </group>
+                    <notebook>
+                        <page string="Record">
+                            <field name="budget_plan_asset_ids" readonly="1">
+                                <tree>
+                                    <field name="unit_code"/>
+                                    <field name="periodic_calculation_plan_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+               </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_generate_budget_plan_asset" model="ir.actions.act_window">
+        <field name="name">Generate Budget Plan Asset</field>
+        <field name="res_model">generate.budget.plan.asset</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Budget Plan Asset" id="menu_budget_plan_asset" parent="menu_mnt_matrial_top"  sequence="50"/>
+    <menuitem name="Generate Budget Plan Asset" id="menu_generate_budget_plan_asset" action="action_generate_budget_plan_asset" parent="menu_budget_plan_asset"  sequence="10"/>
+    
+    <record id="budget_plan_asset_tree" model="ir.ui.view">
+        <field name="name">budget.plan.asset.tree</field>
+        <field name="model">budget.plan.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Plan Asset">
+                <field name="period_plan_id"/>
+                <field name="periodic_calculation_plan_id"/>
+                <field name="unit_code"/>
+                <field name="model"/>
+                <field name="part_service_cost"/>
+                <field name="oil_cost"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="budget_plan_asset_form" model="ir.ui.view">
+        <field name="name">budget.plan.asset.form</field>
+        <field name="model">budget.plan.asset</field>
+        <field name="arch" type="xml">
+           <form create="0" edit="0">
+               <sheet>
+                   <group>
+                        <field name="unit_code"/>
+                        <field name="brand"/>
+                        <field name="model"/>
+                        <field name="period_plan_id"/>
+                        <field name="periodic_calculation_plan_id"/>
+                        <field name="part_service_cost"/>
+                        <field name="oil_cost"/>
+                        <field name="total_cost"/>
+                   </group>
+                    <notebook>
+                        <page string="Part Service">
+                            <field name="part_service_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="product_name"/>
+                                    <field name="qty"/>
+                                    <field name="uom"/>
+                                    <field name="price"/>
+                                    <field name="total_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Oil Service">
+                            <field name="oil_service_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="product_name"/>
+                                    <field name="qty"/>
+                                    <field name="uom"/>
+                                    <field name="price"/>
+                                    <field name="total_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+               </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_budget_plan_asset_report" model="ir.actions.act_window">
+        <field name="name">Budget Plan Asset Report</field>
+        <field name="res_model">budget.plan.asset</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Budget Plan Asset Report" id="menu_budget_plan_asset_report" action="action_budget_plan_asset_report" parent="menu_budget_plan_asset"  sequence="20"/>
+</odoo>

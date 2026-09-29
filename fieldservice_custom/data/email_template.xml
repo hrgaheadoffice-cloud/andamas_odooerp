@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="mail_template_transporter_task_after_24_hours" model="mail.template">
+            <field name="name">Transporter Task: Notification after 24 hours</field>
+            <field name="model_id" ref="fieldservice_custom.model_fsm_transporter_task"/>
+            <field name="subject">${object.name} exceed 24 hours from due date</field>
+            <field name="email_to">${object.email_to}</field>
+            <field name="body_html" type="xml">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear all,<br/><br/>
+        Please acknowledge this Transporter Task should already finish more than 24 hours ago.
+    </p>
+    <table>
+        <tr>
+            <td>
+                No. Task
+            </td>
+            <td>
+                : ${object.name}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Start Time
+            </td>
+            <td>
+                : ${object.start_date}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Duration
+            </td>
+            <td>
+                : ${object.transporter_cost_id.duration}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Due Date
+            </td>
+            <td>
+                : ${object.due_date}
+            </td>
+        </tr>
+    </table>
+</div>
+</field>
+            <field name="report_name">${(object.name or '').replace('/','-')}</field>
+            <field name="lang">${object.created_by.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+        <record id="mail_template_transporter_task_after_48_hours" model="mail.template">
+            <field name="name">Transporter Task: Notification after 24 hours</field>
+            <field name="model_id" ref="fieldservice_custom.model_fsm_transporter_task"/>
+            <field name="subject">${object.name} exceed 48 hours from due date</field>
+            <field name="email_to">${object.email_to}</field>
+            <field name="body_html" type="xml">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear all,<br/><br/>
+        Please acknowledge this Transporter Task should already finish more than 48 hours ago.
+    </p>
+    <table>
+        <tr>
+            <td>
+                No. Task
+            </td>
+            <td>
+                : ${object.name}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Start Time
+            </td>
+            <td>
+                : ${object.start_date}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Duration
+            </td>
+            <td>
+                : ${object.transporter_cost_id.duration}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Due Date
+            </td>
+            <td>
+                : ${object.due_date}
+            </td>
+        </tr>
+    </table>
+</div>
+</field>
+            <field name="report_name">${(object.name or '').replace('/','-')}</field>
+            <field name="lang">${object.created_by.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

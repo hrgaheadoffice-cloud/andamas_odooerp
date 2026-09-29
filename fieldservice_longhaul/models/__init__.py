@@ -1,0 +1,9 @@
+# Copyright (C) 2018 Open Source Integrators
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from . import (
+    fsm_person,
+    fsm_location,
+    fsm_route,
+    fsm_driver_task,
+    fsm_order,
+)

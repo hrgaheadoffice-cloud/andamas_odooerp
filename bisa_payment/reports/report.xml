@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- ===================================================RMB========================================= -->
+        <record id="print_payment_rmb" model="ir.actions.report">
+                <field name="name">print_payment_rmb</field>
+                <field name="model">account.payment</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">bisa_payment.print_payment_rmb_tmp</field>
+                <field name="report_file">bisa_payment.print_payment_rmb_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <!-- =======================================IBP=========================================================== -->
+        <record id="print_payment_ibp" model="ir.actions.report">
+                <field name="name">print_payment_ibp</field>
+                <field name="model">account.payment</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">bisa_payment.print_payment_ibp_tmp</field>
+                <field name="report_file">bisa_payment.print_payment_ibp_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+</odoo>

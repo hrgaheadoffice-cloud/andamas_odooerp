@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <template id="yudha_cool_login_backend" inherit_id="web.assets_backend" name="Yudha Cool Login Backend Assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/yudha_ca/static/src/js/restrict_button.js"></script>
+        </xpath>
+    </template>
+</odoo>

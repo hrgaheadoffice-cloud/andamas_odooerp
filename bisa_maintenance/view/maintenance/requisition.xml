@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="requisition_tree" model="ir.ui.view">
+        <field name="name">requisition.tree</field>
+        <field name="model">requisition</field>
+        <field name="arch" type="xml">
+            <tree string="Requisition" create="1">
+                <header>
+                    <button name="action_req_appr_batch" class="oe_highlight" type="object" string="Request Approval" groups="bisa_maintenance.group_admin_plant"/>
+                </header>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="wo_number"/>
+                <field name="equipment_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="requisition_form_wizard" model="ir.ui.view">
+        <field name="name">requisition.form.wizard</field>
+        <field name="model">requisition</field>
+        <field name="arch" type="xml">
+            <form create="1">
+                <header>
+                    <button name="action_req_appr" class="oe_highlight" type="object" string="Request Approval" attrs="{'invisible':[('status','!=','draft')]}" groups="bisa_maintenance.group_admin_plant"/>
+<!--                    <button name="action_do" class="oe_highlight" type="object" string="Create DO" attrs="{'invisible':[('status','not in','approved')]}"/>-->
+                    <button name="action_apply_pr" class="oe_highlight" type="object" string="Apply PR" attrs="{'invisible':[('status','not in','approved')]}"/>
+                    <button name="action_close" class="oe_highlight" type="object" string="Close" attrs="{'invisible':[('status','not in','approved')]}"/>
+                    <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('status', 'not in', ['draft'])]}"/>
+                    <button type="object" class="oe_highlight" name="action_appr" string="Approve" attrs="{'invisible': [('status', 'not in', ['waiting'])]}" groups="bisa_maintenance.group_maintenance_user_requisition"/>
+                    <button type="object" name="action_reject" string="Reject" attrs="{'invisible': [('status', 'not in', ['waiting'])]}"/>
+                    <button type="object" class="oe_highlight" name="action_reset" string="Reset to Draft" attrs="{'invisible': [('status', 'not in', ['rejected'])]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,waiting,approved,close"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label">Requisition No.</span>
+                        <h1>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group string="Request Info">
+                                <field name="tags" invisible="1" />
+                                <field name="date"/>
+                                <field name="wo_number"/>
+                                <field name="equipment_id"/>
+                                <field name="is_periodic" invisible="1"/>
+                            </group>
+                            <group string="Process Info">
+
+                                    <table>
+                                        <tr>
+                                            <td><label for="created_by"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="created_by"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="request_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr >
+                                            <td><label for="approval"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="approval"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="approval_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr >
+                                            <td><label for="company_id"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="company_id"/></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    <field name="company_id"/>
+                            </group>
+                            <group string="">
+                                <field name="maintenance_type" attrs="{'invisible': [('wo_number', '=', False)]}"/>
+                                <field name="maintenance_activity" attrs="{'invisible': [('maintenance_type', '!=', 'preventive')]}"/>
+                                <field name="schedule_activity" attrs="{'invisible': [('is_periodic', '!=', True)]}" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Product'>
+                                <button name="compute_product" class="oe_highlight" type="object" attrs="{'invisible': [('maintenance_activity', '=', False)]}" string="Compute Product"/>
+                                <field name="req_product" context="{'default_equipment_id': equipment_id}">
+                                    <tree editable="bottom">
+                                        <field name="product_code" string="Product Code"/>
+                                        <field name="item_description"/>
+                                        <field name="interchange" string="Interchange" widget="many2many_tags"/>
+                                        <field name="qty"/>
+                                        <field name="avail_qty"/>
+                                        <field name="uom" string="UOM"/>
+                                        <field name="equipment_id" invisible="1"/>
+                                        <field name="kmhm_running" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </form>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="requisition_form" model="ir.ui.view">
+        <field name="name">requisition.form</field>
+        <field name="model">requisition</field>
+        <field name="arch" type="xml">
+            <form create="1">
+                <header>
+                    <button name="action_req_appr" class="oe_highlight" type="object" string="Request Approval" attrs="{'invisible':[('status','!=','draft')]}" groups="bisa_maintenance.group_admin_plant"/>
+                    <button name="action_do" class="oe_highlight" type="object" string="Create DO" attrs="{'invisible':[('status','not in','approved')]}" groups="bisa_maintenance.group_maintenance_requisition_manager"/>
+                    <button name="action_apply_pr" class="oe_highlight" type="object" string="Apply PR" attrs="{'invisible':[('status','not in','approved')]}" groups="bisa_maintenance.group_maintenance_requisition_manager"/>
+                    <button name="action_close" class="oe_highlight" type="object" string="Close" attrs="{'invisible':[('status','not in','approved')]}"/>
+                    <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('status', 'not in', ['draft'])]}" groups="bisa_maintenance.group_maintenance_requisition_manager"/>
+                    <button type="object" class="oe_highlight" name="action_appr" string="Approve" attrs="{'invisible': [('status', 'not in', ['waiting'])]}" groups="bisa_maintenance.group_maintenance_user_requisition"/>
+                    <button type="object" name="action_reject" string="Reject" attrs="{'invisible': [('status', 'not in', ['waiting'])]}" groups="bisa_maintenance.group_maintenance_requisition_manager"/>
+                    <button type="object" class="oe_highlight" name="action_reset" string="Reset to Draft" attrs="{'invisible': [('status', 'not in', ['rejected'])]}" groups="bisa_maintenance.group_maintenance_requisition_manager"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,waiting,approved,close"/>
+                </header>
+                <sheet>
+<!--                    <widget name="web_ribbon" title="PR is Done" bg_color="bg-info" attrs="{'invisible': [('is_po_done', '=', False)]}"/>-->
+                    <div class="oe_title">
+                        <span class="o_form_label">Requisition No.</span>
+                        <h1>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <form>
+                        <group>
+                            <group string="Request Info">
+                                <field name="tags" invisible="1" />
+                                <field name="is_periodic" invisible="1"/>
+                                <field name="date"/>
+                                <field name="wo_number"/>
+                                <field name="equipment_id"/>
+                            </group>
+                            <group string="Process Info">
+                                    <table>
+                                        <tr>
+                                            <td><label for="created_by"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="created_by"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="request_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr >
+                                            <td><label for="approval"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="approval"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="approval_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr >
+                                            <td><label for="company_id"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="company_id"/></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                            </group>
+                        </group>
+                        <group string="">
+                            <field name="maintenance_type" attrs="{'invisible': [('wo_number', '=', False)]}"/>
+                            <field name="maintenance_activity" attrs="{'invisible': [('maintenance_type', '!=', 'preventive')]}"/>
+                            <field name="schedule_activity" attrs="{'invisible': [('is_periodic', '!=', True)]}" widget="many2many_tags"/>
+                        </group>
+                        <notebook>
+                            <page string='Product'>
+                                <button name="compute_product" class="oe_highlight" type="object" attrs="{'invisible': [('maintenance_activity', '=', False)]}" string="Compute Product"/>
+                                <field name="req_product" context="{'default_equipment_id': equipment_id}">
+                                    <tree editable="bottom">
+<!--                                        <field name="toggle" string=" " attrs="{'invisible': [('avail_qty', '!=', 0)]}"/>-->
+<!--                                        <field name="toggle" string=" "/>-->
+                                        <field name="product_code" string="Product Code" context="{'display_product_code': True}"/>
+                                        <field name="item_description"/>
+                                        <field name="remark" readonly="1"/>
+                                        <field name="interchange" string="Interchange" widget="many2many_tags" readonly="1"/>
+                                        <field name="qty"/>
+                                        <field name="avail_qty"/>
+                                        <field name="uom" string="UOM"/>
+                                        <field name="no_gi"/>
+                                        <field name="status_gi"/>
+                                        <field name="equipment_id" invisible="1"/>
+                                        <field name="kmhm_running" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </form>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warehouse_inherit_requisition" model="ir.ui.view">
+            <field name="name">Stock Warehouse Inherit Requisition</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="plotting_location" widget="many2many_tags" />
+                </xpath>
+            </field>
+    </record>
+
+<!--    <record id="view_requisition_search" model="ir.ui.view">-->
+<!--        <field name="model">requisition</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search>-->
+<!--                <field name="name"/>-->
+<!--                <field name="equipment_id"/>-->
+<!--                <field name="description"/>-->
+<!--                <field name="start_date"/>-->
+<!--                <field name="rfu_date"/>-->
+<!--                <field name="created_by"/>-->
+<!--                <field name="location_problem"/>-->
+<!--                <field name="hm_km"/>-->
+<!--                <field name="prioritas"/>-->
+<!--                <field name="status"/>-->
+<!--                <field name="delay_factor" string="Postpone"/>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_requisition" model="ir.actions.act_window">
+        <field name="name">Requisition</field>
+        <field name="res_model">requisition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+<!--        <field name="search_view_id" ref="view_requisition_search"/>-->
+    </record>
+    <record id="requisition_search" model="ir.ui.view">
+        <field name="name">requisition.search</field>
+        <field name="model">requisition</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="wo_number"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem name="Requisition" id="menu_requisition" action="action_requisition" parent="menu_mnt_maintenance_top"  sequence="20"/>
+</odoo>

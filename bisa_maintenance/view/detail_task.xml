@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="detail_task_tree" model="ir.ui.view">
+        <field name="name">detail.task.tree</field>
+        <field name="model">detail.task</field>
+        <field name="arch" type="xml">
+            <tree string="Maintenance Activity">
+                <field name="name"/>
+                <field name="duration"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="detail_task_form" model="ir.ui.view">
+        <field name="name">detail.task.form</field>
+        <field name="model">detail.task</field>
+        <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <group>
+                       <field name="name"/>
+                       <field name="duration"/>
+                   </group>
+               </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_detail_task" model="ir.actions.act_window">
+        <field name="name">Task</field>
+        <field name="res_model">detail.task</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+<!--    <menuitem name="Task" id="menu_detail_task" action="action_detail_task" parent="menu_mnt_master_data"  sequence="110"/>-->
+</odoo>

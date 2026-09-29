@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record model="ir.rule" id="reimbursement_ho_comp_rule">
+        <field name="name">Purchase Request multi-company</field>
+        <field name="model_id" ref="model_reimbursement_ho" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|',('company_id','=',False),('company_id', 'in', company_ids)]
+        </field>
+    </record>
+    <record id="category_reimbursement_ho" model="ir.module.category">
+        <field name="name">Reimbursement HO</field>
+    </record>
+
+    <record id="reimbursement_ho_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="category_reimbursement_ho"/>
+    </record>
+    <record id="reimbursement_ho_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="category_reimbursement_ho"/>
+    </record>
+    <record id="reimbursement_ho_finance" model="res.groups">
+        <field name="name">Finance</field>
+        <field name="category_id" ref="category_reimbursement_ho"/>
+    </record>
+    <record id="reimbursement_ho_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="category_reimbursement_ho"/>
+    </record>
+</odoo>

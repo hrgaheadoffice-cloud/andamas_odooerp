@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fsm_driver_search_view" model="ir.ui.view">
+       <field name="name">fsm_driver_search_view</field>
+       <field name="model">fsm.driver</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="name"/>
+                <field name="nip"/>
+                <field name="equipment_id"/>
+                <field name="phone"/>
+                <field name="spv_id"/>
+                <field name="status"/>
+            </search>
+       </field>
+    </record>
+    <record model='ir.ui.view' id='view_fsm_driver_tree'>
+        <field name="name">view.fsm.driver.tree</field>
+        <field name="model">fsm.driver</field>
+        <field name="arch" type="xml">
+            <tree string="Driver">
+                <field name="name"/>
+                <field name="nip"/>
+                <field name="equipment_id"/>
+                <field name="phone"/>
+                <field name="spv_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_driver_form'>
+        <field name="name">view.fsm.driver.form</field>
+        <field name="model">fsm.driver</field>
+        <field name="arch" type="xml">
+            <form string="Driver">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="nip"/>
+                            <field name="equipment_id"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="spv_id"/>
+                            <field name="status"/>
+                            <field name="disc_status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Extra Info">
+                            <field name="extra_info_ids">
+                                <tree editable="bottom">
+                                    <field name="name" string="Info Name"/>
+                                    <field name="expire_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Disciplinary History" name="disciplinary_history_ids">
+                            <field name="disciplinary_history_ids" readonly="1">
+                                <tree readonly="1">
+                                    <field name="name" string="No. Discplinary"/>
+                                    <field name="discipline_reason" string="Problem"/>
+                                    <field name="state" string="Status"/>
+                                    <field name="action" string="Severity"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Transporter History" name="transporter_history_ids">
+                            <field name="transporter_history_ids" readonly="1">
+                                <tree>
+                                    <field name="name" string="No. Loading Permit"/>
+                                    <field name="route_code"/>
+                                    <field name="distance"/>
+                                    <field name="duration"/>
+                                    <field name="netto"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Cost Advance">
+                            <group>
+                                <group>
+                                    <field name="cost_advance_accumulate_payroll"/>
+                                    <field name="cost_advance_to_deduct"/>
+                                    <field name="cost_advance_all_difference"/>
+                                </group>
+                            </group>
+                            <field name="cost_advance_difference_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="transporter_task_id"/>
+                                    <field name="request_date"/>
+                                    <field name="amount_requested"/>
+                                    <field name="settlement_date"/>
+                                    <field name="settlement_amount"/>
+                                    <field name="difference_to_be_paid"/>
+                                    <field name="cost_difference_policy"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_driver_view" model="ir.actions.act_window">
+        <field name="name">Driver</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.driver</field>
+    </record>
+
+    <menuitem name="Driver" id="menu_fsm_driver" parent="data" action="action_fsm_driver_view" sequence="20"/>
+</odoo>

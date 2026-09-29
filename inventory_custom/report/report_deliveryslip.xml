@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_slip_custom" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='signature']" position="after">
+            <br/>
+            <div class="row">
+                <style>
+                    .nopad {
+                    padding: 0 !important;
+                    }
+                    .borderr {
+                    border: 1px solid black;
+                    }
+                </style>
+                <div class="col-4 borderr">
+                    <div class="text-center">
+                        Send By
+                    </div>
+                </div>
+                <div class="col-4 borderr">
+                    <div class="text-center">
+                        Receipt By
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 borderr">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="text-center">
+                        <span t-field="o.partner_id"/>
+                    </div>
+                </div>
+                <div class="col-4 borderr">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="text-center">
+                        <span t-field="o.company_id"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

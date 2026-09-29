@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="view_ca_ho_form" model="ir.ui.view">
+            <field name="name">cash.advance.ho.form</field>
+            <field name="model">cash.advance.ho</field>
+            <field name="arch" type="xml">
+              <form string="Cash Advance ho">
+                <header>
+                    <field name="next_approver_ids" invisible="1"/>
+                    <button name="button_approve" type="object" states='to approve' string="Approve" class="oe_highlight"/>
+
+                    <button
+                            name="button_check"
+                            string="Check"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_check"
+                        />
+                    <button
+                            name="button_verify"
+                            string="Verify"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_verify"
+                        />
+                    <button
+                        name="button_appr1"
+                        type="object"
+                        states="approved1"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr2"
+                        type="object"
+                        states="approved2"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr3"
+                        type="object"
+                        states="approved3"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr4"
+                        type="object"
+                        states="approved4"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr5"
+                        type="object"
+                        states="approved5"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr6"
+                        type="object"
+                        states="approved6"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr7"
+                        type="object"
+                        states="approved7"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button name="button_appr8" type="object" states="approved8" string="Approve"
+                        class="oe_highlight"/>
+                    <button
+                        name="button_approved_matrix"
+                        states="to_approve_matrix"
+                        string="Approve Matrix"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+                    <button
+                        name="button_reject"
+                        string="Reject"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('state','in',['draft','approved','waiting_on_payment','rejected','done'])]}"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        states="rejected"
+                        string="Set To Draft"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_request_approval"
+                        type="object"
+                        states="draft"
+                        string="Request Approval"
+                        class="oe_highlight"
+                    />
+                    
+                    <button name="register_payment" type="object"
+                            string="Register Payment" class="oe_highlight"
+                            groups="account_custom.group_register_payment"
+                            attrs="{'invisible': [('state', '!=', 'waiting_on_payment')]}"/>
+                    <field name="approval_stage" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,waiting_on_payment,done,rejected" readonly="1"/>
+                    <!-- <field name="state_b" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 2)]}"/>
+                    <field name="state_c" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 3)]}"/>
+                    <field name="state_d" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 4)]}"/>
+                    <field name="state_e" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 5)]}"/>
+                    <field name="state_f" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 6)]}"/>
+                    <field name="state_g" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved7,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 7)]}"/>
+                    <field name="state_h" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved7,approved8,approved,waiting_on_payment,done,rejected" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 8)]}"/> -->
+
+                </header>
+                <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="preview_settelment"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('settelment_count', '=', 0)]}">
+                                <field name="settelment_count" widget="statinfo" string="Settlement"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="ca_header">
+                                <field name="request_date" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="amount_ca" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="currency_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" invisible="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="company_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" invisible="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="cost_center" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="warehouse_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <group>
+                                        <!-- <table attrs="{'invisible': [('state', 'in', ('draft', 'sent','to_approve'))]}" > -->
+                                        <table>
+                                        <tr >
+                                            <td><label for="user_id" string="Prepared By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="user_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="submit_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="request_by" string="Approved Head"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="request_by" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="appr1_dt" readonly="1"/></td>
+                                        </tr>
+                                    </table>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail Cash Advance" name="ca_ids">
+                                <field name="ca_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="ca_ho_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="description"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Detail Settelment" name="settelment_ids">
+                                <field name="settelment_ids" readonly="1" context="{'tree_view_ref': 'yudha_ca.settelment_hos_tree', 'form_view_ref': 'yudha_ca.view_settelment_ho_form'}"/>
+                            </page>
+                            <page string="Journal Items" name="jurnal_ids">
+                                <field name="acmove_ids" invisible="1"/>
+                                <field name="jurnal_ids" readonly="1">
+                                    <tree editable="bottom">
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Approval Matrix">
+                                <field name="approval_matrix_ids" readonly="1">
+                                    <tree>
+                                        <field name="state"/>
+                                        <field name="user_ids" widget="many2many_tags"/>
+                                        <field name="realization_user_id"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cash_advance_ho_tree" model="ir.ui.view">
+            <field name="name">cash.advance.ho.tree</field>
+            <field name="model">cash.advance.ho</field>
+            <field name="arch" type="xml">
+                <tree string="Cash Advance ho Tree">
+                    <field name="name"/>
+                    <field name="request_by"/>
+                    <field name="user_id"/>
+                    <field name="request_date"/>
+                    <field name="amount_ca"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="cost_center"/>
+                    <field name="state" string="Status"/>
+                    <field name="approval_matrix_id"/>
+                    
+                </tree>
+            </field>
+        </record>
+        <record id="view_ca_ho_filter" model="ir.ui.view">
+            <field name="name">ca.ho.select</field>
+            <field name="model">cash.advance.ho</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Cash Advance ho">
+                    <field name="name" string="Cash Advance"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cash_advance_ho" model="ir.actions.act_window">
+            <field name="name">Cash Advance HO</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash.advance.ho</field>
+            <field name="search_view_id" ref="view_ca_ho_filter"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Cash Advance ho
+                </p>
+                <p>
+                    Create new Cash Advance ho
+                </p>
+            </field>
+        </record>
+
+        <record id="action_cash_advance_ho_Dynamic" model="ir.actions.server">
+	        <field name="name">Cash Advance HO</field>
+	        <field name="model_id" ref="yudha_ca_ho.model_cash_advance_ho"/>
+	        <field name="state">code</field>
+	        <field name="code">action = model.caho_filter_dynamic()</field>
+	    </record>
+    </data>
+</odoo>

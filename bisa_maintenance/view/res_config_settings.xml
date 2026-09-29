@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="bisa_maintenance_config_form_view" model="ir.ui.view">
+           <field name="name">bisa.maintenance.config.form.view</field>
+           <field name="model">res.config.settings</field>
+           <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+           <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div
+                        class="app_settings_block"
+                        data-string="Maintenance"
+                        string="Maintenance"
+                        data-key="maintenance"
+                    >
+                        <h2>Schedule</h2>
+                        <div class="row mt16 o_settings_container" id="schedule">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label
+                                        for="service_periodic_schedule"
+                                        string="Service Periodic Schedule"
+                                    />
+                                    <div class="text-muted">
+                                        Periodic using unit KM, type number of multiplication period of schedule.
+                                    </div>
+                                    <field name="service_periodic_schedule"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container" id="range_warning">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label
+                                        for="km_min_warning"
+                                        string="KM Min Warning"
+                                    />
+                                    <div class="text-muted">
+                                        Minimum KM from periodic schedule that will get a warning
+                                    </div>
+                                    <field name="km_min_warning"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label
+                                        for="hm_min_warning"
+                                        string="HM Min Warning"
+                                    />
+                                    <div class="text-muted">
+                                        Minimum HM from periodic schedule that will get a warning
+                                    </div>
+                                    <field name="hm_min_warning"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label
+                                        for="km_max_warning"
+                                        string="KM Max Warning"
+                                    />
+                                    <div class="text-muted">
+                                        Maximum KM from periodic schedule that will get a warning
+                                    </div>
+                                    <field name="km_max_warning"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label
+                                        for="hm_max_warning"
+                                        string="HM Max Warning"
+                                    />
+                                    <div class="text-muted">
+                                        Maximum HM from periodic schedule that will get a warning
+                                    </div>
+                                    <field name="hm_max_warning"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+           </field>
+       </record>
+    </data>
+</odoo>

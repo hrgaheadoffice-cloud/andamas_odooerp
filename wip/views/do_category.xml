@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="do_category_view_form" model="ir.ui.view">
+            <field name="name">do.category.view.form</field>
+            <field name="model">do.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group >
+                                <field name="name" required="1" />
+                                <field name="wip_account_id" string="Account Work In Process"/>
+                                <field name="accrue_account_id" string="Account Accrue" />
+                                <field name="expense_account_id" string="Account Expense"/>
+                    
+
+                            </group>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+
+        <record id="do_category_view_tree" model="ir.ui.view">
+            <field name="name">do.category.view.tree</field>
+            <field name="model">do.category</field>
+            <field name="arch" type="xml">
+                <tree string="DO Category">
+                    <field name="name" />
+                    <field name="wip_account_id" string="Account Work In Process"/>
+                    <field name="accrue_account_id" string="Account Accrue" />
+                    <field name="expense_account_id" string="Account Expense"/>
+                    <!-- <field name="product_id" string="Product"/> -->
+                    
+                </tree>
+            </field>
+        </record>
+
+        <record id="do_category_action" model="ir.actions.act_window">
+            <field name="name">DO Category</field>
+            <field name="res_model">do.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+
+        <menuitem
+            id="do_categor_menu"
+            name="DO Category"
+            parent="wip_management_root_menu"
+            action="do_category_action"
+            sequence="30"/>
+    
+    </data>
+    
+
+</odoo>

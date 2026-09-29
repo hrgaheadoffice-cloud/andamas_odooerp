@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_fsm_transporter_cost_tree'>
+        <field name="name">view.fsm.transporter.cost.tree</field>
+        <field name="model">fsm.transporter.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Transporter Cost">
+                <field name="route_id"/>
+                <field name="loading_location"/>
+                <field name="unloading_location"/>
+                <field name="brand"/>
+                <field name="distance"/>
+                <field name="duration"/>
+                <field name="cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='view_fsm_transporter_cost_form'>
+        <field name="name">view.fsm.transporter.cost.form</field>
+        <field name="model">fsm.transporter.cost</field>
+        <field name="arch" type="xml">
+            <form string="Transporter Cost">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="route_id"/>
+                            <field name="loading_location"/>
+                            <field name="unloading_location"/>
+                            <field name="distance"/>
+                            <field name="duration"/>
+                            <field name="salary_route"/>
+                        </group>
+                        <group>
+                            <field name="brand"/>
+                            <field name="meal_cost"/>
+                            <field name="fuel_cost"/>
+                            <field name="other_cost"/>
+                            <field name="cost"/>
+                            <field name="price_route"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_fsm_transporter_cost_view" model="ir.actions.act_window">
+        <field name="name">Transporter Cost</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fsm.transporter.cost</field>
+    </record>
+
+    <menuitem name="Transporter Cost" id="menu_fsm_transporter_cost" parent="data" action="action_fsm_transporter_cost_view" sequence="50"/>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--Billing Category-->
+    <record model="ir.module.category" id="smartmining_access_rights">
+      <field name="name">Smartmining Access Rights</field>
+      <field name="description">Category For Smartmining Access Rights</field>
+    </record>
+    <record id="smartmining_access" model="res.groups">
+        <field name="name">Smart Mining Access</field>
+        <field name="category_id" ref="smartmining_access_rights"/>
+    </record>
+</odoo>

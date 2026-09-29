@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Matrix Autorization" id="menu_matrix_auth_root"  web_icon="bisa_matrix_auth,static/description/matrix.png"  sequence="46"  />
+    <menuitem name="Matrix" id="menu_matrix_auth_top" parent="menu_matrix_auth_root"  sequence="10"/>
+
+
+</odoo>

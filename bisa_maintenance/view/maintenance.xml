@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+
+ <!-- <record id="form_tbl_mnt_request" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_request</field>
+        <field name="model">tbl_mnt_request</field>
+        <field name="arch" type="xml">
+            <form string="Request">
+              <sheet>
+                <group>
+                        <field name="name"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tree_tbl_mnt_request" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_request</field>
+    <field name="model">tbl_mnt_request</field>
+    <field name="arch" type="xml">
+        <tree string="Request">
+          <field name="name"/>
+
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_request" model="ir.actions.act_window">
+    <field name="name">Request</field>
+    <field name="res_model">tbl_mnt_request</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Request" id="menu_mnt_request_left" action="action_mnt_request" parent="menu_mnt_maintenance_top"  sequence="10"/> -->
+
+<!-- ########################################################################################################### -->
+
+ <record id="form_tbl_mnt_workorder" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_workorder</field>
+        <field name="model">tbl_mnt_workorder</field>
+        <field name="arch" type="xml">
+            <form string="Request">
+              <sheet>
+                <group>
+                        <field name="name"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tree_tbl_mnt_workorder" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_workorder</field>
+    <field name="model">tbl_mnt_workorder</field>
+    <field name="arch" type="xml">
+        <tree string="Request">
+          <field name="name"/>
+
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_workorder" model="ir.actions.act_window">
+    <field name="name">Work Order</field>
+    <field name="res_model">tbl_mnt_workorder</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Work Order" id="menu_mnt_workorder_left" action="action_mnt_workorder" parent="menu_mnt_maintenance_top"  sequence="20"/>
+
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+<!-- ########################################################################################################### -->
+
+ <record id="tbl_mnt_timesheet_equipment_form" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_timesheet_equipment</field>
+        <field name="model">tbl_mnt_timesheet_equipment</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                  <group>
+                      <field name="tanggal" string="Date"/>
+                      <field name="shift"/>
+                      <field name="name" string="Unit Code"/>
+                      <field name="brand" readonly="1" force_save="1"/>
+                      <field name="model" readonly="1" force_save="1"/>
+                      <field name="nama_operator" string="Driver"/>
+                      <field name="hm_awal" string="Start HM"/>
+                      <field name="hm_akhir" string="End HM"/>
+                      <field name="ewh" readonly="1" force_save="1"/>
+                  </group>
+              </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tbl_mnt_timesheet_equipment_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_timesheet_equipment</field>
+    <field name="model">tbl_mnt_timesheet_equipment</field>
+    <field name="arch" type="xml">
+        <tree js_class="maintenance_list_dashboard" editable="bottom">
+          <field name="tanggal" string="Date"/>
+          <field name="shift"/>
+          <field name="name" string="Unit Code"/>
+<!--          <field name="nama_operator" string="Driver"/>-->
+          <field name="hm_awal" string="Start HM"/>
+          <field name="hm_akhir" string="End HM"/>
+          <field name="stndby_hr"/>
+          <field name="activity_hour"/>
+          <field name="general_hour"/>
+          <field name="idle_hour"/>
+          <field name="breakdown_hour"/>
+          <field name="mohh"/>
+          <field name="ewh"/>
+          <field name="plan_bd" invisible="1"/>
+          <button name="action_planned_bd" string="Planned BD" type="object" class="oe_highlight" attrs="{'invisible':[('plan_bd','!=',True)]}"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_timesheet_equipment" model="ir.actions.act_window">
+    <field name="name">Timesheet Fleet</field>
+    <field name="res_model">tbl_mnt_timesheet_equipment</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Equipment" id="menu_mnt_timesheet_equipment_left" action="action_mnt_timesheet_equipment" parent="menu_mnt_timesheet_top"  sequence="10"/>
+
+
+
+ <record id="tbl_mnt_timesheet_engineer_form" model="ir.ui.view">
+        <field name="name">form.tbl_mnt_timesheet_engineer</field>
+        <field name="model">tbl_mnt_timesheet_engineer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tanggal"/>
+                            <field name="shift"/>
+                            <field name="kode_operator"/>
+                            <field name="name"/>
+                            <field name="lokasi"/>
+                            <field name="tgl_awal"/>
+                            <field name="tgl_akhir"/>
+                            <field name="desc"/>
+                            <field name="unit"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+<record id="tbl_mnt_timesheet_engineer_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_mnt_timesheet_engineer</field>
+    <field name="model">tbl_mnt_timesheet_engineer</field>
+    <field name="arch" type="xml">
+        <tree string="Lokasi Aset">
+          <field name="tanggal"/>
+          <field name="shift"/>
+          <field name="kode_operator"/>
+          <field name="name"/>
+          <field name="lokasi"/>
+          <field name="tgl_awal"/>
+          <field name="tgl_akhir"/>
+          <field name="desc"/>
+          <field name="unit"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_mnt_timesheet_engineer" model="ir.actions.act_window">
+    <field name="name">Technician</field>
+    <field name="res_model">tbl_mnt_timesheet_engineer</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<!--<menuitem name="Technician" id="menu_mnt_timesheet_engineer_left" action="action_mnt_timesheet_engineer" parent="menu_mnt_timesheet_top"  sequence="20"/>-->
+
+
+</odoo>

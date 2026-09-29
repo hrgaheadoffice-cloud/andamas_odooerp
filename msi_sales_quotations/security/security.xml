@@ -1,0 +1,48 @@
+<odoo>
+
+    <data noupdate="0">
+        <record id="grup_pettycash" model="res.groups">
+            <field name="name">Petty Cash</field>
+            <field name="comment">Petty Cash</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_appr_pettycash" model="res.groups">
+            <field name="name">Approve Petty Cash</field>
+            <field name="comment">Approve Petty Cash</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_advance" model="res.groups">
+            <field name="name">Advance</field>
+            <field name="comment">Advance</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_appr_advance" model="res.groups">
+            <field name="name">Approve Advance</field>
+            <field name="comment">Approve Advance</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_bonds" model="res.groups">
+            <field name="name">Bonds</field>
+            <field name="comment">Advance</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_emp_loan" model="res.groups">
+            <field name="name">Employee Loan</field>
+            <field name="comment">Advance</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+        <record id="grup_ic_loan" model="res.groups">
+            <field name="name">Intercompany Loan</field>
+            <field name="comment">Advance</field>
+            <field name="category_id" ref="module_category_advance1"/>
+        </record>
+
+
+    </data>
+</odoo>

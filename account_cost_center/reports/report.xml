@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- ===================================================RMB========================================= -->
+        <!-- <record id="print_vb_rmb_prepared" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_verified" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_verified</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_verified_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_verified_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_verified" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_verified</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_verified_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_verified_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A1============================================================== -->
+        <!-- <record id="print_vb_rmb_prepared_a1" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_a1" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_verified_a1" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_verified_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_verified_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_verified_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_verified_a1" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_verified_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_verified_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_verified_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A2============================================================== -->
+        <!-- <record id="print_vb_rmb_prepared_a2" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_a2" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_verified_a2" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_verified_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_verified_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_verified_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_verified_a2" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_verified_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_verified_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_verified_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A3============================================================== -->
+        <!-- <record id="print_vb_rmb_prepared_a3" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_checked_a3" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_checked_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_rmb_prepared_verified_a3" model="ir.actions.report">
+                <field name="name">print_vb_rmb_prepared_verified_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_verified_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_verified_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <record id="print_vb_rmb_prepared_checked_verified_a3" model="ir.actions.report">
+                <field name="name">print_vb_rmb_all</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_rmb_prepared_checked_verified_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_rmb_prepared_checked_verified_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <!-- =======================================IBP=========================================================== -->
+        <!-- <record id="print_vb_ibp_prepared" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_verified" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_verified</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_verified_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_verified_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_verified" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_verified</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_verified_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_verified_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A1============================================================== -->
+        <!-- <record id="print_vb_ibp_prepared_a1" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_a1" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_verified_a1" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_verified_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_verified_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_verified_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_verified_a1" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_verified_a1</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_verified_a1_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_verified_a1_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A2============================================================== -->
+        <!-- <record id="print_vb_ibp_prepared_a2" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_a2" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_verified_a2" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_verified_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_verified_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_verified_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_verified_a2" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_verified_a2</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_verified_a2_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_verified_a2_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <!-- ======================================A3============================================================== -->
+        <!-- <record id="print_vb_ibp_prepared_a3" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_checked_a3" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_checked_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+        <record id="print_vb_ibp_prepared_verified_a3" model="ir.actions.report">
+                <field name="name">print_vb_ibp_prepared_verified_a3</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_verified_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_verified_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record> -->
+        <record id="print_vb_ibp_prepared_checked_verified_a3" model="ir.actions.report">
+                <field name="name">print_vb_ibp_all</field>
+                <field name="model">account.move</field>
+                <field name="report_type">docx</field>
+                <field name="report_name">account_cost_center.print_vb_ibp_prepared_checked_verified_a3_tmp</field>
+                <field name="report_file">account_cost_center.print_vb_ibp_prepared_checked_verified_a3_tmp</field>
+                <field name="binding_type">report</field>
+        </record>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="x_budget_tree" model="ir.ui.view">
+            <field name="name">x.budget.tree</field>
+            <field name="model">x.budget</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="JAN"/>
+                    <field name="FEB"/>
+                    <field name="MAR"/>
+                    <field name="APR"/>
+                    <field name="MAY"/>
+                    <field name="JUN"/>
+                    <field name="JUL"/>
+                    <field name="AUG"/>
+                    <field name="SEP"/>
+                    <field name="OCT"/>
+                    <field name="NOV"/>
+                    <field name="DEC"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_x_budget" model="ir.actions.act_window">
+            <field name="name">Budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">x.budget</field>
+            <field name="view_mode">tree</field>           
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Budget
+                </p>
+                <p>
+                    Create new Budget
+                </p>
+            </field>
+        </record>
+        <menuitem id="action_x_budget_id"
+                  name="Budget"
+                  action="action_x_budget"
+                  sequence="501"
+                  parent="account.account_account_menu"/>
+    </data>
+</odoo>

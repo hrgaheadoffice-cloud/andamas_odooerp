@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Template and notification section -->
+    <!-- <data noupdate="1"> -->
+    <data>
+
+        <!-- <record id="email_template_notif_pr" model="mail.template">
+            <field name="name">Purchase Request: Notification by email</field>
+            <field name="model_id" ref="purchase_request.model_purchase_request"/>
+            <field name="subject">Purchase Request ${object.name}</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+            <field name="email_to">${object.next_approver.partner_id.email or object.procurement_officer.partner_id.email| safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hello ${object.next_approver.partner_id.name or object.procurement_officer.partner_id.name},
+                        <br/><br/>
+                        Your have <strong>${object.name}</strong> pending for your approval. Please approve the Purchase Request promptly.
+                        <br/><br/>
+                        To view the Purchase Request, click the following link:
+                        <br/>
+                        <br/>
+                        <a href="${object.get_portal_url()}" style="background-color: #9E588B; margin-top: 10px; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;">View Purchase Request</a>
+                        
+                        <br/><br/>
+                        Thank you.
+                        <br/><br/>
+                        Regards,
+                        <br/><br/>
+                        Odoo
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">${object.next_approver.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record> -->
+
+        <record id="email_template_notif_pr" model="mail.template">
+            <field name="name">Purchase Request: Notification by email</field>
+            <field name="model_id" ref="purchase_request.model_tbl_notif_pr_user"/>
+            <field name="subject">Purchase Request Approval needed on Odoo</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+            <field name="email_to">${object.user_id.partner_id.email| safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.user_id.partner_id.name | safe}, Please give your approval/acknowledgement of the purchase request submitted below:
+                        <br/><br/>
+                        <p>${object.isi | safe}</p>
+                        <br/><br/>
+                        <a href="${object.get_portal_url()}" style="background-color: #9E588B; margin-top: 10px; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;">View Purchase Request</a>
+                        <br/><br/>
+                        Odoo
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <!-- <field name="report_template" ref="action_report_saleorder"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field> -->
+            <field name="lang">${object.user_id.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

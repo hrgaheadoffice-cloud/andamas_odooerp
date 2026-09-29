@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_tyre_report_tree'>
+        <field name="name">view.tyre.report.tree</field>
+        <field name="model">tyre.report</field>
+        <field name="arch" type="xml">
+            <tree string="Tyre Report" create="0">
+                <field name="date"/>
+                <field name="tire_service_id"/>
+                <field name="equipment_id"/>
+                <field name="pos"/>
+                <field name="size"/>
+                <field name="serial_number"/>
+                <field name="product_id"/>
+                <field name="pattern"/>
+                <field name="otd"/>
+                <field name="rtd"/>
+                <field name="rtd_2"/>
+                <field name="rtd_average"/>
+                <field name="rtd_percentage"/>
+                <field name="tur"/>
+                <field name="pressure_hc"/>
+                <field name="pressure_hp"/>
+                <field name="price"/>
+                <field name="problem"/>
+                <field name="tyre_type"/>
+                <field name="remarks"/>
+                <field name="changer_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tyre_report_search" model="ir.ui.view">
+        <field name="model">tyre.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="equipment_id"/>
+                <filter name="filter_removal" string="Tyre Removal" domain="[('changer_type', '=', 'removal')]"/>
+                <filter name="filter_fitment" string="Tyre Fitment" domain="[('changer_type', '=', 'fitment')]"/>
+                <filter name="group_changer_type" string="Changer Type" context="{'group_by':'changer_type'}"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action view for Vehicles Rent -->
+    <record id="action_tyre_report_view" model="ir.actions.act_window">
+        <field name="name">Tyre Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tyre.report</field>
+        <field name="context">{'search_default_group_changer_type': 1}</field>
+    </record>
+
+    <menuitem name="Tyre Report" id="menu_tyre_report" parent="menu_mnt_matrial_top" action="action_tyre_report_view" sequence="30"/>
+</odoo>

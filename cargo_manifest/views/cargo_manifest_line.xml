@@ -1,0 +1,30 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="cargo_manifest_line_tree_view" model="ir.ui.view">
+        <field name="name">cargo.manifest.line.tree.view</field>
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="order_id" string="No PO" readonly="1"/>
+                <field name="pr_id" string="No PR"/>
+                <field name="wo_id"/>
+                <field name="equipment_id"/>
+                <field name="requestor"/>
+                <field name="product_id" readonly="1"/>
+                <field name="product_qty" string="Qty Order" readonly="1"/>
+                <field name="product_uom" readonly="1"/>
+                <field name="qty_cm"/>
+                <field name="remarks"/>
+                <field name="product_uom_category_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="cargo_manifest_line_action" model="ir.actions.act_window">
+        <field name="name">Cargo Manifest Line</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('cm','not in',False)]</field>
+        <field name="view_id" ref="cargo_manifest_line_tree_view"/>
+    </record>
+    <menuitem action="cargo_manifest_line_action" id="menu_cargo_manifest_line" name="Cargo Manifest Line" parent="cargo_manifest.menu_cargo_manifest_main" sequence="10"/>
+</odoo>

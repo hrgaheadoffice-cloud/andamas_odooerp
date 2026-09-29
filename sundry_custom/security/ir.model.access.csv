@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sundry,access.sundry.user,model_sundry,base.group_user,1,1,1,1
+access_sundry_details,access.sundry.details_user,model_sundry_line,base.group_user,1,1,1,1
+access_sundry_payment,access.sundry.payment_user,model_sundry_payment,base.group_user,1,1,1,1

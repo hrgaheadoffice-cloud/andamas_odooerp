@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <record id="view_settelment_site_form" model="ir.ui.view">
+            <field name="name">settelment.site.form</field>
+            <field name="model">settelment.site</field>
+            <field name="arch" type="xml">
+              <form string="Settelment" edit="1" create="0">
+                <header>
+                     <field name="next_approver_ids" invisible="1"/>
+                    <button name="button_approve" type="object" states='to approve' string="Approve" class="oe_highlight"/>
+                    <button
+                        name="button_approved_matrix"
+                        states="to_approve_matrix"
+                        string="Approve Matrix"
+                        type="object"
+                        class="oe_highlight"
+
+                    />
+                    <button
+                            name="button_check"
+                            string="Check"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_check"
+                        />
+                    <button
+                            name="button_verify"
+                            string="Verify"
+                            type="object"
+                            class="oe_highlight"
+                            states="to_verify"
+                        />
+                    <button
+                        name="button_appr1"
+                        type="object"
+                        states="approved1"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr2"
+                        type="object"
+                        states="approved2"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr3"
+                        type="object"
+                        states="approved3"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr4"
+                        type="object"
+                        states="approved4"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr5"
+                        type="object"
+                        states="approved5"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr6"
+                        type="object"
+                        states="approved6"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_appr7"
+                        type="object"
+                        states="approved7"
+                        string="Approve"
+                        class="oe_highlight"
+                    />
+                    <button name="button_appr8" type="object" states="approved8" string="Approve"
+                        class="oe_highlight"/>
+
+                    <button
+                        name="button_reject"
+                        string="Reject"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('state','in',['draft','approved','waiting_on_payment','rejected','done'])]}"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        states="rejected"
+                        string="Set To Draft"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="button_to_approve"
+                        type="object"
+                        states="draft"
+                        string="Request Approval"
+                        class="oe_highlight"
+                    />
+                    <button name="register_payment" type="object"
+                            string="Register Payment" class="oe_highlight"
+                            groups="account_custom.group_register_payment"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <field name="approval_stage" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done,rejected" readonly="1"/>
+                </header>
+                <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="settelment_header">
+                            <group>
+                                <field name="amount_settel" attrs="{'readonly': [('state','!=','paid')]}"/>
+                                <field name="over_due" attrs="{'readonly': [('state','!=','paid')]}" />
+                                <field name="cost_center"/>
+                                <field name="warehouse_id" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="amount_ca" readonly="1" attrs="{'readonly': [('state','!=','paid')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                        <table>
+                                        <tr >
+                                            <td><label for="user_id" string="Prepared By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="user_id" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><field name="submit_dt" readonly="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="request_by" string="Requested By"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><field name="request_by" attrs="{'readonly': [('state', 'not in', ('draft', 'done','rejected'))]}" required="1"/></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail Settelment" name="settelment_details">
+                                <field name="settelment_ids" attrs="{'readonly': [('state','=','waiting_on_payment')]}">
+                                    <tree editable="bottom">
+                                        <field name="tanggal"/>
+                                        <field name="settelment_site_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="domain_product" invisible="1"/>
+<!--                                        <field name="cost_center" options="{'no_create': True, 'no_open': True}"/>-->
+                                        <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="description"/>
+                                        <field name="activity"/>
+                                        <field name="amount"/>
+<!--                                        <field name="percentage"/>-->
+                                        <field name="qty"/>
+                                        <field name="final_amount"/>
+                                        <field name="state" invisible="0"/>
+                                        <field name="alasan" readonly="1" force_save="1"/>
+                                        <field name="settelment_state" invisible="1"/>
+                                         <button name="action_approved" type="object"
+                                                string="Approve" class="oe_highlight"
+                                                attrs="{'invisible': ['|','|',('is_approved', '=', True),('id','=',False),('settelment_state','in',['settele','paid_settel','rejected'])]}"/>
+                                        <button name="action_rejected" type="object"
+                                                string="Reject" class="oe_highlight"
+                                                attrs="{'invisible': ['|','|',('is_rejected', '=', True),('id','=',False),('settelment_state','in',['settele','paid_settel','rejected'])]}"/>
+                                        <field name="is_approved" invisible="1"/>
+                                        <field name="is_rejected" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Journal Items" name="jurnal_ids">
+                                <field name="acmove_ids" invisible="1"/>
+                                <field name="jurnal_ids" attrs="{'readonly': [('state','!=','paid')]}">
+                                    <tree editable="bottom">
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Approval Matrix">
+                                <field name="approval_matrix_ids" readonly="1">
+                                    <tree>
+                                        <field name="state"/>
+                                        <field name="user_ids" widget="many2many_tags"/>
+                                        <field name="realization_user_id"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="settelment_site_tree" model="ir.ui.view">
+            <field name="name">settelment.site.tree</field>
+            <field name="model">settelment.site</field>
+            <field name="arch" type="xml">
+                <tree string="Settelment Tree">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="request_by"/>
+                    <field name="amount_settel"/>
+                    <field name="over_due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="warehouse_id"/>
+                    <field name="state" string="Status"/>
+                    <field name="approval_matrix_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="settelment_sites_tree" model="ir.ui.view">
+            <field name="name">settelment.sites.tree</field>
+            <field name="model">settelment.site</field>
+            <field name="arch" type="xml">
+                <tree string="Settelment Sites Tree">
+                    <field name="name"/>
+                    <field name="amount_settel"/>
+                    <field name="over_due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="warehouse_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_settelment_sites_filter" model="ir.ui.view">
+            <field name="name">settelment.site.select</field>
+            <field name="model">settelment.site</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Settelment">
+                    <field name="name" string="Order" filter_domain="[('name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_settelment_site" model="ir.actions.act_window">
+            <field name="name">Settelment Site</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">settelment.site</field>
+            <field name="search_view_id" ref="view_settelment_sites_filter"/>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('yudha_ca_site.settelment_site_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('yudha_ca_site.view_settelment_site_form')}),
+                ]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Report Settlement Site
+                </p>
+                <p>
+                    Create new Settlement
+                </p>
+            </field>
+        </record>
+        <record id="action_settelment_site_dynamic" model="ir.actions.server">
+	        <field name="name">Settelment Site</field>
+	        <field name="model_id" ref="yudha_ca_site.model_settelment_site"/>
+	        <field name="state">code</field>
+	        <field name="code">action = model.settlement_site_filter_dynamic()</field>
+	    </record>
+    </data>
+</odoo>

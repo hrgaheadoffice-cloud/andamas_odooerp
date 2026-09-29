@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="Master Data" id="menu_master_data" parent="menu_ga_aset_root"  sequence="100"/>
+
+    <menuitem name="Asset Manajemen" id="menu_master_asset_manajemen" parent="menu_master_data" action="action_master_asset_mt" sequence="10"/>
+    <!-- <menuitem name="Asset Manajemen" id="menu_master_asset_manajemen" parent="menu_master_data"  sequence="10"/> -->
+
+</odoo>

@@ -1,0 +1,40 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="fuel_source_tree_view" model="ir.ui.view">
+        <field name="name">fuel.source.tree.view</field>
+        <field name="model">fuel.source</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner"/>
+            </tree>
+        </field>
+    </record>
+    <record id="fuel_source_form_view" model="ir.ui.view">
+        <field name="name">fuel.source.form.view</field>
+        <field name="model">fuel.source</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="owner"/>
+                        <field name="product_id" attrs="{'invisible': [('owner','!=','internal')]}"/>
+                        <field name="stock" attrs="{'invisible': [('owner','!=','internal')]}"/>
+                        <field name="quantity" attrs="{'invisible': [('owner','!=','internal')]}" readonly="1" force_save="1"/>
+                        <field name="price" attrs="{'invisible': [('owner','!=','internal')]}"/>
+                        <field name="incoming_account" attrs="{'invisible': [('owner','not in',('external', 'internal'))]}"/>
+<!--                        <field name="outgoing_account" attrs="{'invisible': [('owner','!=','external')]}"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="fuel_source_action" model="ir.actions.act_window">
+        <field name="name">Fuel Source</field>
+        <field name="res_model">fuel.source</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="fuel_source_action" id="menu_fuel_source" name="Fuel Source" parent="menu_master_data" sequence="10"/>
+</odoo>

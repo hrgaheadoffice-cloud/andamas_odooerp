@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_purchase_request_document">
+
+            <t t-call="bisa_maintenance_print.custom_layout">
+                <t t-set="report_type" t-value="'pr'"/>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.requested_by.lang)" />
+
+                <div class="page" style="font-size: 8px !important;">
+                    <div class="oe_structure"/>
+
+                    <div class="row header_doc">
+                        <div class="row col-12" style="margin-top: 75px; font-size: 10px !important;">
+                            <div class="col-6 mb4">
+                                <div class="row">
+                                    <div class="col-12 mb4">
+                                        <h6>VENDOR</h6>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Company Name</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Street Address</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>City, State</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Phone</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb4">
+                                <div class="row">
+                                    <div class="col-12 mb4">
+                                        <h6>OTHER INFORMATION</h6>
+                                    </div>
+                                </div>
+                                <div class="other-info">
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div>Source Document</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.origin"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Procurement Category</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.proc_group_id"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Payment Term</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Bill to</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mb4 label">
+                                            <div style="margin-left: 0px;" class="row">Description</div>
+                                        </div>
+                                        <div class="col-6 mb4 value">
+                                            <div>: <span t-field="doc.description"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <div style="margin: 16px;">
+                        <div class="row">
+                            <h6>SHIP TO</h6>
+                        </div>
+                        <div class="row">
+                            <span t-field="doc.picking_type_id.warehouse_id"/>
+                        </div>
+                    </div>
+                    <style>
+                        table, th, td {
+                            border: 1px solid black !important;
+                        }
+                    </style>
+                    <table style="margin-top: 50px;" class="table custom-table-bordered table-sm o_main_table">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead style="display: table-row-group; background-color: #0E709A; color: white;">
+                            <tr>
+                                <th name="th_no" class="text-left">NO.</th>
+                                <th name="th_reference_no" class="text-left">REFERENCE NO.</th>
+                                <th name="th_description" class="text-left">DESCRIPTION</th>
+                                <th name="th_quantity" class="text-right">QTY</th>
+                                <th name="th_uom" class="text-right">UOM</th>
+<!--                                <th name="th_priceunit" class="text-right">PRICE UNIT</th>-->
+<!--                                <th name="th_subtotal" class="text-right">-->
+<!--                                    <span>AMOUNT</span>-->
+<!--                                </th>-->
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+
+                            <t t-set="current_subtotal" t-value="0"/>
+                            <t t-set="index" t-value="0"/>
+
+                            <t t-foreach="doc.line_ids" t-as="line">
+                                <t t-set="index" t-value="index + 1"/>
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.estimated_cost"/>
+
+                                <tr class="bg-200 font-weight-bold o_line_section">
+                                    <td name="td_no"><span t-esc="index"/></td>
+                                    <td name="td_ref_no"><span t-field="line.product_id.default_code"/></td>
+                                    <td name="td_name"><span t-field="line.name"/></td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.product_qty"/>
+                                    </td>
+                                    <td name="td_uom" class="text-right">
+                                        <span t-field="line.product_uom_id"/>
+                                    </td>
+                                    <!--<td name="td_priceunit" class="text-right">
+                                        <span t-field="line.estimated_price_unit"/>
+                                    </td>
+                                    <td name="td_subtotal" class="text-right o_price_total">
+                                        <span t-field="line.estimated_cost"/>
+                                    </td>-->
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="row mt32 ml64 mr4 text-center" style="margin-left: 16px; margin-right: 16px;" name="signature">
+                        <div class="col-3" t-if="doc.prepared_by">
+                            <span class="row text-center" style="font-weight: 700;">Prepared by</span>
+                            <div class="row text-center" style="margin-top: 100px;">
+                                (<span t-field="doc.prepared_by"/>)
+                            </div>
+                            <span class="row text-center" t-field="doc.prepare_dt"/>
+                        </div>
+                        <div class="col-3" t-if="doc.requested_by">
+                            <span class="row text-center" style="font-weight: 700;">Request by</span>
+                            <div class="row text-center" style="margin-top: 100px;">
+                                (<span t-field="doc.requested_by"/>)
+                            </div>
+                            <span class="row text-center" t-field="doc.requested_dt"/>
+                        </div>
+                        <div class="col-3" t-if="doc.checked_by">
+                            <span class="row text-center" style="font-weight: 700;">Checked by</span>
+                            <div class="row text-center" style="margin-top: 100px;">
+                                (<span t-field="doc.checked_by"/>)
+                            </div>
+                            <span class="row text-center" t-field="doc.checked_dt"/>
+                        </div>
+                        <div class="col-3" t-if="doc.assigned_to">
+                            <span class="row text-center" style="font-weight: 700;">Approved by</span>
+                            <div class="row text-center" style="margin-top: 100px;">
+                                (<span t-field="doc.assigned_to"/>)
+                            </div>
+                            <span class="row text-center" t-field="doc.assign_to_dt"/>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        <template id="report_purchase_request">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bisa_maintenance_print.report_purchase_request_document" t-lang="doc.requested_by.lang"/>
+                </t>
+            </t>
+        </template>
+       <record id="action_report_purchase_request" model="ir.actions.report">
+            <field name="name">Purchase Request</field>
+            <field name="model">purchase.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bisa_maintenance_print.report_purchase_request</field>
+            <field name="report_file">bisa_maintenance_print.report_purchase_request</field>
+            <field name="print_report_name">'PR - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="purchase_request.model_purchase_request"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

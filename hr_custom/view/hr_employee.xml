@@ -1,0 +1,22 @@
+<odoo>
+    <record id="custom_hr_employee" model="ir.ui.view">
+            <field name="name">custom.hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='coach_id']" position="attributes">
+                    <attribute name="string">Supervisor</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="checked_by" groups="base.group_system"/>
+                            <field name="known_by" groups="base.group_system"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+    </record>
+</odoo>

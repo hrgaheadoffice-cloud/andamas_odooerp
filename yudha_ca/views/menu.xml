@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+     Author => Albertus Restiyanto Pramayudha
+     email  => xabre0010@gmail.com
+     linkedin => https://www.linkedin.com/in/albertus-restiyanto-pramayudha-470261a8/
+     youtube => https://www.youtube.com/channel/UCCtgLDIfqehJ1R8cohMeTXA
+-->
+<odoo>
+    <data>
+        <menuitem
+            id="yudha_ca_menu_root"
+            name="Cash Advance"
+            web_icon="yudha_ca,static/description/icon.png"
+            sequence="25"/>
+        <menuitem id="yudha_hr_ca_main" name="Cash Advance And Settelment" parent="yudha_ca.yudha_ca_menu_root"
+            sequence="9"/>
+        <menuitem id="yudha_hr_cas_config" name="Configuration" parent="yudha_ca.yudha_ca_menu_root"
+            sequence="10"
+                  action="action_cas_config"
+        />
+        <menuitem id="yudha_hr_ca" name="Cash Advance" parent="yudha_hr_ca_main"
+                  action="action_cash_advance"
+            sequence="100"/>
+<!--        <menuitem id="yudha_hr_settel" name="Settelment" parent="yudha_hr_ca_main"-->
+<!--                  action="action_settelment"-->
+<!--            sequence="101"/>-->
+<!--        <menuitem id="yudha_hr_cash_request" name="Cash Request" parent="yudha_hr_ca_main"-->
+<!--                  action="action_cash_request"-->
+<!--            sequence="101"/>-->
+    </data>
+</odoo>

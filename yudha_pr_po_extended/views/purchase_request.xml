@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+<!--    <record id="yudha_pr_extended_form" model="ir.ui.view">-->
+<!--        <field name="name">yudha pr extended form</field>-->
+<!--        <field name="model">purchase.request</field>-->
+<!--        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="yudha_pr_extended_line_tree" model="ir.ui.view">-->
+<!--        <field name="name">yudha pr extended line tree</field>-->
+<!--        <field name="model">purchase.request.line</field>-->
+<!--        <field name="inherit_id" ref="purchase_request.purchase_request_line_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='product_id']" position="before">-->
+<!--                 <field name="domain_product" invisible="1"/>-->
+<!--                 <field name="proc_group_id" invisible="1"/>-->
+<!--                 <field name="state" invisible="1"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+     <record id="yudha_pr_extended_form" model="ir.ui.view">
+        <field name="name">yudha pr extended line form</field>
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                <attribute name="string">Warehouse</attribute>
+            </xpath>
+            <xpath expr="//field[@name='proc_group_id']" position="replace"/>
+             <xpath expr="//field[@name='department_id']" position="before">
+                            <field
+                                name="proc_group_id"
+                                required="1"
+                                options="{'no_open':True,'no_create': True}"
+                                attrs="{'readonly': [('state','!=','draft')]}"
+                            />
+             </xpath>
+            <xpath expr="//field[@name='line_ids']" position="replace">
+                               <field name="line_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree decoration-muted="cancelled == True" editable="bottom">
+                                     <field name="proc_group_id" invisible="1"/>
+                                     <field name="state" invisible="1"/>
+                                    <field name="product_id" string="Item Number" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                                    <field name="name" string="Item Name"/>
+                                    <field name="specifications" string="Description"/>
+                                    <field name="estimated_price_unit" widget="monetary" />
+                                    <field name="product_qty" />
+                                    <field
+                                        name="product_uom_id" 
+                                        groups="uom.group_uom"
+                                        options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="estimated_cost" widget="monetary" />
+                                    <field name="qty_available" />
+
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                        domain="[('tipe','=',2)]"
+                                        options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"
+                                    />
+<!--                                    <field name="analytic_tag_id" />-->
+                                    <field name="date_required" />
+<!--                                    <field name="lead_time" />-->
+
+                                    <field name="currency_id" invisible="1" />
+                                    <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                        widget="selection"
+                                    />
+                                    <field name="cancelled" invisible="1" />
+                                    <field name="is_editable" invisible="1" />
+                                    <field name="purchased_qty" />
+                                    <field
+                                        name="purchase_state"
+                                        widget="badge"
+                                        decoration-success="purchase_state == ('done')"
+                                        decoration-muted="purchase_state == ('draft')"
+                                        decoration-info="purchase_state in ('sent', 'purchase')"
+                                        decoration-warning="purchase_state == ('to_approve')"
+                                        decoration-danger="purchase_state == 'cancelled'"
+                                    />
+                                </tree>
+                            </field>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

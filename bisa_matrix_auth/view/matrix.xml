@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="tbl_matrix_auth_form" model="ir.ui.view">
+        <field name="name">form.tbl_matrix_auth</field>
+        <field name="model">tbl_matrix_auth</field>
+        <field name="arch" type="xml">
+            <form string="E-Office">
+                <header> 
+<!--                  <button name="action_active" type="object" string="Set Active" states="draft" class="oe_highlight"/>-->
+<!--                  <button name="action_inactive" type="object" string="Set Inactive" states="active" class="oe_highlight"/>-->
+                  <field name="state" widget="statusbar"/>
+
+              </header>
+              <sheet>
+                <group>
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="modul" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="proc_group_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="level" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="location1" attrs="{'readonly':[('state','!=','draft')]}" domain="[('tipe','=',1)]" invisible="1"/>
+                        <field name="cost_center" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="value_awal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="value_akhir" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="persen_awal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="persen_akhir" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="maker" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="maker_position" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="review_position" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="approval_position" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="approval_user" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    </group>
+
+                    <group>
+
+
+                    </group>
+                </group>
+
+
+
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="tbl_matrix_auth_tree" model="ir.ui.view">
+    <field name="name">tree.tbl_matrix_auth</field>
+    <field name="model">tbl_matrix_auth</field>
+    <field name="arch" type="xml">
+        <tree string="E-Office">
+         <field name="modul" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="proc_group_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="level" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="location1" attrs="{'readonly':[('state','!=','draft')]}" domain="[('tipe','=',1)]" invisible="1"/>
+                        <field name="cost_center" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="value_awal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="value_akhir" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="persen_awal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="persen_akhir" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="maker" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="maker_position" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="review_position" attrs="{'readonly':[('state','!=','draft')]}" invisible="1"/>
+                        <field name="approval_position" attrs="{'readonly':[('state','!=','draft')]}"  invisible="1"/>
+                        <field name="approval_user" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="state"/>
+
+     </tree>
+ </field>
+</record>
+
+<record id="action_matrix_auth" model="ir.actions.act_window">
+    <field name="name">Matrix</field>
+    <field name="res_model">tbl_matrix_auth</field>
+    <field name="view_mode">tree,form</field>
+</record> 
+
+<menuitem name="Matrix" id="menu_matrix_auth_left" action="action_matrix_auth" parent="menu_matrix_auth_top"  sequence="10"/>
+
+
+
+
+
+</odoo>

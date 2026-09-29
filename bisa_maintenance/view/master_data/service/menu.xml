@@ -1,0 +1,15 @@
+<odoo>
+
+	<menuitem id="menu_master_service" 
+		name="Service" 
+		parent="menu_mnt_master_data" 
+		action="action_maintenance_master_service" 
+		sequence="30"/>
+
+	<menuitem id="menu_master_sparepart" 
+		name="Sparepart"
+		parent="menu_mnt_master_data" 
+		action="action_maintenance_master_sparepart" 
+		sequence="50"/>
+
+</odoo>

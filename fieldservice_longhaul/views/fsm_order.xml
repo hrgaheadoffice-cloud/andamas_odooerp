@@ -1,0 +1,65 @@
+<odoo>
+    <record id="fsm_order_form_inherit" model="ir.ui.view">
+        <field name="name">fsm.order.form.inherit</field>
+        <field name="model">fsm.order</field>
+        <field name="inherit_id" ref="fieldservice.fsm_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <form string="Order">
+                <header>
+                    <button
+                        id="action_complete"
+                        name="action_complete"
+                        string="Complete"
+                        class="oe_highlight"
+                        type="object"
+                        groups="fieldservice.group_fsm_user_own"
+                        attrs="{'invisible': [('stage_id', 'in', (%(fieldservice.fsm_stage_completed)d, %(fieldservice.fsm_stage_cancelled)d))]}"
+                    />
+                    <field name="is_button" invisible="1" />
+                    <button
+                        id="action_cancel"
+                        name="action_cancel"
+                        string="Cancel Order"
+                        type="object"
+                        groups="fieldservice.group_fsm_dispatcher"
+                        attrs="{'invisible': [('stage_id', 'in', (%(fieldservice.fsm_stage_completed)d, %(fieldservice.fsm_stage_cancelled)d))]}"
+                    />
+                    <field
+                        name="stage_id"
+                        widget="statusbar"
+                        options="{'fold_field': 'fold'}"
+                        domain="[('stage_type', '=', 'order'), ('team_ids', 'in', (team_id, False))]"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                            <field name="name_transporter_order" readonly="1" />
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="no_sales_order" />
+                            <field name="created_by" />
+                            <field name="date_time" />
+                            <field name="transporter_type" />
+                            <field name="transporter_cost" />
+                        </group>
+                        <group>
+                            <field name="freight_product" />
+                            <field name="route_code" />
+                            <field name="loading_location" />
+                            <field name="unloading_location" />
+                            <field name="total_quantity" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

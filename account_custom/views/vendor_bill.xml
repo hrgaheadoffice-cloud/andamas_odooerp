@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_move_vendor_bill_form" model="ir.ui.view">
+    <field name="name">view.move.vendor.bill.form</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="attributes">
+            <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+            <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+        </xpath>
+        <group id="header_left_group" position="inside">
+            <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('move_type', '=', 'in_invoice')], 'invisible': [('move_type', '!=', 'in_invoice')]}"/>
+        </group>
+<!--        <xpath expr="//button[2]" position="replace">-->
+<!--            <button name="action_post" string="Confirm" class="oe_highlight" type="object" groups="account.group_account_invoice" attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('auto_post', '=', True), ('move_type', 'in', ('entry','in_invoice'))]}"/>-->
+<!--            <button name="action_post" string="Confirm" class="oe_highlight" type="object" groups="account.group_account_invoice" attrs="{'invisible': ['|', '|', ('state_new', '!=', 'draft'), ('auto_post', '=', True), ('move_type', '!=', 'in_invoice')]}"/>-->
+<!--        </xpath>-->
+        <xpath expr="//field[@name='state']" position="replace">
+            <field name="approval_stage" invisible="1"/>
+            <button name="button_request_approval" type="object"
+                string="Request Approval" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'draft'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr1" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved1'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr2" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved2'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr3" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved3'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr4" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved4'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr5" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved5'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr6" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved6'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr7" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved7'),('move_type', '!=', 'in_invoice')]}"/>
+            <button name="button_appr8" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': ['|',('state_new', '!=', 'approved8'),('move_type', '!=', 'in_invoice')]}"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,posted" attrs="{'invisible': [('move_type', '=', 'in_invoice')]}"/>
+            <field name="state_new" invisible="1"/>
+            <field name="state_new_a" widget="statusbar" statusbar_visible="draft,approved1,approved,posted" attrs="{'invisible': [('approval_stage', '&gt;', 1)]}"/>
+            <field name="state_new_b" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 2)]}"/>
+            <field name="state_new_c" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 3)]}"/>
+            <field name="state_new_d" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 4)]}"/>
+            <field name="state_new_e" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 5)]}"/>
+            <field name="state_new_f" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 6)]}"/>
+            <field name="state_new_g" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved7,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 7)]}"/>
+            <field name="state_new_h" widget="statusbar" statusbar_visible="draft,approved1,approved2,approved3,approved4,approved5,approved6,approved7,approved8,approved,posted" readonly="1" attrs="{'invisible': [('approval_stage', '!=', 8)]}"/>
+        </xpath>
+        <xpath expr="//group[1]" position="after">
+            <group attrs="{'invisible': [('move_type', '!=', 'in_invoice'), ('approval_stage', '=', 0)]}">
+                <group>
+                    <table>
+                        <tr>
+                            <td><label for="appr1" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr1" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr1_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr2" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr2" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr2_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr3" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr3" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr3_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr4" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr4" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr4_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr5" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr5" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr5_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr6" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr6" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr6_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr7" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr7" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr7_dt"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="appr8" string="Approved By"/></td>
+                            <td></td>
+                            <td></td>
+                            <td><field name="appr8" readonly="1"/></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right"><field name="appr8_dt"/></td>
+                        </tr>
+                    </table>
+                </group>
+            </group>
+        </xpath>
+    </field>
+</record>
+</odoo>
